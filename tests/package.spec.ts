@@ -222,3 +222,20 @@ test("segmented selections support arrow keys, native form data, disabled option
     visibility.getByRole("radio", { name: "Private" }),
   ).toBeChecked();
 });
+
+test("installed theme builds utilities for a Tailwind consumer", async ({
+  page,
+}) => {
+  const { readFile } = await import("node:fs/promises");
+  await page.setContent(
+    '<main><p class="bg-pancake-accent p-pancake-24 text-pancake-body">Theme integration</p></main>',
+  );
+  await page.addStyleTag({
+    content: await readFile(".tmp/theme-proof.css", "utf8"),
+  });
+  const text = page.getByText("Theme integration");
+  await expect(text).toHaveCSS("background-color", "rgb(173, 229, 51)");
+  await expect(text).toHaveCSS("padding", "24px");
+  await expect(text).toHaveCSS("font-size", "14px");
+  await expect(text).toHaveCSS("line-height", "16.8px");
+});
