@@ -167,6 +167,8 @@ The lockfile pins development dependencies. Storybook packages use the same exac
 
 ## Contributing components
 
+Follow the [component styling rules](docs/styling.md) when adding or changing components. `npm run check:styles` checks token usage and styling boundaries; `npm run test:styles` tests those guardrails. Both run in `npm run verify`.
+
 Keep public exports in `src/index.ts` and use the shared tokens in `src/tokens.ts`. Keep component styles under namespaced `pancake-` classes and avoid global element styles. Components should accept application content and callbacks without importing app routes, services, or domain models.
 
 Add Storybook examples for relevant states and update the consuming example when adding a public API. Use the package browser tests for behaviour that needs regression coverage. Run `npm run verify` before sharing a release; it checks the installed archive, not just source imports. The GitHub Actions workflow runs the same verification on pushes and pull requests when hosted on GitHub.

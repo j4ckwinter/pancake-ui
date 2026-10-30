@@ -18,6 +18,7 @@ export async function validateArchive(packed) {
   for (const file of [
     "README.md",
     "CHANGELOG.md",
+    "docs/styling.md",
     "package.json",
     "dist/fonts/OFL.txt",
     "dist/fonts/Inter-Regular.ttf",
@@ -28,7 +29,12 @@ export async function validateArchive(packed) {
   for (const file of files)
     assert(
       file.startsWith("dist/") ||
-        ["README.md", "CHANGELOG.md", "package.json"].includes(file),
+        [
+          "README.md",
+          "CHANGELOG.md",
+          "package.json",
+          "docs/styling.md",
+        ].includes(file),
       `Unexpected archive file: ${file}`,
     );
   const archive = await readFile(`.tmp/package/${packed.filename}`);

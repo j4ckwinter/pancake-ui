@@ -6,7 +6,8 @@
   "description": "Reusable React components, compiled styles, and design tokens for web apps.",
   "files": [
     "dist",
-    "CHANGELOG.md"
+    "CHANGELOG.md",
+    "docs/styling.md"
   ],
   "sideEffects": [
     "**/*.css"
@@ -38,9 +39,11 @@
     "storybook:build": "storybook build",
     "example": "npm run build && npm --prefix examples/web install && npm --prefix examples/web run dev",
     "test:package": "node scripts/prepare-consumer.mjs && playwright test",
-    "verify": "npm run format:check && npm run typecheck && npm run lint && npm run build && npm run storybook:build && npm run test:package",
+    "verify": "npm run format:check && npm run typecheck && npm run lint && npm run check:styles && npm run test:styles && npm run build && npm run storybook:build && npm run test:package",
     "prepack": "npm run build",
-    "release:local": "node scripts/release-local.mjs"
+    "release:local": "node scripts/release-local.mjs",
+    "check:styles": "node scripts/generate-theme.mjs --check && node scripts/check-styles.mjs",
+    "test:styles": "node --test scripts/style-*.test.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.0",
@@ -57,6 +60,7 @@
     "eslint": "10.14.0",
     "eslint-plugin-react-hooks": "7.1.1",
     "globals": "17.13.0",
+    "postcss": "8.5.32",
     "prettier": "3.9.10",
     "react": "19.3.1",
     "react-dom": "19.3.1",

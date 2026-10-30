@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add styling guardrails to verification, with regression tests and component styling guidance.
+
 - Reframe documentation, package metadata, stories, and the example around reuse across web apps.
 - Document app ownership, theme overrides, and the component contribution workflow.
 - Add GitHub Actions verification of builds and the installed package consumer.
