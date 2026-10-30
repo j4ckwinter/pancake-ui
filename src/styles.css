@@ -1,0 +1,10 @@
+@layer theme, base, components, utilities;
+@import "./theme.css";
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+
+@layer components {
+  .pancake-surface {
+    @apply bg-pancake-surface text-pancake-ink rounded-pancake-16 p-pancake-24 font-pancake;
+    box-sizing: border-box;
+  }
+}
