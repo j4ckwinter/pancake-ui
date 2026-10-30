@@ -1,6 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
 export default defineConfig({
   testDir: "./tests",
+  updateSnapshots: "none",
+  expect: { toHaveScreenshot: { maxDiffPixels: 0, animations: "disabled" } },
   use: { ...devices["Desktop Chrome"] },
   webServer: [
     {

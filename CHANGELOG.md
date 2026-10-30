@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add a shared component comparison story, public-component coverage checks, and desktop/mobile screenshot regression tests.
+
 - Add styling guardrails to verification, with regression tests and component styling guidance.
 
 - Reframe documentation, package metadata, stories, and the example around reuse across web apps.

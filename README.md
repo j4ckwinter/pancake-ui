@@ -167,7 +167,7 @@ The lockfile pins development dependencies. Storybook packages use the same exac
 
 ## Contributing components
 
-Follow the [component styling rules](docs/styling.md) when adding or changing components. `npm run check:styles` checks token usage and styling boundaries; `npm run test:styles` tests those guardrails. Both run in `npm run verify`.
+Follow the [component styling rules](docs/styling.md) when adding or changing components. `npm run check:styles` checks token usage and styling boundaries; `npm run test:styles` tests those guardrails. Both run in `npm run verify`. The same command checks public-component coverage in the comparison story and compares desktop/mobile screenshots. See the styling guide for baseline review and platform requirements.
 
 Keep public exports in `src/index.ts` and use the shared tokens in `src/tokens.ts`. Keep component styles under namespaced `pancake-` classes and avoid global element styles. Components should accept application content and callbacks without importing app routes, services, or domain models.
 
