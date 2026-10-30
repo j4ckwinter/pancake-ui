@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Reframe documentation, package metadata, stories, and the example around reuse across web apps.
+- Document app ownership, theme overrides, and the component contribution workflow.
+- Add GitHub Actions verification of builds and the installed package consumer.
+
 ## 0.1.0
 
 Initial local archive release candidate. No registry publication.
@@ -9,5 +15,3 @@ Initial local archive release candidate. No registry publication.
 - Avatars, status chips, notifications, empty states, headers, navigation, segmented selection, and step progress.
 - Web Storybook and a consuming application with package-installation and Chromium behaviour checks.
 - Local release command with archive checksum and source-state metadata.
-
-This web API adapts the native Padel Potato components. Padel-specific game and player workflows remain in the original application.

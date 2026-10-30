@@ -1,24 +1,16 @@
 # Pancake UI
 
-A React and Tailwind component library extracted from Padel Potato, distributed as a local package archive. It includes controls, identity, feedback, navigation, progress, layout, and theme tokens.
+Reusable React components and design tokens for web apps. Pancake UI includes form controls, layout, typography, navigation, identity, feedback, and progress components, with compiled CSS and optional Inter fonts. Tailwind is optional for consuming apps.
 
-## Development
-
-Use Node 22.18+ and npm. Run `npm ci`, then `npm run build`.
-
-- `npm run storybook`: web component catalogue on port 6006.
-- `npm run example`: build and launch the consuming application.
-- `npx playwright install chromium`: install the browser required for verification.
-- `npm run verify`: formatting, types, lint, package and Storybook builds, installation of a tarball into an isolated consumer, and browser checks.
-- `npm run release:local`: run verification and produce the local archive with checksum and source metadata.
-
-The lockfile pins development dependencies. Storybook packages use the same exact version.
+Use the same package across apps and customise its CSS variables for each product. Applications own routing, data fetching, authentication, validation, and business logic.
 
 ## Consume the package
 
-The package is private and unpublished. In this repository, run:
+The package is private and unpublished. With Node 22.18+ and npm installed, run these commands in this repository:
 
 ```sh
+npm ci
+npx playwright install chromium
 npm run release:local
 ```
 
@@ -37,12 +29,22 @@ Commit `vendor/pancake-ui-0.1.0.tgz`, `package.json`, and the consumer's lockfil
 To check a copied archive, copy its `.tgz.sha256` file into the same directory and run `shasum -a 256 -c pancake-ui-0.1.0.tgz.sha256` there. Ordinary `npm pack` also builds the package through `prepack`, but it does not run the complete release verification.
 
 ```tsx
-import { Surface, colors } from "pancake-ui";
+import { Button, Stack, Surface, Text } from "pancake-ui";
 import "pancake-ui/styles.css";
 import "pancake-ui/fonts.css"; // Optional bundled Inter fonts.
 
 export function Example() {
-  return <Surface style={{ color: colors.ink }}>Your next project</Surface>;
+  return (
+    <Surface>
+      <Stack gap="space16">
+        <Text as="h1" variant="title">
+          Your next project
+        </Text>
+        <Text>Build your app with shared components.</Text>
+        <Button>Get started</Button>
+      </Stack>
+    </Surface>
+  );
 }
 ```
 
@@ -71,7 +73,11 @@ Import that stylesheet once from the application's entry point. The theme enable
 
 Edit `src/tokens.ts`, then run `npm run tokens`. `src/theme.css` is generated; the build refreshes it. Fonts retain the SIL Open Font License in `assets/fonts/OFL.txt` and the distributed fonts directory. Project code licensing and a registry destination must be chosen before publication.
 
-These first controls use native HTML semantics and namespaced component classes authored with Tailwind. No runtime dependencies beyond React peers are needed. Base UI and variant helpers can be introduced when a more complex control needs them. Routing, backend services, and application state belong to consuming applications.
+Components use native HTML semantics and namespaced classes authored with Tailwind. No runtime dependencies beyond React peers are needed. Import the styles once at your application entry point. Fonts are opt-in; set `--font-pancake` to use your application’s font.
+
+The exported JavaScript tokens (such as `colors` and `typography`) contain default values; CSS overrides do not change those objects. Use components such as `Text`, or CSS `var(--color-pancake-ink)`, when values should respond to a theme. Override related colours together, including `--color-pancake-accent` and `--color-pancake-surface-accent` for primary buttons and their hover state. Check contrast for each theme.
+
+The library does not set body styles, page width, or a CSS reset. Set those in your app. The [example application](examples/web/src/main.tsx) demonstrates this separation and exercises the component catalogue.
 
 ## Compatibility and verification
 
@@ -79,7 +85,7 @@ The package requires React and React DOM 19.2 or later within React 19 and an ES
 
 For frameworks with React Server Components, import interactive components from a client boundary (for example, a file beginning with `"use client"` in Next.js). Next.js integration is not part of the current verification matrix.
 
-`npm run test:package` expects an existing package and Storybook build. It creates ignored `artifacts/` and `.tmp/consumer/` directories. It installs the built archive into a separate application, compiles its imports, and exercises the rendered controls. The main example uses compiled CSS without requiring Tailwind in the consumer.
+`npm run test:package` expects an existing package and Storybook build. It creates an archive under `.tmp/package/` and an isolated app under `.tmp/consumer/`; browser screenshots go to `artifacts/`. It installs the built archive into a separate application, compiles its imports, and exercises the rendered controls. The main example uses compiled CSS without requiring Tailwind in the consumer.
 
 ## Versioning local releases
 
@@ -117,11 +123,11 @@ import { Button, Checkbox, TextField } from "pancake-ui";
 
 `Button` defaults to `type="button"` to prevent accidental form submission. Its `variant` is `primary`, `secondary`, `destructive`, or `ghost`; `size` is 40 or 48. `loading` sets `aria-busy` and disables activation while preserving the label. All variants support disabled/loading states and both sizes.
 
-`TextField` requires a visible `label`; supports text, email, password, search, tel, and URL inputs; and uses ordinary `value`/`defaultValue` and `onChange` props. `helperText` and `error` link to the input's accessible description. An error sets `aria-invalid`; application validation remains the caller's responsibility. `className` and `ref` target the input. Password visibility toggles and explicit search-clear actions are outside this first slice.
+`TextField` requires a visible `label`; supports text, email, password, search, tel, and URL inputs; and uses ordinary `value`/`defaultValue` and `onChange` props. `helperText` and `error` link to the input's accessible description. An error sets `aria-invalid`; application validation remains the caller's responsibility. `className` and `ref` target the input. Password visibility toggles and explicit search-clear actions are not built in.
 
 `Checkbox` requires a visible `label`. Use `checked` and `onCheckedChange` for controlled state, or `defaultChecked` for uncontrolled state. Native `onChange` remains available and runs before `onCheckedChange`. Native form reset applies to uncontrolled inputs; controlled state must be reset by the application. `className` and `ref` target the checkbox input.
 
-The sample form verifies submission, required fields, custom errors, keyboard focus, controlled and uncontrolled checkboxes, and loading/disabled states. Browser focus outlines and input borders use darker existing tokens for contrast. The port retains the original palette and dimensions; it does not claim pixel parity with native rendering.
+The sample form verifies submission, required fields, custom errors, keyboard focus, controlled and uncontrolled checkboxes, and loading/disabled states. Browser focus outlines and input borders use darker existing tokens for contrast.
 
 ## Reusable catalogue
 
@@ -145,4 +151,22 @@ The sample form verifies submission, required fields, custom errors, keyboard fo
 
 `StepProgress` takes a non-empty list of step labels and zero-based `currentStep`. A value equal to `steps.length` marks all steps complete. The current item exposes `aria-current="step"`.
 
-The example verifies avatar image recovery, notification dismissal, navigation links, selection keyboard behaviour and form reset, progress semantics, and local theme overrides. Padel game cards, score displays, player preferences, photo-picking workflows, and branded artwork remain in Padel Potato. Additional action and specialised field variants are not part of this catalogue slice.
+The example verifies avatar image recovery, notification dismissal, navigation links, selection keyboard behaviour and form reset, progress semantics, and local theme overrides. Product-specific screens, workflows, and branded artwork belong in consuming apps.
+
+## Development
+
+Use Node 22.18+ and npm. Run `npm ci`, then `npm run build`.
+
+- `npm run storybook`: web component catalogue on port 6006.
+- `npm run example`: build and launch the consuming application.
+- `npx playwright install chromium`: install the browser required for verification.
+- `npm run verify`: formatting, types, lint, package and Storybook builds, installation of a tarball into an isolated consumer, and browser checks.
+- `npm run release:local`: run verification and produce the local archive with checksum and source metadata.
+
+The lockfile pins development dependencies. Storybook packages use the same exact version.
+
+## Contributing components
+
+Keep public exports in `src/index.ts` and use the shared tokens in `src/tokens.ts`. Keep component styles under namespaced `pancake-` classes and avoid global element styles. Components should accept application content and callbacks without importing app routes, services, or domain models.
+
+Add Storybook examples for relevant states and update the consuming example when adding a public API. Use the package browser tests for behaviour that needs regression coverage. Run `npm run verify` before sharing a release; it checks the installed archive, not just source imports. The GitHub Actions workflow runs the same verification on pushes and pull requests when hosted on GitHub.

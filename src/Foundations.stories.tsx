@@ -12,7 +12,7 @@ export const Palette: Story = {
   render: () => (
     <Surface>
       <h1>Pancake UI foundations</h1>
-      <p>Colours inherited from Padel Potato.</p>
+      <p>Default colours, customisable through CSS variables.</p>
       <div
         style={{
           display: "grid",

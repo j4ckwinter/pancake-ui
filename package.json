@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "React and Tailwind foundations extracted from Padel Potato.",
+  "description": "Reusable React components, compiled styles, and design tokens for web apps.",
   "files": [
     "dist",
     "CHANGELOG.md"

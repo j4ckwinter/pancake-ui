@@ -18,7 +18,7 @@ export const Variants: Story = {
     <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
       <Button>Continue</Button>
       <Button variant="secondary">Back</Button>
-      <Button variant="destructive">Delete game</Button>
+      <Button variant="destructive">Delete item</Button>
       <Button variant="ghost">Cancel</Button>
       <Button size={40}>Compact</Button>
     </div>

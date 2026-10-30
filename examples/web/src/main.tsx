@@ -37,7 +37,7 @@ function App() {
     <main>
       <p className="eyebrow">PANCAKE UI / COMPONENTS</p>
       <AppHeader title="A familiar starting point." />
-      <p>A React and Tailwind library, growing from Padel Potato.</p>
+      <p>Reusable React components and design tokens for your next web app.</p>
       <Surface aria-label="Foundation preview">
         <h2>Ready for your next project</h2>
         <p>
@@ -108,7 +108,7 @@ function App() {
       </Surface>
       <Catalogue />
       <p className="note" style={typography.body}>
-        Stage 3 · A reusable component catalogue.
+        Pancake UI · A reusable component catalogue.
       </p>
     </main>
   );
