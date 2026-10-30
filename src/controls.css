@@ -1,0 +1,103 @@
+@layer components {
+  .pancake-button {
+    @apply font-pancake text-pancake-label text-pancake-ink rounded-pancake-full min-w-pancake-112 px-pancake-24;
+    appearance: none;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-pancake-8);
+    border: 0;
+    cursor: pointer;
+    padding-block: var(--spacing-pancake-8);
+    text-align: center;
+  }
+
+  .pancake-button--40 {
+    min-height: var(--spacing-pancake-40);
+  }
+  .pancake-button--48 {
+    min-height: var(--spacing-pancake-48);
+  }
+  .pancake-button--primary {
+    @apply bg-pancake-accent;
+  }
+  .pancake-button--secondary {
+    @apply bg-pancake-surface;
+  }
+  .pancake-button--destructive {
+    @apply bg-pancake-danger;
+  }
+  .pancake-button--ghost {
+    @apply bg-pancake-canvas;
+  }
+  .pancake-button--primary:hover:not(:disabled),
+  .pancake-button--primary:active:not(:disabled) {
+    @apply bg-pancake-surface-accent;
+  }
+  .pancake-button:not(.pancake-button--primary):hover:not(:disabled) {
+    box-shadow: inset 0 0 0 var(--pancake-border-default)
+      var(--color-pancake-muted);
+  }
+  .pancake-button:disabled {
+    opacity: var(--pancake-opacity-disabled);
+    cursor: not-allowed;
+  }
+  .pancake-button:focus-visible,
+  .pancake-checkbox:focus-visible {
+    outline: var(--pancake-focus-ring-width) solid var(--color-pancake-deep);
+    outline-offset: var(--spacing-pancake-4);
+  }
+
+  .pancake-checkbox-label {
+    @apply font-pancake text-pancake-body text-pancake-ink;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-pancake-12);
+    cursor: pointer;
+  }
+  .pancake-checkbox-label:has(.pancake-checkbox:disabled) {
+    opacity: var(--pancake-opacity-disabled);
+    cursor: not-allowed;
+  }
+  .pancake-checkbox {
+    @apply bg-pancake-surface text-pancake-ink rounded-pancake-8;
+    appearance: none;
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    display: grid;
+    place-content: center;
+    width: var(--spacing-pancake-40);
+    height: var(--spacing-pancake-40);
+    margin: 0;
+    border: var(--pancake-border-default) solid var(--color-pancake-muted);
+    cursor: inherit;
+  }
+  .pancake-checkbox:checked {
+    @apply bg-pancake-accent;
+  }
+  .pancake-checkbox:checked::before {
+    content: "";
+    width: var(--spacing-pancake-8);
+    height: var(--spacing-pancake-16);
+    border: solid currentColor;
+    border-width: 0 var(--pancake-focus-ring-width)
+      var(--pancake-focus-ring-width) 0;
+    transform: translateY(-2px) rotate(45deg);
+  }
+  .pancake-checkbox:disabled {
+    @apply bg-pancake-surface-muted;
+  }
+
+  @media (forced-colors: active) {
+    .pancake-button {
+      border: 1px solid ButtonText;
+    }
+    .pancake-checkbox {
+      appearance: auto;
+    }
+    .pancake-checkbox::before {
+      display: none;
+    }
+  }
+}

@@ -46,3 +46,18 @@ p {
   color: var(--color-pancake-muted);
   margin-top: 24px;
 }
+
+form {
+  display: grid;
+  gap: 24px;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+[aria-label="Component states"] {
+  display: grid;
+  gap: 24px;
+}

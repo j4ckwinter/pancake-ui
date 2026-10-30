@@ -1,0 +1,44 @@
+@layer components {
+  .pancake-field {
+    @apply font-pancake text-pancake-ink;
+    width: 100%;
+    min-width: 0;
+  }
+  .pancake-field-label {
+    @apply text-pancake-label text-pancake-text-secondary;
+    display: block;
+    margin-bottom: var(--spacing-pancake-8);
+  }
+  .pancake-field-input {
+    @apply bg-pancake-surface text-pancake-ink rounded-pancake-12 text-pancake-body font-pancake;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: var(--spacing-pancake-52);
+    padding: var(--spacing-pancake-8) var(--spacing-pancake-16);
+    border: var(--pancake-border-default) solid var(--color-pancake-muted);
+  }
+  .pancake-field-input::placeholder {
+    color: var(--color-pancake-muted);
+    opacity: 1;
+  }
+  .pancake-field-input:focus-visible {
+    outline: var(--pancake-focus-ring-width) solid var(--color-pancake-deep);
+    outline-offset: 2px;
+    border-color: var(--color-pancake-focus-ring);
+  }
+  .pancake-field-input[aria-invalid="true"] {
+    border-color: var(--color-pancake-deep);
+    border-width: 2px;
+  }
+  .pancake-field-input:disabled {
+    opacity: var(--pancake-opacity-disabled);
+    cursor: not-allowed;
+  }
+  .pancake-field-input:read-only {
+    background: var(--color-pancake-surface-muted);
+  }
+  .pancake-field-description {
+    @apply text-pancake-caption;
+    margin: var(--spacing-pancake-4) 0 0;
+  }
+}

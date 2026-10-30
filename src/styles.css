@@ -2,6 +2,9 @@
 @import "./theme.css";
 @import "tailwindcss/utilities.css" layer(utilities) source(none);
 
+@import "./controls.css";
+@import "./field.css";
+
 @layer components {
   .pancake-surface {
     @apply bg-pancake-surface text-pancake-ink rounded-pancake-16 p-pancake-24 font-pancake;
