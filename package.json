@@ -7,7 +7,8 @@
   "files": [
     "dist",
     "CHANGELOG.md",
-    "docs/styling.md"
+    "docs/styling.md",
+    "docs/verification.md"
   ],
   "sideEffects": [
     "**/*.css"
@@ -38,8 +39,8 @@
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build",
     "example": "npm run build && npm --prefix examples/web install && npm --prefix examples/web run dev",
-    "test:package": "node scripts/prepare-consumer.mjs && playwright test",
-    "verify": "npm run format:check && npm run typecheck && npm run lint && npm run check:styles && npm run test:styles && npm run check:comparison && npm run test:comparison && npm run build && npm run storybook:build && npm run test:package",
+    "test:package": "node scripts/prepare-consumer.mjs && npm run check:compatibility && playwright test",
+    "verify": "npm run format:check && npm run typecheck && npm run lint && npm run check:styles && npm run test:styles && npm run check:comparison && npm run test:comparison && npm run check:contracts && npm run test:contracts && npm run test:verification && npm run build && npm run storybook:build && npm run test:package",
     "prepack": "npm run build",
     "release:local": "node scripts/release-local.mjs",
     "check:styles": "node scripts/generate-theme.mjs --check && node scripts/check-styles.mjs",
@@ -47,7 +48,11 @@
     "check:comparison": "node scripts/check-comparison.mjs",
     "test:comparison": "node --test scripts/check-comparison.test.mjs",
     "test:visual": "npm run check:comparison && playwright test -c playwright.visual.config.ts",
-    "test:visual:update": "npm run check:comparison && npm run storybook:build && playwright test -c playwright.visual.config.ts --update-snapshots"
+    "test:visual:update": "npm run check:comparison && npm run storybook:build && playwright test -c playwright.visual.config.ts --update-snapshots",
+    "check:contracts": "node scripts/check-contracts.mjs",
+    "test:contracts": "node --test scripts/check-contracts.test.mjs",
+    "test:verification": "node --test scripts/verification.test.mjs",
+    "check:compatibility": "node scripts/check-compatibility.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.0",

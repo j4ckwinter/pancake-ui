@@ -3,6 +3,7 @@ import config from "./playwright.config";
 
 export default defineConfig({
   ...config,
+  projects: config.projects?.filter((project) => project.name === "visual"),
   testMatch: "visual.spec.ts",
   webServer: {
     command:

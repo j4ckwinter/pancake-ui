@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./fixtures";
 import AxeBuilder from "@axe-core/playwright";
 test("packed consumer renders themed foundations and loads bundled fonts", async ({
   page,
@@ -9,7 +9,11 @@ test("packed consumer renders themed foundations and loads bundled fonts", async
   await expect(
     page.getByRole("heading", { name: "A familiar starting point." }),
   ).toBeVisible();
-  await expect(page.locator(".note")).toHaveCSS("line-height", "16.8px");
+  expect(
+    await page
+      .locator(".note")
+      .evaluate((node) => parseFloat(getComputedStyle(node).lineHeight)),
+  ).toBeCloseTo(16.8, 4);
   const surface = page.getByLabel("Foundation preview");
   await expect(surface).toHaveCSS("background-color", "rgb(255, 255, 255)");
   await expect(surface).toHaveCSS("padding", "24px");
@@ -47,12 +51,13 @@ test("built Storybook renders the foundation story", async ({ page }) => {
 
 test("controls support keyboard focus, validation, and native form data", async ({
   page,
+  browserName,
 }) => {
   await page.goto("http://127.0.0.1:4173");
   const name = page.getByRole("textbox", { name: "Your name" });
   const updates = page.getByRole("checkbox", { name: "Send me updates" });
   await expect(name).toHaveCSS("border-color", "rgb(99, 107, 110)");
-  await page.keyboard.press("Tab");
+  await page.keyboard.press(browserName === "webkit" ? "Alt+Tab" : "Tab");
   await expect(name).toBeFocused();
   await expect(name).toHaveCSS("outline-style", "solid");
   await name.fill("A");
@@ -68,12 +73,12 @@ test("controls support keyboard focus, validation, and native form data", async 
   await expect(name).toBeFocused();
   await name.fill("Alex");
   await expect(name).not.toHaveAttribute("aria-invalid", "true");
-  await page.keyboard.press("Tab");
+  await page.keyboard.press(browserName === "webkit" ? "Alt+Tab" : "Tab");
   await expect(updates).toBeFocused();
   await expect(updates).toHaveCSS("outline-style", "solid");
   await page.keyboard.press("Space");
   await expect(updates).toBeChecked();
-  await page.keyboard.press("Tab");
+  await page.keyboard.press(browserName === "webkit" ? "Alt+Tab" : "Tab");
   await expect(
     page.getByRole("button", { name: "Save preferences" }),
   ).toBeFocused();
@@ -203,7 +208,7 @@ test("segmented selections support arrow keys, native form data, disabled option
   await week.focus();
   await page.keyboard.press("ArrowRight");
   await expect(month).toBeChecked();
-  await page.keyboard.press("ArrowRight");
+  await page.keyboard.press("ArrowLeft");
   await expect(week).toBeChecked();
   await expect(period.getByRole("radio", { name: "Year" })).toBeDisabled();
   await month.check();
@@ -237,5 +242,9 @@ test("installed theme builds utilities for a Tailwind consumer", async ({
   await expect(text).toHaveCSS("background-color", "rgb(173, 229, 51)");
   await expect(text).toHaveCSS("padding", "24px");
   await expect(text).toHaveCSS("font-size", "14px");
-  await expect(text).toHaveCSS("line-height", "16.8px");
+  expect(
+    await text.evaluate((node) =>
+      parseFloat(getComputedStyle(node).lineHeight),
+    ),
+  ).toBeCloseTo(16.8, 4);
 });

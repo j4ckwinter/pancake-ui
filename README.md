@@ -10,7 +10,7 @@ The package is private and unpublished. With Node 22.18+ and npm installed, run 
 
 ```sh
 npm ci
-npx playwright install chromium
+npx playwright install chromium firefox webkit
 npm run release:local
 ```
 
@@ -159,7 +159,7 @@ Use Node 22.18+ and npm. Run `npm ci`, then `npm run build`.
 
 - `npm run storybook`: web component catalogue on port 6006.
 - `npm run example`: build and launch the consuming application.
-- `npx playwright install chromium`: install the browser required for verification.
+- `npx playwright install chromium firefox webkit`: install the browser required for verification.
 - `npm run verify`: formatting, types, lint, package and Storybook builds, installation of a tarball into an isolated consumer, and browser checks.
 - `npm run release:local`: run verification and produce the local archive with checksum and source metadata.
 
@@ -167,7 +167,7 @@ The lockfile pins development dependencies. Storybook packages use the same exac
 
 ## Contributing components
 
-Follow the [component styling rules](docs/styling.md) when adding or changing components. `npm run check:styles` checks token usage and styling boundaries; `npm run test:styles` tests those guardrails. Both run in `npm run verify`. The same command checks public-component coverage in the comparison story and compares desktop/mobile screenshots. See the styling guide for baseline review and platform requirements.
+Follow the [verification and behaviour contracts](docs/verification.md) and the [component styling rules](docs/styling.md) when adding or changing components. `npm run check:styles` checks token usage and styling boundaries; `npm run test:styles` tests those guardrails. Both run in `npm run verify`. The same command checks public-component coverage in the comparison story and compares desktop/mobile screenshots. See the styling guide for baseline review and platform requirements.
 
 Keep public exports in `src/index.ts` and use the shared tokens in `src/tokens.ts`. Keep component styles under namespaced `pancake-` classes and avoid global element styles. Components should accept application content and callbacks without importing app routes, services, or domain models.
 

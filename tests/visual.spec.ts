@@ -1,11 +1,19 @@
 import { execFileSync } from "node:child_process";
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./fixtures";
 
-const components: string[] = JSON.parse(
+const parsedComponents: unknown = JSON.parse(
   execFileSync(process.execPath, ["scripts/check-comparison.mjs", "--json"], {
     encoding: "utf8",
   }),
 );
+
+if (
+  !Array.isArray(parsedComponents) ||
+  !parsedComponents.every((value: unknown) => typeof value === "string")
+) {
+  throw new Error("Comparison coverage must return component names.");
+}
+const components: string[] = parsedComponents;
 
 for (const width of [1100, 375]) {
   test(`component comparison at ${width}px`, async ({ page }) => {

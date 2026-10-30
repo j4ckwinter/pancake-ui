@@ -10,7 +10,7 @@ permissions:
 jobs:
   verify:
     runs-on: xcode-27
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -18,7 +18,7 @@ jobs:
           node-version: 22.18.0
           cache: npm
       - run: npm ci
-      - run: npx playwright install --with-deps chromium
+      - run: npx playwright install --with-deps chromium firefox webkit
       - run: npm run verify
       - uses: actions/upload-artifact@v4
         if: failure()

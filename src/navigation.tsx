@@ -20,7 +20,7 @@ export function SectionHeader({
   className = "",
   ...props
 }: SectionHeaderProps) {
-  const Heading = `h${headingLevel}` as "h2" | "h3" | "h4";
+  const Heading: "h2" | "h3" | "h4" = `h${headingLevel}`;
   return (
     <div {...props} className={`pancake-section-header ${className}`}>
       <div className="pancake-header-copy">

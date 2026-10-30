@@ -19,6 +19,7 @@ export async function validateArchive(packed) {
     "README.md",
     "CHANGELOG.md",
     "docs/styling.md",
+    "docs/verification.md",
     "package.json",
     "dist/fonts/OFL.txt",
     "dist/fonts/Inter-Regular.ttf",
@@ -34,6 +35,7 @@ export async function validateArchive(packed) {
           "CHANGELOG.md",
           "package.json",
           "docs/styling.md",
+          "docs/verification.md",
         ].includes(file),
       `Unexpected archive file: ${file}`,
     );

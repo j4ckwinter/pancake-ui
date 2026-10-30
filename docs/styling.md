@@ -28,6 +28,8 @@ The CSS checker supports explicit selectors and a defined set of token utilities
 
 The checks are static guardrails, not a general evaluator of arbitrary JavaScript or CSS. The TypeScript check follows local style objects and props bags, but does not trace arbitrary function calls or aliases of `createElement`. Prefer straightforward token-based styles that can be inspected. An unsupported expression should be simplified or explicitly supported by the checker with regression coverage.
 
+See [verification and behaviour contracts](verification.md) for required interaction coverage, accessibility states, type checks, and compatibility tests.
+
 ## Review a new component
 
 Show the component alongside existing components in Storybook. Check its default, focus, disabled, error, and loading states where applicable, with long content and a narrow viewport. Use the library styles without example-app global heading or paragraph overrides when judging the defaults.

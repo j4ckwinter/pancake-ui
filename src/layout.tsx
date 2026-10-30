@@ -2,6 +2,7 @@ import {
   createElement,
   type ComponentPropsWithRef,
   type CSSProperties,
+  type ReactElement,
 } from "react";
 import {
   spacing,
@@ -96,7 +97,7 @@ export function Text({
   className = "",
   style,
   ...props
-}: TextProps) {
+}: TextProps): ReactElement {
   const token = `--text-pancake-${kebab(variant)}`;
   const textStyle: CSSProperties = {
     fontFamily: "var(--font-pancake)",

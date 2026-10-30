@@ -13,7 +13,7 @@
   },
   "include": [
     "src",
-    ".storybook",
+    ".storybook/**/*.ts",
     "vite.config.ts",
     "playwright*.config.ts",
     "tests"

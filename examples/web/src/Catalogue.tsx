@@ -29,7 +29,11 @@ export function Catalogue() {
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    setSummary(`${data.get("period")} / ${data.get("visibility")}`);
+    const period = data.get("period");
+    const visibility = data.get("visibility");
+    if (typeof period !== "string" || typeof visibility !== "string")
+      throw new Error("Expected display selections.");
+    setSummary(`${period} / ${visibility}`);
   }
   return (
     <Stack gap="space24" className="catalogue">

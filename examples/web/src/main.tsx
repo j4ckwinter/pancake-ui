@@ -29,8 +29,12 @@ function App() {
     }
     setError("");
     const data = new FormData(event.currentTarget);
+    const submittedName = data.get("name");
+    const updates = data.get("updates");
+    if (typeof submittedName !== "string")
+      throw new Error("Expected a text name.");
     setSubmitted(
-      `Saved ${data.get("name")} · updates ${data.get("updates") ?? "off"}`,
+      `Saved ${submittedName} · updates ${typeof updates === "string" ? updates : "off"}`,
     );
   }
   return (

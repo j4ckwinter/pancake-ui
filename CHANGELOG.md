@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Require behavioural contracts and accessibility state checks for every public component.
+- Verify production builds in Chromium, Firefox, and WebKit with shared browser-error checks and type-aware linting.
+- Check installed public types and SSR/hydration against minimum/current React; keep Text’s return declaration compatible with React 19.2 types.
+- Add negative verification probes and contributor review rules for test/checker changes.
+
 - Add a shared component comparison story, public-component coverage checks, and desktop/mobile screenshot regression tests.
 
 - Add styling guardrails to verification, with regression tests and component styling guidance.

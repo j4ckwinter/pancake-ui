@@ -1,0 +1,291 @@
+{
+  "AppHeader": {
+    "semantics": {
+      "test": "Presentation components: semantics and root refs"
+    },
+    "keyboard": {
+      "notApplicable": "Presentation component; does not own keyboard interaction."
+    },
+    "state": {
+      "notApplicable": "Presentation is derived from props; no user-editable state."
+    },
+    "form": {
+      "notApplicable": "Does not own a native form value or submission behaviour."
+    },
+    "ref": {
+      "test": "Presentation components: semantics and root refs"
+    }
+  },
+  "Avatar": {
+    "semantics": {
+      "test": "Presentation components: semantics and root refs"
+    },
+    "keyboard": {
+      "notApplicable": "Presentation component; does not own keyboard interaction."
+    },
+    "state": {
+      "notApplicable": "Presentation is derived from props; no user-editable state."
+    },
+    "form": {
+      "notApplicable": "Does not own a native form value or submission behaviour."
+    },
+    "ref": {
+      "test": "Presentation components: semantics and root refs"
+    }
+  },
+  "AvatarGroup": {
+    "semantics": {
+      "test": "Presentation components: semantics and root refs"
+    },
+    "keyboard": {
+      "notApplicable": "Presentation component; does not own keyboard interaction."
+    },
+    "state": {
+      "notApplicable": "Presentation is derived from props; no user-editable state."
+    },
+    "form": {
+      "notApplicable": "Does not own a native form value or submission behaviour."
+    },
+    "ref": {
+      "test": "Presentation components: semantics and root refs"
+    }
+  },
+  "BannerToast": {
+    "semantics": {
+      "test": "BannerToast: live semantics and keyboard dismissal"
+    },
+    "keyboard": {
+      "test": "BannerToast: live semantics and keyboard dismissal"
+    },
+    "state": {
+      "test": "BannerToast: live semantics and keyboard dismissal"
+    },
+    "form": {
+      "notApplicable": "Does not own form data; actions and destinations are supplied by the application."
+    },
+    "ref": {
+      "test": "BannerToast: live semantics and keyboard dismissal"
+    }
+  },
+  "BottomNavigation": {
+    "semantics": {
+      "test": "BottomNavigation: native keyboard navigation and active semantics"
+    },
+    "keyboard": {
+      "test": "BottomNavigation: native keyboard navigation and active semantics"
+    },
+    "state": {
+      "test": "BottomNavigation: native keyboard navigation and active semantics"
+    },
+    "form": {
+      "notApplicable": "Does not own form data; actions and destinations are supplied by the application."
+    },
+    "ref": {
+      "test": "BottomNavigation: native keyboard navigation and active semantics"
+    }
+  },
+  "Button": {
+    "semantics": {
+      "test": "Button: keyboard activation, inactivity, default type and ref"
+    },
+    "keyboard": {
+      "test": "Button: keyboard activation, inactivity, default type and ref"
+    },
+    "state": {
+      "test": "Button: keyboard activation, inactivity, default type and ref"
+    },
+    "form": {
+      "test": "Button: keyboard activation, inactivity, default type and ref"
+    },
+    "ref": {
+      "test": "Button: keyboard activation, inactivity, default type and ref"
+    }
+  },
+  "Checkbox": {
+    "semantics": {
+      "test": "Checkbox: keyboard, event order, state, form reset and ref"
+    },
+    "keyboard": {
+      "test": "Checkbox: keyboard, event order, state, form reset and ref"
+    },
+    "state": {
+      "test": "Checkbox: keyboard, event order, state, form reset and ref"
+    },
+    "form": {
+      "test": "Checkbox: keyboard, event order, state, form reset and ref"
+    },
+    "ref": {
+      "test": "Checkbox: keyboard, event order, state, form reset and ref"
+    }
+  },
+  "EmptyState": {
+    "semantics": {
+      "test": "EmptyState: semantic content, decorative icon and action"
+    },
+    "keyboard": {
+      "test": "EmptyState: semantic content, decorative icon and action"
+    },
+    "state": {
+      "notApplicable": "Application supplies content and owns action state."
+    },
+    "form": {
+      "notApplicable": "Does not own form data; actions and destinations are supplied by the application."
+    },
+    "ref": {
+      "test": "EmptyState: semantic content, decorative icon and action"
+    }
+  },
+  "Inline": {
+    "semantics": {
+      "test": "Presentation components: semantics and root refs"
+    },
+    "keyboard": {
+      "notApplicable": "Presentation component; does not own keyboard interaction."
+    },
+    "state": {
+      "notApplicable": "Presentation is derived from props; no user-editable state."
+    },
+    "form": {
+      "notApplicable": "Does not own a native form value or submission behaviour."
+    },
+    "ref": {
+      "test": "Presentation components: semantics and root refs"
+    }
+  },
+  "SectionHeader": {
+    "semantics": {
+      "test": "Presentation components: semantics and root refs"
+    },
+    "keyboard": {
+      "notApplicable": "Presentation component; does not own keyboard interaction."
+    },
+    "state": {
+      "notApplicable": "Presentation is derived from props; no user-editable state."
+    },
+    "form": {
+      "notApplicable": "Does not own a native form value or submission behaviour."
+    },
+    "ref": {
+      "test": "Presentation components: semantics and root refs"
+    }
+  },
+  "SegmentedControl": {
+    "semantics": {
+      "test": "SegmentedControl: keyboard, state, disabled, submission, reset and ref"
+    },
+    "keyboard": {
+      "test": "SegmentedControl: keyboard, state, disabled, submission, reset and ref"
+    },
+    "state": {
+      "test": "SegmentedControl: keyboard, state, disabled, submission, reset and ref"
+    },
+    "form": {
+      "test": "SegmentedControl: keyboard, state, disabled, submission, reset and ref"
+    },
+    "ref": {
+      "test": "SegmentedControl: keyboard, state, disabled, submission, reset and ref"
+    }
+  },
+  "Stack": {
+    "semantics": {
+      "test": "Presentation components: semantics and root refs"
+    },
+    "keyboard": {
+      "notApplicable": "Presentation component; does not own keyboard interaction."
+    },
+    "state": {
+      "notApplicable": "Presentation is derived from props; no user-editable state."
+    },
+    "form": {
+      "notApplicable": "Does not own a native form value or submission behaviour."
+    },
+    "ref": {
+      "test": "Presentation components: semantics and root refs"
+    }
+  },
+  "StatusChip": {
+    "semantics": {
+      "test": "Presentation components: semantics and root refs"
+    },
+    "keyboard": {
+      "notApplicable": "Presentation component; does not own keyboard interaction."
+    },
+    "state": {
+      "notApplicable": "Presentation is derived from props; no user-editable state."
+    },
+    "form": {
+      "notApplicable": "Does not own a native form value or submission behaviour."
+    },
+    "ref": {
+      "test": "Presentation components: semantics and root refs"
+    }
+  },
+  "StepProgress": {
+    "semantics": {
+      "test": "Presentation components: semantics and root refs"
+    },
+    "keyboard": {
+      "notApplicable": "Presentation component; does not own keyboard interaction."
+    },
+    "state": {
+      "notApplicable": "Presentation is derived from props; no user-editable state."
+    },
+    "form": {
+      "notApplicable": "Does not own a native form value or submission behaviour."
+    },
+    "ref": {
+      "test": "Presentation components: semantics and root refs"
+    }
+  },
+  "Surface": {
+    "semantics": {
+      "test": "Presentation components: semantics and root refs"
+    },
+    "keyboard": {
+      "notApplicable": "Presentation component; does not own keyboard interaction."
+    },
+    "state": {
+      "notApplicable": "Presentation is derived from props; no user-editable state."
+    },
+    "form": {
+      "notApplicable": "Does not own a native form value or submission behaviour."
+    },
+    "ref": {
+      "test": "Presentation components: semantics and root refs"
+    }
+  },
+  "Text": {
+    "semantics": {
+      "test": "Presentation components: semantics and root refs"
+    },
+    "keyboard": {
+      "notApplicable": "Presentation component; does not own keyboard interaction."
+    },
+    "state": {
+      "notApplicable": "Presentation is derived from props; no user-editable state."
+    },
+    "form": {
+      "notApplicable": "Does not own a native form value or submission behaviour."
+    },
+    "ref": {
+      "test": "Presentation components: semantics and root refs"
+    }
+  },
+  "TextField": {
+    "semantics": {
+      "test": "TextField: state, descriptions, disabled, form reset and ref"
+    },
+    "keyboard": {
+      "test": "TextField: state, descriptions, disabled, form reset and ref"
+    },
+    "state": {
+      "test": "TextField: state, descriptions, disabled, form reset and ref"
+    },
+    "form": {
+      "test": "TextField: state, descriptions, disabled, form reset and ref"
+    },
+    "ref": {
+      "test": "TextField: state, descriptions, disabled, form reset and ref"
+    }
+  }
+}
