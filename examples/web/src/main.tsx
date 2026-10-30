@@ -1,6 +1,7 @@
 import { useRef, useState, type FormEvent } from "react";
 import { createRoot } from "react-dom/client";
 import {
+  AppHeader,
   Button,
   Checkbox,
   TextField,
@@ -11,6 +12,7 @@ import {
 import "pancake-ui/styles.css";
 import "pancake-ui/fonts.css";
 import "./styles.css";
+import { Catalogue } from "./Catalogue";
 
 function App() {
   const [submitted, setSubmitted] = useState("");
@@ -34,7 +36,7 @@ function App() {
   return (
     <main>
       <p className="eyebrow">PANCAKE UI / COMPONENTS</p>
-      <h1>A familiar starting point.</h1>
+      <AppHeader title="A familiar starting point." />
       <p>A React and Tailwind library, growing from Padel Potato.</p>
       <Surface aria-label="Foundation preview">
         <h2>Ready for your next project</h2>
@@ -73,7 +75,9 @@ function App() {
               Focus name
             </Button>
           </div>
-          <p role="status">{submitted}</p>
+          <p role="status" aria-label="Preference result">
+            {submitted}
+          </p>
         </form>
       </Surface>
       <Surface aria-label="Component states">
@@ -102,8 +106,9 @@ function App() {
           ))}
         </div>
       </Surface>
+      <Catalogue />
       <p className="note" style={typography.body}>
-        Stage 2 · Accessible controls for your next project.
+        Stage 3 · A reusable component catalogue.
       </p>
     </main>
   );

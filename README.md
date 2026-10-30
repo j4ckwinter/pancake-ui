@@ -1,6 +1,6 @@
 # Pancake UI
 
-React and Tailwind foundations extracted from Padel Potato. Stage 2 adds Button, TextField, and Checkbox to the package, theme, Storybook, and example consumer.
+React and Tailwind foundations extracted from Padel Potato. Stage 3 adds reusable identity, feedback, navigation, progress, and layout components alongside Button, TextField, and Checkbox.
 
 ## Development
 
@@ -61,3 +61,27 @@ import { Button, Checkbox, TextField } from "pancake-ui";
 `Checkbox` requires a visible `label`. Use `checked` and `onCheckedChange` for controlled state, or `defaultChecked` for uncontrolled state. Native `onChange` remains available and runs before `onCheckedChange`. Native form reset applies to uncontrolled inputs; controlled state must be reset by the application. `className` and `ref` target the checkbox input.
 
 The sample form verifies submission, required fields, custom errors, keyboard focus, controlled and uncontrolled checkboxes, and loading/disabled states. Browser focus outlines and input borders use darker existing tokens for contrast. The port retains the original palette and dimensions; it does not claim pixel parity with native rendering.
+
+## Reusable catalogue
+
+| Area                  | Components                                                           |
+| --------------------- | -------------------------------------------------------------------- |
+| Layout and typography | `Stack`, `Inline`, `Text`, `Surface`                                 |
+| Identity              | `Avatar`, `AvatarGroup`                                              |
+| Status and feedback   | `StatusChip`, `BannerToast`, `EmptyState`                            |
+| Navigation            | `AppHeader`, `SectionHeader`, `BottomNavigation`, `SegmentedControl` |
+| Progress              | `StepProgress`                                                       |
+
+`Stack` and `Inline` accept spacing token names (`gap="space24"`), alignment, padding, and native div props. Inline wraps by default. `Text` accepts a typography `variant`, colour token, and an `as` tag for semantic headings or paragraphs. Layout and text reference CSS variables so local themes apply.
+
+`Avatar` requires a name, accepts an optional image `src`, and falls back to initials after a failed image. Changing `src` retries the image. Use `decorative` when adjacent text already supplies the name. `AvatarGroup` accepts `{ id, name, src? }` items and a positive integer `max`; hidden identities are named on the overflow indicator.
+
+`StatusChip` tones are neutral, success, warning, danger, and info. `BannerToast` accepts a title, children, an optional `onDismiss`, and success/warning/error/info tones. Error notifications use an alert; other tones use a polite status. Applications own notification timing and dismissal state. `EmptyState` accepts title, description, optional decorative icon, and action content.
+
+`AppHeader` provides title, description, and leading/trailing slots. `SectionHeader` provides title, description, action, and heading levels 2–4. `BottomNavigation` takes `{ id, label, href, icon? }` items and `activeId`; navigation and active-route state remain with the application. It is in normal document flow rather than fixed to the viewport.
+
+`SegmentedControl` is a labelled selection field, not a tab-panel widget. It accepts `{ value, label, disabled? }` options, native `name`, `disabled`, `required`, and `form` props, plus either `value`/`onValueChange` or `defaultValue`. Native radio keyboard navigation and uncontrolled form reset apply. Controlled selections must be reset by the caller. Use unique values per group and an explicit name for submitted data.
+
+`StepProgress` takes a non-empty list of step labels and zero-based `currentStep`. A value equal to `steps.length` marks all steps complete. The current item exposes `aria-current="step"`.
+
+The example verifies avatar image recovery, notification dismissal, navigation links, selection keyboard behaviour and form reset, progress semantics, and local theme overrides. Padel game cards, score displays, player preferences, photo-picking workflows, and branded artwork remain in Padel Potato. Additional action and specialised field variants are not part of this catalogue slice.

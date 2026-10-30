@@ -81,14 +81,20 @@ test("controls support keyboard focus, validation, and native form data", async 
     page.getByRole("button", { name: "Save preferences" }),
   ).toHaveCSS("outline-style", "solid");
   await page.keyboard.press("Enter");
-  await expect(page.getByRole("status")).toHaveText("Saved Alex · updates yes");
+  await expect(
+    page.getByRole("status", { name: "Preference result" }),
+  ).toHaveText("Saved Alex · updates yes");
   await page.getByRole("button", { name: "Focus name" }).click();
   await expect(name).toBeFocused();
-  await expect(page.getByRole("status")).toHaveText("Saved Alex · updates yes");
+  await expect(
+    page.getByRole("status", { name: "Preference result" }),
+  ).toHaveText("Saved Alex · updates yes");
   await page.getByText("Send me updates", { exact: true }).click();
   await expect(updates).not.toBeChecked();
   await name.press("Enter");
-  await expect(page.getByRole("status")).toHaveText("Saved Alex · updates off");
+  await expect(
+    page.getByRole("status", { name: "Preference result" }),
+  ).toHaveText("Saved Alex · updates off");
 });
 
 test("read-only, disabled, loading, and uncontrolled controls retain browser semantics", async ({
@@ -123,5 +129,96 @@ test("read-only, disabled, loading, and uncontrolled controls retain browser sem
   const name = page.getByRole("textbox", { name: "Your name" });
   await page.getByRole("button", { name: "Save preferences" }).click();
   await expect(name).toBeFocused();
-  await expect(page.getByRole("status")).toBeEmpty();
+  await expect(
+    page.getByRole("status", { name: "Preference result" }),
+  ).toBeEmpty();
+});
+
+test("avatars recover from missing images and expose overflow identities", async ({
+  page,
+}) => {
+  await page.goto("http://127.0.0.1:4173");
+  const avatar = page.getByRole("img", { name: "Taylor Brooks", exact: true });
+  await expect(avatar).toHaveText("TB");
+  await page.getByRole("button", { name: "Try missing photo" }).click();
+  await expect(avatar).toHaveText("TB");
+  await page.getByRole("button", { name: "Load photo" }).click();
+  await expect(avatar.locator("img")).toBeVisible();
+  expect(
+    await avatar
+      .locator("img")
+      .evaluate(
+        (image: HTMLImageElement) => image.complete && image.naturalWidth > 0,
+      ),
+  ).toBe(true);
+  const group = page.getByRole("list", { name: "Project team" });
+  await expect(group.getByRole("img", { name: "Alex Morgan" })).toBeVisible();
+  await expect(group.getByRole("img", { name: "1 more: Jo Chen" })).toHaveText(
+    "+1",
+  );
+});
+
+test("feedback actions, navigation links, progress and theme overrides work", async ({
+  page,
+}) => {
+  await page.goto("http://127.0.0.1:4173");
+  await page.getByRole("button", { name: "Show notification" }).click();
+  await expect(
+    page.getByRole("status").filter({ hasText: "Changes saved" }),
+  ).toBeVisible();
+  const dismiss = page.getByRole("button", { name: "Dismiss notification" });
+  await dismiss.focus();
+  await page.keyboard.press("Enter");
+  await expect(dismiss).toHaveCount(0);
+  await page.getByRole("button", { name: "Check for updates" }).click();
+  await expect(page.getByText("Changes saved", { exact: true })).toBeVisible();
+  const nav = page.getByRole("navigation", { name: "Catalogue navigation" });
+  await expect(nav.getByRole("link", { name: "People" })).toHaveAttribute(
+    "aria-current",
+    "page",
+  );
+  await nav.getByRole("link", { name: "Updates" }).click();
+  await expect(page).toHaveURL(/#updates$/);
+  await expect(
+    page
+      .getByRole("list", { name: "Progress" })
+      .locator('[aria-current="step"]'),
+  ).toHaveText("2Preferences");
+  const themed = page.getByLabel("Custom theme");
+  await expect(themed).toHaveCSS("gap", "30px");
+  await expect(themed.getByRole("heading")).toHaveCSS(
+    "color",
+    "rgb(56, 69, 64)",
+  );
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+});
+
+test("segmented selections support arrow keys, native form data, disabled options and reset", async ({
+  page,
+}) => {
+  await page.goto("http://127.0.0.1:4173");
+  const period = page.getByRole("group", { name: "Period", exact: true });
+  const week = period.getByRole("radio", { name: "Week" });
+  const month = period.getByRole("radio", { name: "Month" });
+  await week.focus();
+  await page.keyboard.press("ArrowRight");
+  await expect(month).toBeChecked();
+  await page.keyboard.press("ArrowRight");
+  await expect(week).toBeChecked();
+  await expect(period.getByRole("radio", { name: "Year" })).toBeDisabled();
+  await month.check();
+  const visibility = page.getByRole("group", { name: "Visibility" });
+  await visibility.getByRole("radio", { name: "Public" }).check();
+  await expect(
+    page
+      .getByRole("group", { name: "Locked selection" })
+      .getByRole("radio", { name: "No", exact: true }),
+  ).toBeDisabled();
+  await page.getByRole("button", { name: "Apply display" }).click();
+  await expect(page.getByLabel("Display summary")).toHaveText("month / public");
+  await page.getByRole("button", { name: "Reset display" }).click();
+  await expect(week).toBeChecked();
+  await expect(
+    visibility.getByRole("radio", { name: "Private" }),
+  ).toBeChecked();
 });

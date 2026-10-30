@@ -1,0 +1,18 @@
+@layer components {
+  .pancake-stack,
+  .pancake-inline {
+    display: flex;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+  .pancake-stack {
+    flex-direction: column;
+  }
+  .pancake-inline {
+    flex-direction: row;
+  }
+  .pancake-text {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+}

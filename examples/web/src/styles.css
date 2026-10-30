@@ -61,3 +61,10 @@ form {
   display: grid;
   gap: 24px;
 }
+
+.catalogue {
+  margin-top: 40px;
+}
+.catalogue .pancake-surface {
+  margin-top: 0;
+}

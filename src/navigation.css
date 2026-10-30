@@ -1,0 +1,194 @@
+@layer components {
+  .pancake-section-header,
+  .pancake-app-header {
+    @apply font-pancake text-pancake-ink;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--spacing-pancake-16);
+    min-height: var(--spacing-pancake-44);
+  }
+  .pancake-app-header {
+    @apply bg-pancake-canvas rounded-pancake-20;
+    min-height: var(--spacing-pancake-88);
+    padding: var(--spacing-pancake-16);
+    box-sizing: border-box;
+  }
+  .pancake-header-copy {
+    flex: 1 1 160px;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .pancake-section-title {
+    @apply text-pancake-heading;
+    margin: 0;
+  }
+  .pancake-app-title {
+    @apply text-pancake-title;
+    margin: 0;
+  }
+  .pancake-header-description {
+    @apply text-pancake-body text-pancake-text-secondary;
+    margin: var(--spacing-pancake-8) 0 0;
+  }
+  .pancake-header-action {
+    flex: 0 1 auto;
+    max-width: 100%;
+  }
+  .pancake-bottom-navigation {
+    @apply bg-pancake-surface font-pancake text-pancake-ink rounded-pancake-full;
+  }
+  .pancake-bottom-navigation {
+    border: var(--pancake-border-default) solid var(--color-pancake-border);
+  }
+  .pancake-bottom-navigation ul {
+    min-height: var(--spacing-pancake-76);
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: var(--spacing-pancake-8);
+    gap: var(--spacing-pancake-4);
+  }
+  .pancake-bottom-navigation li {
+    flex: 1 1 80px;
+    min-width: 0;
+  }
+  .pancake-bottom-navigation a {
+    @apply text-pancake-label text-pancake-text-secondary rounded-pancake-12;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-pancake-4);
+    padding: var(--spacing-pancake-8);
+    min-height: var(--spacing-pancake-48);
+    box-sizing: border-box;
+    text-decoration: none;
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
+  .pancake-bottom-navigation a[aria-current="page"] {
+    @apply bg-pancake-accent text-pancake-ink;
+  }
+  .pancake-bottom-navigation a:hover {
+    text-decoration: underline;
+  }
+  .pancake-bottom-navigation a:focus-visible {
+    outline: var(--pancake-focus-ring-width) solid var(--color-pancake-deep);
+    outline-offset: 2px;
+  }
+  .pancake-segmented-control {
+    @apply font-pancake text-pancake-ink;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+  }
+  .pancake-segmented-control legend {
+    @apply text-pancake-label;
+    padding: 0;
+    margin-bottom: var(--spacing-pancake-8);
+  }
+  .pancake-segments {
+    @apply bg-pancake-surface-muted rounded-pancake-20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-pancake-4);
+    padding: var(--spacing-pancake-4);
+  }
+  .pancake-segment {
+    position: relative;
+    display: flex;
+    flex: 1 1 80px;
+    min-width: 0;
+    cursor: pointer;
+  }
+  .pancake-segment input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: inherit;
+  }
+  .pancake-segment > span {
+    @apply text-pancake-label rounded-pancake-20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: var(--spacing-pancake-48);
+    padding: var(--spacing-pancake-8) var(--spacing-pancake-12);
+    text-align: center;
+    overflow-wrap: anywhere;
+    border: var(--pancake-border-default) solid transparent;
+  }
+  .pancake-segment input:checked + span {
+    @apply bg-pancake-surface;
+    border-color: var(--color-pancake-deep);
+  }
+  .pancake-segment input:focus-visible + span {
+    outline: var(--pancake-focus-ring-width) solid var(--color-pancake-deep);
+    outline-offset: 2px;
+  }
+  .pancake-segment input:disabled {
+    cursor: not-allowed;
+  }
+  .pancake-segment input:disabled + span {
+    opacity: var(--pancake-opacity-disabled);
+  }
+  .pancake-step-progress {
+    @apply font-pancake text-pancake-label text-pancake-ink;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-pancake-16);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .pancake-step-progress li {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-pancake-8);
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .pancake-step-number {
+    @apply bg-pancake-surface-muted rounded-pancake-full;
+    display: grid;
+    place-items: center;
+    width: var(--spacing-pancake-32);
+    height: var(--spacing-pancake-32);
+    flex: 0 0 auto;
+  }
+  .pancake-step-progress [data-complete] .pancake-step-number {
+    @apply bg-pancake-accent;
+  }
+  .pancake-step-progress [aria-current="step"] .pancake-step-number {
+    outline: var(--pancake-focus-ring-width) solid var(--color-pancake-deep);
+  }
+  .pancake-navigation-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+  @media (forced-colors: active) {
+    .pancake-segment input:checked + span {
+      border: 2px solid Highlight;
+    }
+    .pancake-bottom-navigation a[aria-current="page"] {
+      outline: 2px solid Highlight;
+    }
+  }
+}
