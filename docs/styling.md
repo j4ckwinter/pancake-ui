@@ -2,9 +2,21 @@
 
 Pancake UI uses shared tokens and namespaced component styles. New components should fit the existing spacing, typography, and interaction patterns. These rules apply to the library's defaults; applications can still override `style`, `className`, and theme variables.
 
+## Source organisation
+
+- `src/components/<component-or-family>/`: one public component per matching TSX file, with adjacent props, private helpers and component/family CSS. Small shared implementation modules use explicit filenames such as `layout.shared.ts`.
+- `src/foundations/`: tokens, generated theme CSS and font declarations.
+- `src/stories/`: catalogue/foundation stories, the comparison page, and contract fixtures. Form fixtures own shared submission/reset state; feedback and presentation fixtures own their separate responsibilities.
+- `src/index.ts`: the only public barrel. `src/styles.css`: the compiled stylesheet entry. Public package imports stay unchanged.
+- `scripts/style/`: styling policy, exact exceptions, theme data, and AST resolution helpers. `scripts/style-css.mjs` and `scripts/style-tsx.mjs` remain the checker entry points.
+
+`npm run check:structure` enforces source placement, one public component per TSX file, and dependency direction. Runtime code cannot depend on stories, tests, examples, or the public barrel; foundations cannot depend on components. ESLint limits runtime source files to 180 nonblank, noncomment lines. This is a backstop for review, not a reason to scatter one coherent operation across tiny helpers. Stories and declarative token/policy tables are not subject to that runtime limit.
+
+`npm run test:structure` proves those rules reject representative violations. Both commands run in `verify`. Reorganisations must preserve exports, CSS order, story IDs and screenshot baselines; do not regenerate images to accommodate a file move.
+
 ## Choose values by their role
 
-- Use `src/tokens.ts` as the source of design values and CSS variables in component styles. Run `npm run tokens` after changing tokens. Do not edit the generated `src/theme.css`.
+- Use `src/foundations/tokens.ts` as the source of design values and CSS variables in component styles. Run `npm run tokens` after changing tokens. Do not edit the generated `src/foundations/theme.css`.
 - Use 4px for supporting-text spacing, 8px between labels and controls, 16px for ordinary vertical composition, and 24px for surface padding. Use `Stack`, `Inline`, and `Text` when composing components. Choose another existing spacing token when the composition calls for it.
 - Preserve component-family sizing: buttons use 40px or 48px minimum heights, fields 52px, segments 48px, checkboxes 40px, and notification dismiss targets 44px. These are current defaults, not a requirement to force every control to one height. New families need an explicit sizing choice in review.
 - Choose a typography role instead of assigning separate font metrics. The type scale uses proportional line heights; it is not a four-point baseline grid.
@@ -18,7 +30,7 @@ These defaults preserve the current appearance. Changing them is a design change
 
 Run `npm run check:styles` for source checks, or `npm run verify` for the full suite. Verification also runs the guardrail tests and checks that generated theme CSS is current before the build can regenerate it.
 
-The source checks inspect library CSS and JavaScript/TypeScript beneath `src`, including nested directories. Stories, the example application, token definitions, font declarations, and generated theme CSS are outside the component-style checks. Theme freshness is checked separately.
+The source checks inspect library CSS and JavaScript/TypeScript beneath `src`, including nested directories. Everything under `src/stories`, the example application, token definitions, font declarations, and generated theme CSS are outside the component-style checks. Theme freshness is checked separately.
 
 Component CSS belongs in `@layer components`. Selectors must remain scoped to `pancake-` classes. Use declared theme variables and supported namespaced Tailwind utilities instead of introducing raw colours, dimensions, typography, or opacity. Library-authored inline styles must follow the same token discipline; passing consumer styles through remains supported.
 
@@ -36,7 +48,7 @@ Show the component alongside existing components in Storybook. Check its default
 
 Check whether related elements have consistent spacing and whether the component fits the established typography and control sizes. Automated checks can reject an arbitrary `13px` padding value; they cannot decide whether 12px or 16px is the better choice. The `Foundations/Comparison` story is the visual reference. It imports only library components and bundled fonts, without the example app’s styles. It covers default, disabled, loading, error, and long-content states. Browser tests capture the catalogue and focused actions/fields at 1100px and 375px viewport widths.
 
-`npm run check:comparison` discovers public uppercase callable or constructable exports through `src/index.ts` and requires actual JSX usage imported through that entry point in `src/Comparison.stories.tsx`. Add a `data-component="ExportName"` marker to the rendered component or its wrapper so the browser test also verifies it is visible. Imports alone do not count. Function and class components are covered, including components authored with `createElement` in `.ts` files. Reserve uppercase callable exports for components; other component representations require extending this check before exporting them.
+`npm run check:comparison` discovers public uppercase callable or constructable exports through `src/index.ts` and requires actual JSX usage imported through that entry point in `src/stories/comparison/Comparison.stories.tsx`. Add a `data-component="ExportName"` marker to the rendered component or its wrapper so the browser test also verifies it is visible. Imports alone do not count. Function and class components are covered, including components authored with `createElement` in `.ts` files. Reserve uppercase callable exports for components; other component representations require extending this check before exporting them.
 
 ## Screenshot regression workflow
 
@@ -58,3 +70,5 @@ npm run test:visual:update
 Inspect every changed image in `tests/visual.spec.ts-snapshots/` and review the Storybook composition before committing those images with the component change. Do not regenerate snapshots simply to make CI pass. Failures put expected, actual, and diff images in `test-results/`; CI uploads that directory.
 
 The checked-in baselines were generated with the locked Playwright Chromium on macOS 27 ARM64, using bundled Inter fonts. CI uses GitHub’s [`xcode-27` macOS ARM64 runner](https://docs.github.com/en/actions/reference/runners/github-hosted-runners). [Playwright snapshots vary by operating system](https://playwright.dev/docs/test-snapshots), so Linux and Windows need separately generated and reviewed baselines; no platform is silently skipped. Hosted CI has not yet been exercised for these initial baselines, and even macOS runner updates can require reviewing rendering differences. Keep the browser dependency pinned and use the same environment when updating snapshots.
+
+The workspace registers `@apply` and `@theme` through `.vscode/tailwind.css-data.json` for VS Code-compatible CSS validation. Unknown at-rule diagnostics remain enabled. Reload the editor window if it has not picked up `.vscode/settings.json`.

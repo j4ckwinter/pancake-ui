@@ -4,7 +4,8 @@ export default defineConfig({
   failOnFlakyTests: true,
   retries: 0,
   workers: 2,
-  testDir: "./tests",
+  testDir: ".",
+  testMatch: ["tests/**/*.spec.ts", "src/components/**/*.spec.ts"],
   updateSnapshots: "none",
   expect: { toHaveScreenshot: { maxDiffPixels: 0, animations: "disabled" } },
   snapshotPathTemplate:

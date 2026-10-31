@@ -6,15 +6,16 @@ async function inspect(directory) {
   const results = [];
   for (const entry of await readdir(directory, { withFileTypes: true })) {
     const file = `${directory}/${entry.name}`;
+    if (file === "src/stories") continue;
     if (entry.isDirectory()) {
       results.push(...(await inspect(file)));
       continue;
     }
-    if (/\.stories\.[jt]sx?$/.test(file)) continue;
+    if (/\.(?:stories|spec)\.[jt]sx?$/.test(file)) continue;
     if (
-      file === "src/theme.css" ||
-      file === "src/fonts.css" ||
-      file === "src/tokens.ts"
+      file === "src/foundations/theme.css" ||
+      file === "src/foundations/fonts.css" ||
+      file === "src/foundations/tokens.ts"
     )
       continue;
     const checker = file.endsWith(".css")

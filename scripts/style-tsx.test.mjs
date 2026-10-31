@@ -55,26 +55,27 @@ test("resolves styles in the nearest scope", () => {
 });
 
 test("current component source passes, including audited dynamic token styles", () => {
-  for (const name of readdirSync(new URL("../src", import.meta.url)).filter(
-    (name) => name.endsWith(".tsx") && !name.includes(".stories."),
-  )) {
+  for (const name of readdirSync(
+    new URL("../src/components", import.meta.url),
+    { recursive: true },
+  ).filter((name) => /\.tsx?$/.test(name) && !name.includes(".stories."))) {
     const source = readFileSync(
-      new URL(`../src/${name}`, import.meta.url),
+      new URL(`../src/components/${name}`, import.meta.url),
       "utf8",
     );
-    assert.deepEqual(checkTsx(source, `src/${name}`), [], name);
+    assert.deepEqual(checkTsx(source, `src/components/${name}`), [], name);
   }
 });
 
 test("changing the audited spacing helper invalidates its dynamic exemption", () => {
   const source = readFileSync(
-    new URL("../src/layout.tsx", import.meta.url),
+    new URL("../src/components/layout/layout.shared.ts", import.meta.url),
     "utf8",
   );
   assert.ok(
     checkTsx(
       source.replace("`var(--spacing-pancake-${spacing[token]})`", '"13px"'),
-      "src/layout.tsx",
+      "src/components/layout/layout.shared.ts",
     ).length,
   );
 });
@@ -107,5 +108,21 @@ test("rejects accessors and methods in local props bags", () => {
   assert.deepEqual(
     check("function Example({...props}) {return <div {...props} />;}"),
     [],
+  );
+});
+
+test("dynamic exemptions require exact owners and audited helper imports", () => {
+  const path = "src/components/layout/Stack.tsx";
+  const source = readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
+  assert.ok(checkTsx(source, "src/components/other/Stack.tsx").length);
+  assert.ok(
+    checkTsx(source.replace('"./layout.shared"', '"./unreviewed"'), path)
+      .length,
+  );
+  assert.ok(
+    checkTsx(
+      source.replace("  return (", '  const space = () => "13px"; return ('),
+      path,
+    ).length,
   );
 });

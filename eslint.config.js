@@ -34,7 +34,21 @@ export default tseslint.config(
     extends: [tseslint.configs.disableTypeChecked],
   },
   {
-    files: ["tests/**/*.ts", "scripts/*.test.mjs"],
+    files: ["src/components/**/*.{ts,tsx}"],
+    ignores: ["src/components/**/*.spec.ts"],
+    rules: {
+      "max-lines": [
+        "error",
+        { max: 180, skipBlankLines: true, skipComments: true },
+      ],
+    },
+  },
+  {
+    files: [
+      "tests/**/*.ts",
+      "src/components/**/*.spec.ts",
+      "scripts/*.test.mjs",
+    ],
     rules: {
       "no-restricted-syntax": [
         "error",
@@ -52,7 +66,7 @@ export default tseslint.config(
     },
   },
   {
-    files: ["tests/**/*.spec.ts"],
+    files: ["tests/**/*.spec.ts", "src/components/**/*.spec.ts"],
     rules: {
       "no-restricted-imports": [
         "error",
@@ -62,7 +76,7 @@ export default tseslint.config(
               name: "@playwright/test",
               importNames: ["test"],
               message:
-                "Import test from ./fixtures so browser errors always fail verification.",
+                "Import test from the shared fixtures so browser errors always fail verification.",
             },
           ],
         },

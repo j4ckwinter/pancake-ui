@@ -93,35 +93,41 @@ test("does not allow arbitrary imports or global at-rules", () => {
 
 test("exceptions are restricted to the exact declaration and file", () => {
   const source = component("font-size: 24px;", ".pancake-banner-dismiss");
-  assert.deepEqual(checkCss(source, "src/identity-feedback.css"), []);
-  assert.notEqual(checkCss(source, "src/New.css").length, 0);
-  assert.notEqual(
-    checkCss(source, "src/nested/identity-feedback.css").length,
-    0,
+  assert.deepEqual(
+    checkCss(source, "src/components/feedback/feedback.css"),
+    [],
   );
+  assert.notEqual(checkCss(source, "src/New.css").length, 0);
+  assert.notEqual(checkCss(source, "src/nested/feedback.css").length, 0);
   assert.notEqual(
-    checkCss(source.replace("24px", "25px"), "src/identity-feedback.css")
-      .length,
+    checkCss(
+      source.replace("24px", "25px"),
+      "src/components/feedback/feedback.css",
+    ).length,
     0,
   );
 });
 
 test("system colour exception requires forced-colours context", () => {
   const source = component("border: 1px solid ButtonText;", ".pancake-button");
-  assert.notEqual(checkCss(source, "src/controls.css").length, 0);
+  assert.notEqual(
+    checkCss(source, "src/components/Button/Button.css").length,
+    0,
+  );
   assert.deepEqual(
     checkCss(
       `@media (forced-colors: active) { ${source} }`,
-      "src/controls.css",
+      "src/components/Button/Button.css",
     ),
     [],
   );
 });
 
 test("all current authored component styles pass", () => {
-  for (const file of readdirSync("src").filter(
+  for (const file of readdirSync("src", { recursive: true }).filter(
     (name) =>
-      name.endsWith(".css") && !["theme.css", "fonts.css"].includes(name),
+      name.endsWith(".css") &&
+      !["foundations/theme.css", "foundations/fonts.css"].includes(name),
   )) {
     assert.deepEqual(
       checkCss(readFileSync(`src/${file}`, "utf8"), `src/${file}`),

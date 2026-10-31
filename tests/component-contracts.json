@@ -1,7 +1,7 @@
 {
   "AppHeader": {
     "semantics": {
-      "test": "Presentation components: semantics and root refs"
+      "test": "AppHeader: semantics and root ref"
     },
     "keyboard": {
       "notApplicable": "Presentation component; does not own keyboard interaction."
@@ -13,12 +13,12 @@
       "notApplicable": "Does not own a native form value or submission behaviour."
     },
     "ref": {
-      "test": "Presentation components: semantics and root refs"
+      "test": "AppHeader: semantics and root ref"
     }
   },
   "Avatar": {
     "semantics": {
-      "test": "Presentation components: semantics and root refs"
+      "test": "Avatar: semantics and root ref"
     },
     "keyboard": {
       "notApplicable": "Presentation component; does not own keyboard interaction."
@@ -30,12 +30,12 @@
       "notApplicable": "Does not own a native form value or submission behaviour."
     },
     "ref": {
-      "test": "Presentation components: semantics and root refs"
+      "test": "Avatar: semantics and root ref"
     }
   },
   "AvatarGroup": {
     "semantics": {
-      "test": "Presentation components: semantics and root refs"
+      "test": "AvatarGroup: semantics and root ref"
     },
     "keyboard": {
       "notApplicable": "Presentation component; does not own keyboard interaction."
@@ -47,7 +47,7 @@
       "notApplicable": "Does not own a native form value or submission behaviour."
     },
     "ref": {
-      "test": "Presentation components: semantics and root refs"
+      "test": "AvatarGroup: semantics and root ref"
     }
   },
   "BannerToast": {
@@ -137,7 +137,7 @@
   },
   "Inline": {
     "semantics": {
-      "test": "Presentation components: semantics and root refs"
+      "test": "Inline: semantics and root ref"
     },
     "keyboard": {
       "notApplicable": "Presentation component; does not own keyboard interaction."
@@ -149,12 +149,12 @@
       "notApplicable": "Does not own a native form value or submission behaviour."
     },
     "ref": {
-      "test": "Presentation components: semantics and root refs"
+      "test": "Inline: semantics and root ref"
     }
   },
   "SectionHeader": {
     "semantics": {
-      "test": "Presentation components: semantics and root refs"
+      "test": "SectionHeader: semantics and root ref"
     },
     "keyboard": {
       "notApplicable": "Presentation component; does not own keyboard interaction."
@@ -166,7 +166,7 @@
       "notApplicable": "Does not own a native form value or submission behaviour."
     },
     "ref": {
-      "test": "Presentation components: semantics and root refs"
+      "test": "SectionHeader: semantics and root ref"
     }
   },
   "SegmentedControl": {
@@ -188,7 +188,7 @@
   },
   "Stack": {
     "semantics": {
-      "test": "Presentation components: semantics and root refs"
+      "test": "Stack: semantics and root ref"
     },
     "keyboard": {
       "notApplicable": "Presentation component; does not own keyboard interaction."
@@ -200,12 +200,12 @@
       "notApplicable": "Does not own a native form value or submission behaviour."
     },
     "ref": {
-      "test": "Presentation components: semantics and root refs"
+      "test": "Stack: semantics and root ref"
     }
   },
   "StatusChip": {
     "semantics": {
-      "test": "Presentation components: semantics and root refs"
+      "test": "StatusChip: semantics and root ref"
     },
     "keyboard": {
       "notApplicable": "Presentation component; does not own keyboard interaction."
@@ -217,12 +217,12 @@
       "notApplicable": "Does not own a native form value or submission behaviour."
     },
     "ref": {
-      "test": "Presentation components: semantics and root refs"
+      "test": "StatusChip: semantics and root ref"
     }
   },
   "StepProgress": {
     "semantics": {
-      "test": "Presentation components: semantics and root refs"
+      "test": "StepProgress: semantics and root ref"
     },
     "keyboard": {
       "notApplicable": "Presentation component; does not own keyboard interaction."
@@ -234,12 +234,12 @@
       "notApplicable": "Does not own a native form value or submission behaviour."
     },
     "ref": {
-      "test": "Presentation components: semantics and root refs"
+      "test": "StepProgress: semantics and root ref"
     }
   },
   "Surface": {
     "semantics": {
-      "test": "Presentation components: semantics and root refs"
+      "test": "Surface: semantics and root ref"
     },
     "keyboard": {
       "notApplicable": "Presentation component; does not own keyboard interaction."
@@ -251,12 +251,12 @@
       "notApplicable": "Does not own a native form value or submission behaviour."
     },
     "ref": {
-      "test": "Presentation components: semantics and root refs"
+      "test": "Surface: semantics and root ref"
     }
   },
   "Text": {
     "semantics": {
-      "test": "Presentation components: semantics and root refs"
+      "test": "Text: semantics and root ref"
     },
     "keyboard": {
       "notApplicable": "Presentation component; does not own keyboard interaction."
@@ -268,7 +268,7 @@
       "notApplicable": "Does not own a native form value or submission behaviour."
     },
     "ref": {
-      "test": "Presentation components: semantics and root refs"
+      "test": "Text: semantics and root ref"
     }
   },
   "TextField": {

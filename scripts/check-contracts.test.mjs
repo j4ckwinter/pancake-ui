@@ -90,3 +90,28 @@ test("rejects reusing another component's contract without a component-specific 
     checkContracts(["NewControl"], { NewControl: contract }, source).length,
   );
 });
+
+test("requires contracts in each component's own discovered spec", () => {
+  const path = "src/components/Button/Button.spec.ts";
+  const colocated = source.replace(
+    '"./fixtures"',
+    '"../../../tests/contracts-fixture"',
+  );
+  assert.deepEqual(
+    checkContracts(["Button"], { Button: contract }, { [path]: colocated }),
+    [],
+  );
+  for (const files of [
+    {},
+    { "tests/contracts.spec.ts": source },
+    { "src/components/Checkbox/Checkbox.spec.ts": colocated },
+    { [path]: colocated.replace("expect(true).toBe(true);", "") },
+    {
+      [path]: colocated.replace(
+        "../../../tests/contracts-fixture",
+        "./fake-fixture",
+      ),
+    },
+  ])
+    assert(checkContracts(["Button"], { Button: contract }, files).length > 0);
+});

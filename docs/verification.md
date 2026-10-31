@@ -4,9 +4,9 @@ Run `npm ci`, then `npx playwright install chromium firefox webkit`, then `npm r
 
 ## Required evidence for a new component
 
-1. Export the component and include it in `Comparison.stories.tsx` with its visibility marker.
-2. Add an entry in `tests/component-contracts.json` for semantics, keyboard, state, form behaviour, and refs. Each category points to an assertion-bearing test registered in `tests/contracts.spec.ts`, or gives a reason it does not apply. Semantics always requires a test. The gate rejects missing exports, missing categories, unknown tests, and reuse of tests that do not identify the component.
-3. Add interaction/state fixtures in `Contracts.stories.tsx`. Test user-observable behaviour: accessible names and roles, keyboard operation, callbacks firing once, controlled and uncontrolled updates, disabled/loading inactivity, form submission/reset, descriptions, and ref targets as applicable.
+1. Export the component and include it in `src/stories/comparison/Comparison.stories.tsx` with its visibility marker.
+2. Add an entry in `tests/component-contracts.json` for semantics, keyboard, state, form behaviour, and refs. Each category points to an assertion-bearing test registered in the matching `src/components/<family>/<Component>.spec.ts`, or gives a reason it does not apply. Semantics always requires a test. The gate rejects missing exports, missing categories, unknown tests, and reuse of tests that do not identify the component.
+3. Add interaction/state fixtures in `src/stories/contracts/Contracts.stories.tsx`. Test user-observable behaviour: accessible names and roles, keyboard operation, callbacks firing once, controlled and uncontrolled updates, disabled/loading inactivity, form submission/reset, descriptions, and ref targets as applicable.
 4. Add positive and negative public API examples to `compatibility/types.tsx`. These compile against the installed archive with declaration checking enabled. Keep a descriptive `@ts-expect-error` beside each intentionally invalid call; it must fail compilation if the API accidentally starts accepting that call.
 5. Run the full suite and inspect visual changes. A contract entry or passing screenshot does not establish that an assertion is meaningful; independent review checks the test's expectations against the component's purpose.
 
@@ -24,7 +24,7 @@ The contracts include explicit axe scans of the comparison and interactive state
 
 On macOS, the pinned Firefox build uses isolated worker-local application-data directories to avoid its documented app-data launch issue. These directories are removed after browser teardown; user browser settings are not changed.
 
-All browser specs import `test` from `tests/fixtures.ts`. Unexpected page errors and console errors/warnings fail teardown. Intentional negative probes assert that the same behavioural oracles reject broken activation counts, names, and disabled semantics. They do not suppress normal test failures.
+Component behaviour specs live beside their components. Shared accessibility/probe, visual, installed-package, and hydration suites remain under `tests/`. All browser specs use `tests/fixtures.ts`, directly or through `tests/contracts-fixture.ts` (which opens the contract story before each test). Unexpected page errors and console errors/warnings fail teardown. Intentional negative probes assert that the same behavioural oracles reject broken activation counts, names, and disabled semantics. They do not suppress normal test failures.
 
 Focused tests, skipped tests, and expected-failure tests are prohibited in the verification suites. Retries are disabled, flaky passes fail, and normal runs never update screenshots. A single failed browser or compatibility variant fails the command. Traces and screenshot diffs are retained in `test-results/` for failures.
 
@@ -37,7 +37,7 @@ npm run test:verification
 # Requires a package build/archive prepared by test:package:
 npm run check:compatibility
 # After verify has prepared all builds and consumers:
-npx playwright test --project=firefox tests/contracts.spec.ts
+npx playwright test --project=firefox src/components/Button/Button.spec.ts
 ```
 
 Compatibility consumers live under `.tmp/compatibility/` and are rebuilt for each package verification. Installing their dependencies requires registry access. The production app served by the browser tests lives under `.tmp/consumer/dist/`; the browser is not testing Vite's development transforms.

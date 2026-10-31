@@ -71,7 +71,7 @@ For a Tailwind 4 application, use this in the application's Tailwind stylesheet:
 
 Import that stylesheet once from the application's entry point. The theme enables namespaced utilities such as `bg-pancake-accent`, `p-pancake-24`, and `text-pancake-body`. No scan of the package in `node_modules` is required: component styles already ship compiled. Your own utility classes still need to be included in the consuming application's normal Tailwind source detection. `className` customises the underlying element; it does not perform runtime class-conflict merging.
 
-Edit `src/tokens.ts`, then run `npm run tokens`. `src/theme.css` is generated; the build refreshes it. Fonts retain the SIL Open Font License in `assets/fonts/OFL.txt` and the distributed fonts directory. Project code licensing and a registry destination must be chosen before publication.
+Edit `src/foundations/tokens.ts`, then run `npm run tokens`. `src/foundations/theme.css` is generated; the build refreshes it. Fonts retain the SIL Open Font License in `assets/fonts/OFL.txt` and the distributed fonts directory. Project code licensing and a registry destination must be chosen before publication.
 
 Components use native HTML semantics and namespaced classes authored with Tailwind. No runtime dependencies beyond React peers are needed. Import the styles once at your application entry point. Fonts are opt-in; set `--font-pancake` to use your application’s font.
 
@@ -169,6 +169,6 @@ The lockfile pins development dependencies. Storybook packages use the same exac
 
 Follow the [verification and behaviour contracts](docs/verification.md) and the [component styling rules](docs/styling.md) when adding or changing components. `npm run check:styles` checks token usage and styling boundaries; `npm run test:styles` tests those guardrails. Both run in `npm run verify`. The same command checks public-component coverage in the comparison story and compares desktop/mobile screenshots. See the styling guide for baseline review and platform requirements.
 
-Keep public exports in `src/index.ts` and use the shared tokens in `src/tokens.ts`. Keep component styles under namespaced `pancake-` classes and avoid global element styles. Components should accept application content and callbacks without importing app routes, services, or domain models.
+Keep public exports in `src/index.ts` and use the shared tokens in `src/foundations/tokens.ts`. Keep component styles under namespaced `pancake-` classes and avoid global element styles. Components should accept application content and callbacks without importing app routes, services, or domain models.
 
 Add Storybook examples for relevant states and update the consuming example when adding a public API. Use the package browser tests for behaviour that needs regression coverage. Run `npm run verify` before sharing a release; it checks the installed archive, not just source imports. The GitHub Actions workflow runs the same verification on pushes and pull requests when hosted on GitHub.

@@ -1,16 +1,12 @@
 @layer theme, base, components, utilities;
-@import "./theme.css";
+@import "./foundations/theme.css";
 @import "tailwindcss/utilities.css" layer(utilities) source(none);
 
-@import "./controls.css";
-@import "./field.css";
-@import "./layout.css";
-@import "./identity-feedback.css";
-@import "./navigation.css";
-
-@layer components {
-  .pancake-surface {
-    @apply bg-pancake-surface text-pancake-ink rounded-pancake-16 p-pancake-24 font-pancake;
-    box-sizing: border-box;
-  }
-}
+@import "./components/Button/Button.css";
+@import "./components/Checkbox/Checkbox.css";
+@import "./components/TextField/TextField.css";
+@import "./components/layout/layout.css";
+@import "./components/identity/identity.css";
+@import "./components/feedback/feedback.css";
+@import "./components/navigation/navigation.css";
+@import "./components/Surface/Surface.css";

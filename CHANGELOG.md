@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Organise runtime components, foundations, and stories into separate directories; extract contract fixtures and checker policy/helpers.
+- Enforce source placement, component boundaries, dependency direction, and a runtime-file size budget in verification.
+
 - Require behavioural contracts and accessibility state checks for every public component.
 - Verify production builds in Chromium, Firefox, and WebKit with shared browser-error checks and type-aware linting.
 - Check installed public types and SSR/hydration against minimum/current React; keep Text’s return declaration compatible with React 19.2 types.

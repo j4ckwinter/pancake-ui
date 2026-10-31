@@ -1,0 +1,56 @@
+@layer components {
+  .pancake-button {
+    @apply font-pancake text-pancake-label text-pancake-ink rounded-pancake-full min-w-pancake-112 px-pancake-24;
+    appearance: none;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-pancake-8);
+    border: 0;
+    cursor: pointer;
+    padding-block: var(--spacing-pancake-8);
+    text-align: center;
+  }
+
+  .pancake-button--40 {
+    min-height: var(--spacing-pancake-40);
+  }
+  .pancake-button--48 {
+    min-height: var(--spacing-pancake-48);
+  }
+  .pancake-button--primary {
+    @apply bg-pancake-accent;
+  }
+  .pancake-button--secondary {
+    @apply bg-pancake-surface;
+  }
+  .pancake-button--destructive {
+    @apply bg-pancake-danger;
+  }
+  .pancake-button--ghost {
+    @apply bg-pancake-canvas;
+  }
+  .pancake-button--primary:hover:not(:disabled),
+  .pancake-button--primary:active:not(:disabled) {
+    @apply bg-pancake-surface-accent;
+  }
+  .pancake-button:not(.pancake-button--primary):hover:not(:disabled) {
+    box-shadow: inset 0 0 0 var(--pancake-border-default)
+      var(--color-pancake-muted);
+  }
+  .pancake-button:disabled {
+    opacity: var(--pancake-opacity-disabled);
+    cursor: not-allowed;
+  }
+  .pancake-button:focus-visible {
+    outline: var(--pancake-focus-ring-width) solid var(--color-pancake-deep);
+    outline-offset: var(--spacing-pancake-4);
+  }
+
+  @media (forced-colors: active) {
+    .pancake-button {
+      border: 1px solid ButtonText;
+    }
+  }
+}

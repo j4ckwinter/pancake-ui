@@ -1,10 +1,35 @@
-import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { readFileSync, readdirSync } from "node:fs";
+import { resolve, posix } from "node:path";
 import { pathToFileURL } from "node:url";
 import ts from "typescript";
 import { checkComparison } from "./check-comparison.mjs";
 
-export function checkContracts(components, contracts, source) {
+export function checkContracts(
+  components,
+  contracts,
+  source,
+  sourcePath = "tests/contracts.spec.ts",
+) {
+  if (typeof source !== "string") {
+    const errors = [];
+    for (const name of components) {
+      const matches = Object.entries(source).filter(([path]) =>
+        path.endsWith(`/${name}.spec.ts`),
+      );
+      if (matches.length !== 1) {
+        errors.push(`${name}: require exactly one colocated ${name}.spec.ts.`);
+        continue;
+      }
+      const [path, text] = matches[0];
+      errors.push(
+        ...checkContracts([name], { [name]: contracts[name] }, text, path),
+      );
+    }
+    for (const name of Object.keys(contracts))
+      if (!components.includes(name))
+        errors.push(`${name}: contract has no public component export.`);
+    return errors;
+  }
   const errors = [];
   const file = ts.createSourceFile(
     "contracts.spec.ts",
@@ -18,7 +43,11 @@ export function checkContracts(components, contracts, source) {
     (statement) =>
       ts.isImportDeclaration(statement) &&
       ts.isStringLiteral(statement.moduleSpecifier) &&
-      statement.moduleSpecifier.text === "./fixtures" &&
+      ["tests/fixtures", "tests/contracts-fixture"].includes(
+        posix.normalize(
+          posix.join(posix.dirname(sourcePath), statement.moduleSpecifier.text),
+        ),
+      ) &&
       statement.importClause?.namedBindings &&
       ts.isNamedImports(statement.importClause.namedBindings) &&
       statement.importClause.namedBindings.elements.some(
@@ -86,7 +115,7 @@ export function checkContracts(components, contracts, source) {
       )
         continue;
       errors.push(
-        `${name}.${category}: reference an assertion-bearing top-level test in contracts.spec.ts or explain why this contract does not apply.`,
+        `${name}.${category}: reference an assertion-bearing top-level test in the component’s colocated spec or explain why this contract does not apply.`,
       );
     }
   }
@@ -107,7 +136,14 @@ if (
     ...checkContracts(
       comparison.components,
       JSON.parse(readFileSync("tests/component-contracts.json", "utf8")),
-      readFileSync("tests/contracts.spec.ts", "utf8"),
+      Object.fromEntries(
+        readdirSync("src/components", { recursive: true })
+          .filter((path) => path.endsWith(".spec.ts"))
+          .map((path) => [
+            `src/components/${path}`,
+            readFileSync(`src/components/${path}`, "utf8"),
+          ]),
+      ),
     ),
   ];
   if (errors.length) {

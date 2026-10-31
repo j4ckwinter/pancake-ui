@@ -1,52 +1,10 @@
 import ts from "typescript";
-import { readFileSync } from "node:fs";
-
-const theme = readFileSync(
-  new URL("../src/theme.css", import.meta.url),
-  "utf8",
-);
-const tokens = new Set([...theme.matchAll(/(--[\w-]+)\s*:/g)].map((m) => m[1]));
-const structural = new Set([
-  "display",
-  "position",
-  "alignItems",
-  "alignSelf",
-  "justifyContent",
-  "flexDirection",
-  "flexWrap",
-  "overflow",
-  "overflowX",
-  "overflowY",
-  "boxSizing",
-  "textAlign",
-  "whiteSpace",
-  "objectFit",
-  "cursor",
-  "visibility",
-  "pointerEvents",
-  "appearance",
-]);
-
-// These expressions derive styles from typed public token props. Keep the list
-// exact so new dynamic styling paths require a deliberate review.
-const dynamicStyles = {
-  "layout.tsx": new Set([
-    "gap:space(gap)",
-    "padding:padding?space(padding):undefined",
-    "alignItems:alignment[align]",
-    "justifyContent:justification[justify]",
-    'flexWrap:wrap?"wrap":"nowrap"',
-    "fontSize:`var(${token})`",
-    "lineHeight:`var(${token}--line-height)`",
-    "fontWeight:`var(${token}--font-weight)`",
-    "letterSpacing:`var(${token}--letter-spacing)`",
-    "color:`var(--color-pancake-${kebab(color)})`",
-  ]),
-  "identity.tsx": new Set([
-    "width:`var(--spacing-pancake-${size})`",
-    "height:`var(--spacing-pancake-${size})`",
-  ]),
-};
+import { createTsxContext } from "./style/tsx-context.mjs";
+import {
+  validValue,
+  isDynamicStyle,
+  checkDynamicHelpers,
+} from "./style/tsx-policy.mjs";
 
 export function checkTsx(source, filename) {
   const file = ts.createSourceFile(
@@ -56,7 +14,7 @@ export function checkTsx(source, filename) {
     true,
     ts.ScriptKind.TSX,
   );
-  const errors = [];
+  const errors = checkDynamicHelpers(source, filename);
   const checkedBindings = new Set();
   const report = (node, message) => {
     const { line, character } = file.getLineAndCharacterOfPosition(
@@ -64,83 +22,8 @@ export function checkTsx(source, filename) {
     );
     errors.push(`${filename}:${line + 1}:${character + 1}: ${message}`);
   };
-  const unwrap = (node) => {
-    while (
-      node &&
-      (ts.isParenthesizedExpression(node) ||
-        ts.isAsExpression(node) ||
-        ts.isSatisfiesExpression(node))
-    )
-      node = node.expression;
-    return node;
-  };
-  function binding(identifier) {
-    let scope = identifier.parent;
-    while (scope) {
-      const declarations = [];
-      if (ts.isFunctionLike(scope)) declarations.push(...scope.parameters);
-      if (ts.isBlock(scope) || ts.isSourceFile(scope)) {
-        for (const statement of scope.statements) {
-          if (ts.isVariableStatement(statement))
-            declarations.push(...statement.declarationList.declarations);
-        }
-      }
-      for (const declaration of declarations) {
-        if (
-          ts.isIdentifier(declaration.name) &&
-          declaration.name.text === identifier.text
-        )
-          return declaration;
-        if (ts.isObjectBindingPattern(declaration.name)) {
-          const element = declaration.name.elements.find(
-            (e) => ts.isIdentifier(e.name) && e.name.text === identifier.text,
-          );
-          if (element) return element;
-        }
-      }
-      scope = scope.parent;
-    }
-  }
-  function consumerProp(node, name) {
-    if (!ts.isIdentifier(node) || node.text !== name) return false;
-    const declaration = binding(node);
-    return (
-      declaration &&
-      ts.isBindingElement(declaration) &&
-      ts.isParameter(declaration.parent.parent) &&
-      (!declaration.propertyName ||
-        declaration.propertyName.getText(file) === name) &&
-      (!declaration.initializer ||
-        (name === "className" &&
-          ts.isStringLiteral(declaration.initializer) &&
-          declaration.initializer.text === ""))
-    );
-  }
-  function literal(node, seen = new Set()) {
-    node = unwrap(node);
-    if (!node || seen.has(node)) return undefined;
-    seen.add(node);
-    if (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node))
-      return node.text;
-    if (ts.isNumericLiteral(node)) return Number(node.text);
-    if (ts.isIdentifier(node)) return literal(binding(node)?.initializer, seen);
-    return undefined;
-  }
-  function validValue(property, value) {
-    if (value === 0) return true;
-    if (typeof value !== "string") return false;
-    const refs = [...value.matchAll(/var\((--[\w-]+)\)/g)];
-    if (
-      refs.length &&
-      refs.every((m) => tokens.has(m[1])) &&
-      value.replace(/var\(--[\w-]+\)/g, "").trim() === ""
-    )
-      return true;
-    if (structural.has(property)) return /^[a-z-]+$/.test(value);
-    return /^(?:0|auto|none|inherit|initial|unset|currentColor|transparent|100%)$/.test(
-      value,
-    );
-  }
+  const { unwrap, binding, consumerProp, literal, importedFrom } =
+    createTsxContext(file);
   function checkStyle(expression, seen = new Set()) {
     const node = unwrap(expression);
     if (!node || seen.has(node)) {
@@ -186,20 +69,7 @@ export function checkTsx(source, filename) {
       const value = ts.isPropertyAssignment(property)
         ? property.initializer
         : property.name;
-      const path = filename.replaceAll("\\", "/");
-      const canonical = source.replace(/\s/g, "");
-      const helpersValid =
-        !path.endsWith("layout.tsx") ||
-        (canonical.includes(
-          "constspace=(token:SpacingToken)=>`var(--spacing-pancake-${spacing[token]})`;",
-        ) &&
-          canonical.includes("consttoken=`--text-pancake-${kebab(variant)}`;"));
-      const dynamic =
-        helpersValid &&
-        /(?:^|\/)src\/(layout|identity)\.tsx$/.test(path) &&
-        dynamicStyles[path.split("/").at(-1)]?.has(
-          `${key}:${value.getText(file).replace(/\s/g, "")}`,
-        );
+      const dynamic = isDynamicStyle(file, filename, key, value, importedFrom);
       if (!dynamic && (!key || !validValue(key, literal(value))))
         report(
           property,

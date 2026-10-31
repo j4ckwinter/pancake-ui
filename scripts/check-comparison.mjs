@@ -4,7 +4,7 @@ import ts from "typescript";
 
 export function checkComparison({
   indexPath = "src/index.ts",
-  storyPath = "src/Comparison.stories.tsx",
+  storyPath = "src/stories/comparison/Comparison.stories.tsx",
 } = {}) {
   const indexFile = resolve(indexPath);
   const storyFile = resolve(storyPath);
