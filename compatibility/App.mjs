@@ -6,6 +6,7 @@ import {
   BannerToast,
   BottomNavigation,
   Button,
+  FileField,
   Progress,
   LoadingIndicator,
   Tabs,
@@ -191,6 +192,17 @@ export function App() {
         h(LoadingIndicator, {
           label: hydrated ? "Project status ready" : "Loading project status",
         }),
+        h(TextField, {
+          label: "Hydrated quantity",
+          type: "number",
+          defaultValue: 2,
+        }),
+        h(TextField, {
+          label: "Hydrated date",
+          type: "date",
+          defaultValue: "2026-11-15",
+        }),
+        h(FileField, { label: "Hydrated attachment", accept: ".txt" }),
         h(Avatar, { name: "Alex Morgan" }),
         h(AvatarGroup, { items: [{ id: "alex", name: "Alex Morgan" }] }),
         h(StatusChip, { tone: "success" }, "Ready"),

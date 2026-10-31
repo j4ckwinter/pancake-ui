@@ -30,7 +30,7 @@ export default defineConfig({
     {
       name: "visual",
       testMatch: "visual.spec.ts",
-      use: { ...devices["Desktop Chrome"] },
+      use: { ...devices["Desktop Chrome"], locale: "en-GB" },
     },
   ],
   webServer: [

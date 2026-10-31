@@ -5,6 +5,7 @@ import {
   BannerToast,
   BottomNavigation,
   Button,
+  FileField,
   Progress,
   LoadingIndicator,
   Tabs,
@@ -431,6 +432,38 @@ export const Catalogue: Story = {
               data-component="LoadingIndicator"
               label="Loading your projects…"
             />
+          </Stack>
+        </Surface>
+        <Surface>
+          <Stack>
+            <SectionHeader title="Numbers, dates and files" />
+            <TextField
+              label="Quantity"
+              type="number"
+              min={0}
+              max={100}
+              step={1}
+              defaultValue={4}
+            />
+            <TextField label="Due date" type="date" defaultValue="2026-11-15" />
+            <TextField label="Start time" type="time" defaultValue="09:30" />
+            <TextField
+              label="Local appointment"
+              type="datetime-local"
+              defaultValue="2026-11-15T09:30"
+            />
+            <FileField
+              data-component="FileField"
+              label="Supporting documents"
+              multiple
+              helperText="Choose documents to attach."
+            />
+            <FileField
+              label="A longer attachment label that wraps on narrow screens"
+              required
+              error="Choose a file before continuing."
+            />
+            <FileField label="Managed attachment" disabled />
           </Stack>
         </Surface>
       </Stack>

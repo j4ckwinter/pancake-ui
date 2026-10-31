@@ -474,5 +474,22 @@
     "ref": {
       "test": "LoadingIndicator: status semantics, visible label and root ref"
     }
+  },
+  "FileField": {
+    "semantics": {
+      "test": "FileField: native semantics, descriptions, overrides and ref"
+    },
+    "keyboard": {
+      "test": "FileField: keyboard file chooser, selection, required form and reset"
+    },
+    "state": {
+      "test": "FileField: keyboard file chooser, selection, required form and reset"
+    },
+    "form": {
+      "test": "FileField: keyboard file chooser, selection, required form and reset"
+    },
+    "ref": {
+      "test": "FileField: native semantics, descriptions, overrides and ref"
+    }
   }
 }

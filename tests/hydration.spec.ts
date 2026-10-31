@@ -74,6 +74,26 @@ for (const variant of ["minimum", "current"]) {
     await expect(
       page.getByRole("status").filter({ hasText: "Project status ready" }),
     ).toHaveText("Project status ready");
+    const quantity = page.getByRole("spinbutton", {
+      name: "Hydrated quantity",
+    });
+    await expect(quantity).toHaveValue("2");
+    await quantity.fill("7");
+    await expect(quantity).toHaveValue("7");
+    await expect(page.getByLabel("Hydrated date", { exact: true })).toHaveValue(
+      "2026-11-15",
+    );
+    const attachment = page.getByLabel("Hydrated attachment", { exact: true });
+    await attachment.setInputFiles({
+      name: "note.txt",
+      mimeType: "text/plain",
+      buffer: Buffer.from("note"),
+    });
+    expect(
+      await attachment.evaluate(
+        (node: HTMLInputElement) => node.files?.[0]?.name,
+      ),
+    ).toBe("note.txt");
     const destination = page.getByRole("link", {
       name: "Hydrated destination",
     });

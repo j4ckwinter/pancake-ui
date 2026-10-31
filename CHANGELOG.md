@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add native numeric/temporal TextField modes and FileField selection with form, compatibility and visual coverage.
+
 - Add labelled native Progress and LoadingIndicator status feedback with behaviour and package verification.
 
 - Add accessible Tabs and native Disclosure with keyboard, state, compatibility and visual verification.

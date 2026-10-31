@@ -1,0 +1,19 @@
+@layer components {
+  .pancake-file-field {
+    min-width: 0;
+  }
+  .pancake-file-field:read-only {
+    background: var(--color-pancake-surface);
+  }
+  .pancake-file-field::file-selector-button {
+    @apply font-pancake text-pancake-label text-pancake-ink rounded-pancake-full;
+    background: var(--color-pancake-surface-muted);
+    border: none;
+    padding: var(--spacing-pancake-8) var(--spacing-pancake-12);
+    margin-inline-end: var(--spacing-pancake-8);
+    cursor: pointer;
+  }
+  .pancake-file-field:disabled::file-selector-button {
+    cursor: not-allowed;
+  }
+}

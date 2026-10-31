@@ -1,6 +1,7 @@
 import { createRef } from "react";
 import {
   Button,
+  FileField,
   Progress,
   LoadingIndicator,
   Tabs,
@@ -107,8 +108,8 @@ const wrongSegment: SegmentedControlProps["onValueChange"] = (value: number) =>
   value.toFixed();
 void wrongCheckbox;
 void wrongSegment;
-// @ts-expect-error Unsupported text input types must be rejected.
-<TextField label="Date" type="date" />;
+// @ts-expect-error File selection uses FileField rather than text values.
+<TextField label="Attachment" type="file" />;
 // @ts-expect-error Layout spacing is constrained to shared token names.
 <Stack gap="13px" />;
 // @ts-expect-error Typography variants are shared token roles.
@@ -298,3 +299,44 @@ const progressRef = createRef<HTMLProgressElement>();
 <LoadingIndicator />;
 // @ts-expect-error Loading indicator refs target div elements.
 <LoadingIndicator label="Loading" ref={buttonRef} />;
+
+<TextField
+  label="Quantity"
+  type="number"
+  min={0}
+  max={10}
+  step={0.5}
+  onChange={(event) => event.currentTarget.valueAsNumber.toFixed()}
+/>;
+<TextField
+  label="Date"
+  type="date"
+  min="2026-01-01"
+  defaultValue="2026-11-15"
+/>;
+<TextField label="Time" type="time" defaultValue="09:30" />;
+<TextField
+  label="Appointment"
+  type="datetime-local"
+  defaultValue="2026-11-15T09:30"
+/>;
+<FileField
+  label="Documents"
+  ref={inputRef}
+  multiple
+  accept=".pdf"
+  onChange={(event) => event.currentTarget.files?.item(0)}
+/>;
+// @ts-expect-error File fields require a visible label.
+<FileField />;
+// @ts-expect-error Browsers do not permit controlled file selections.
+<FileField label="Documents" value="report.pdf" />;
+// @ts-expect-error Browsers do not permit initial file selections.
+<FileField label="Documents" defaultValue="report.pdf" />;
+// @ts-expect-error File fields retain native file-input semantics.
+<FileField label="Documents" type="text" />;
+// @ts-expect-error File fields target native input refs.
+<FileField label="Documents" ref={buttonRef} />;
+
+// @ts-expect-error Native file inputs do not support read-only state.
+<FileField label="Documents" readOnly />;

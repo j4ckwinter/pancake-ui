@@ -5,7 +5,17 @@ export type TextFieldProps = Omit<
   "type" | "children"
 > & {
   label: ReactNode;
-  type?: "text" | "email" | "password" | "search" | "tel" | "url";
+  type?:
+    | "text"
+    | "email"
+    | "password"
+    | "search"
+    | "tel"
+    | "url"
+    | "number"
+    | "date"
+    | "time"
+    | "datetime-local";
   helperText?: string;
   error?: string;
 };

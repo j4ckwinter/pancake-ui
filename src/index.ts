@@ -98,3 +98,7 @@ export {
   LoadingIndicator,
   type LoadingIndicatorProps,
 } from "./components/progress/LoadingIndicator";
+export {
+  FileField,
+  type FileFieldProps,
+} from "./components/FileField/FileField";
