@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Pin the macOS CI locale for native date/time screenshots and await settled Tooltip toggle callbacks in keyboard verification.
+
+- Document installation from verified GitHub Actions package artifacts and upload the tested archive after successful main-branch verification. Add repository metadata for consumers.
+
 - Coordinate form-control borders and focus outlines with olive theme tokens, use a warm invalid-field border, and style native radios to match checkbox and switch selection.
 
 - Soften button hover fills and decorative borders; use underlined selected tabs and segments while retaining keyboard focus indicators.

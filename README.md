@@ -4,29 +4,35 @@ Reusable React components and design tokens for web apps. Pancake UI includes fo
 
 Use the same package across apps and customise its CSS variables for each product. Applications own routing, data fetching, authentication, validation, and business logic.
 
-## Consume the package
+## Install in an app
 
-The package is private and unpublished. With Node 22.18+ and npm installed, run these commands in this repository:
+Use React and React DOM 19.2+ within React 19, Node 22.18+, and an ESM bundler such as Vite. Tailwind is **not required**. The package is not published to npm; `npm install pancake-ui` is not the installation path for this repository.
 
-```sh
-npm ci
-npx playwright install chromium firefox webkit
-npm run release:local
-```
+Successful **push runs on main** in [Verify](https://github.com/j4ckwinter/pancake-ui/actions/workflows/verify.yml) upload a `pancake-ui-package` artifact containing the exact compiled `.tgz` tested by CI and its `packed.json` manifest. This upload starts once the workflow change is merged and pushed; older runs have no package artifact.
 
-Verification builds a candidate under `.tmp/package/`; the release command copies it to `artifacts/` only after all checks pass. The release command produces `artifacts/pancake-ui-0.1.0.tgz`, its `.tgz.sha256` checksum, and `pancake-ui-0.1.0.release.json`. The metadata records the package version, checksum, source commit, whether the working tree had changes, and Node/npm versions. A dirty-tree record means the archive includes work beyond the recorded commit; it is not a claim that the commit alone reproduces the archive.
-
-From the consuming application's root, copy the archive into a stable location and install it:
+1. Open a successful main-branch run and download `pancake-ui-package` from its Artifacts section. GitHub requires you to be signed in. Extract the ZIP into your app's `vendor/pancake-ui/` directory.
+2. Install the **`.tgz` inside the ZIP**, from your app's root:
 
 ```sh
-mkdir -p vendor
-cp /path/to/pancake-ui/artifacts/pancake-ui-0.1.0.tgz vendor/
-npm install ./vendor/pancake-ui-0.1.0.tgz
+npm install ./vendor/pancake-ui/pancake-ui-0.1.0.tgz
 ```
 
-Commit `vendor/pancake-ui-0.1.0.tgz`, `package.json`, and the consumer's lockfile together. This keeps the local dependency available after cloning the application. An absolute path to another checkout is convenient for a temporary test but is not portable.
+Use the filename from your download if its version differs. The app needs React and React DOM installed; an existing React app normally already has them. No library clone, Playwright, Tailwind or library build is needed.
 
-To check a copied archive, copy its `.tgz.sha256` file into the same directory and run `shasum -a 256 -c pancake-ui-0.1.0.tgz.sha256` there. Ordinary `npm pack` also builds the package through `prepack`, but it does not run the complete release verification.
+With [GitHub CLI](https://cli.github.com/) installed and authenticated, you can download the same artifact instead of using the browser. Replace `RUN_ID` with the successful main run's numeric ID:
+
+```sh
+gh run download RUN_ID --repo j4ckwinter/pancake-ui --name pancake-ui-package --dir vendor/pancake-ui
+npm install ./vendor/pancake-ui/pancake-ui-0.1.0.tgz
+```
+
+Commit the downloaded archive, `packed.json`, your app's `package.json`, and its lockfile. Fresh clones can then use `npm ci` without GitHub credentials. Record the source run URL when upgrading, use a new package version, and do not overwrite an archive already used by an app. GitHub artifacts expire after 90 days (or earlier if deleted); keeping the archive in your app makes it independent of that retention period. See [GitHub's artifact download instructions](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/download-workflow-artifacts).
+
+Direct Git installation is not a supported distribution path: this repository contains source rather than committed `dist/` files. A Git install can report success without usable exports. Use the compiled archive.
+
+### Add your first component
+
+Import styles once in your app entry point, and optionally import the bundled Inter fonts:
 
 ```tsx
 import { Button, Stack, Surface, Text } from "pancake-ui";
@@ -87,6 +93,20 @@ For frameworks with React Server Components, import interactive components from 
 
 `npm run test:package` expects an existing package and Storybook build. It creates an archive under `.tmp/package/` and an isolated app under `.tmp/consumer/`; browser screenshots go to `artifacts/`. It installs the built archive into a separate application, compiles its imports, and exercises the rendered controls. The main example uses compiled CSS without requiring Tailwind in the consumer.
 
+## Build an archive locally
+
+Use this when working on unpublished changes or before a main-branch CI artifact is available. In a checkout of [j4ckwinter/pancake-ui](https://github.com/j4ckwinter/pancake-ui):
+
+```sh
+git clone https://github.com/j4ckwinter/pancake-ui.git
+cd pancake-ui
+npm ci
+npx playwright install chromium firefox webkit
+npm run release:local
+```
+
+This runs full verification and produces `artifacts/pancake-ui-0.1.0.tgz`, its SHA-256 checksum and a release manifest recording the source commit and whether the working tree was dirty. Copy the archive into the consuming app's `vendor/pancake-ui/` directory and install it as above. Ordinary `npm pack` builds an archive but does not run the full verification suite.
+
 ## Versioning local releases
 
 Before 1.0, use patch versions for compatible fixes and minor versions for additions or breaking API changes. Record breaking changes and migration instructions explicitly in [CHANGELOG.md](CHANGELOG.md). Do not replace an archive already shared with a different implementation under the same version.
@@ -102,7 +122,7 @@ npm run release:local
 
 Use `minor` instead of `patch` when appropriate. The version command updates the package manifest and lockfile without creating a Git commit or tag. Refreshing the example install updates its local-package metadata. Review and commit those changes through the normal development workflow. Install the new versioned archive in each consumer and keep its lockfile in sync.
 
-Local releases do not publish to a registry or create a Git remote. Code licensing and a registry destination remain undecided; the package stays private. Bundled Inter fonts retain their SIL Open Font License.
+Local releases do not publish to a registry or upload to GitHub. Code licensing and a registry destination remain undecided; the package stays private. Bundled Inter fonts retain their SIL Open Font License.
 
 ## Controls
 
@@ -127,17 +147,19 @@ import { Button, Checkbox, TextField } from "pancake-ui";
 
 `Checkbox` requires a visible `label`. Use `checked` and `onCheckedChange` for controlled state, or `defaultChecked` for uncontrolled state. Native `onChange` remains available and runs before `onCheckedChange`. Native form reset applies to uncontrolled inputs; controlled state must be reset by the application. `className` and `ref` target the checkbox input.
 
-The sample form verifies submission, required fields, custom errors, keyboard focus, controlled and uncontrolled checkboxes, and loading/disabled states. Browser focus outlines and input borders use darker existing tokens for contrast.
+The sample form verifies submission, required fields, custom errors, keyboard focus, controlled and uncontrolled checkboxes, and loading/disabled states. Form controls use olive border and focus tokens, with a warm error border.
 
 ## Reusable catalogue
 
-| Area                  | Components                                                           |
-| --------------------- | -------------------------------------------------------------------- |
-| Layout and typography | `Stack`, `Inline`, `Text`, `Surface`                                 |
-| Identity              | `Avatar`, `AvatarGroup`                                              |
-| Status and feedback   | `StatusChip`, `BannerToast`, `EmptyState`                            |
-| Navigation            | `AppHeader`, `SectionHeader`, `BottomNavigation`, `SegmentedControl` |
-| Progress              | `StepProgress`                                                       |
+| Area                    | Components                                                                                             |
+| ----------------------- | ------------------------------------------------------------------------------------------------------ |
+| Layout and typography   | `Stack`, `Inline`, `Text`, `Surface`                                                                   |
+| Actions                 | `Button`, `ButtonLink`, `IconButton`                                                                   |
+| Forms                   | `TextField`, `Textarea`, `Select`, `FileField`, `Checkbox`, `RadioGroup`, `Switch`, `SegmentedControl` |
+| Navigation              | `AppHeader`, `SectionHeader`, `BottomNavigation`, `Tabs`, `Pagination`                                 |
+| Overlays and disclosure | `Dialog`, `Popover`, `DropdownMenu`, `Tooltip`, `Disclosure`                                           |
+| Data and identity       | `Table`, `Avatar`, `AvatarGroup`                                                                       |
+| Feedback and progress   | `StatusChip`, `BannerToast`, `EmptyState`, `Progress`, `LoadingIndicator`, `StepProgress`              |
 
 `Stack` and `Inline` accept spacing token names (`gap="space24"`), alignment, padding, and native div props. Inline wraps by default. `Text` accepts a typography `variant`, colour token, and an `as` tag for semantic headings or paragraphs. Layout and text reference CSS variables so local themes apply.
 

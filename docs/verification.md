@@ -1,6 +1,6 @@
 # Verification and component contracts
 
-Run `npm ci`, then `npx playwright install chromium firefox webkit`, then `npm run verify`. Verification builds the package and Storybook, installs the archive into consumers, and runs production-browser tests. Screenshot baselines remain specific to macOS Chromium; see [styling.md](styling.md) before updating them.
+Run `npm ci`, then `npx playwright install chromium firefox webkit`, then `npm run verify`. Verification builds the package and Storybook, installs the archive into consumers, and runs production-browser tests. The macOS CI runner sets `AppleLocale=en_GB` and `AppleLanguages=en-GB` before starting browsers because native date/time formatting also depends on OS preferences; Playwright locale alone is insufficient. Screenshot baselines remain specific to macOS Chromium; see [styling.md](styling.md) before updating them.
 
 ## Required evidence for a new component
 
@@ -50,7 +50,9 @@ Changes to tests, checkers, workflow configuration, contract applicability, or s
 
 Repository instructions are guidance, not a security boundary. GitHub must separately require the `verify` status check and pull-request review on `main`, dismiss stale approvals after changes, and block force pushes/deletion. Review must come from an account other than the PR author; an agent using the owner's account cannot approve its own PR. Keep verification/baseline changes visible in that review. Local tests cannot enforce GitHub branch settings.
 
-The configured repository is `j4ckwinter/pancake-ui`. The intended main-branch policy is recorded in `.github/main-ruleset.json`: one approving review, stale-approval dismissal, latest-push approval, resolved discussions, and the GitHub Actions `verify` check on an up-to-date branch. Force pushes and deletion are blocked, with no bypass actors. The status-check rule permits initial branch creation because this repository has no `main` branch yet. The [active GitHub ruleset](https://github.com/j4ckwinter/pancake-ui/rules/26247432) was applied and read back on 2026-10-30. The repository is still empty: no code has been pushed and no hosted CI run has occurred. Initial publication creates `main`; subsequent updates must satisfy the rules. A local green run is not evidence of hosted CI success.
+The configured repository is [j4ckwinter/pancake-ui](https://github.com/j4ckwinter/pancake-ui). The main-branch policy is recorded in `.github/main-ruleset.json`: one approving review, stale-approval dismissal, latest-push approval, resolved discussions, and the GitHub Actions `verify` check on an up-to-date branch. Force pushes and deletion are blocked, with no bypass actors. The [active GitHub ruleset](https://github.com/j4ckwinter/pancake-ui/rules/26247432) was read back on 2026-10-31 after the initial push. Check the [workflow runs](https://github.com/j4ckwinter/pancake-ui/actions/workflows/verify.yml) for current hosted results; a local green run does not establish hosted CI success.
+
+After verification succeeds on a push to `main`, the workflow uploads the tested `.tmp/package` archive and its SHA-256/file manifest as `pancake-ui-package`. It does not rebuild or repack after testing. Pull-request runs and failed verification do not upload a consumer package. Artifacts are retained for 90 days; consuming apps should vendor the archive and commit their lockfile, as described in the README. No npm registry credentials or publication are involved.
 
 ## Dedicated component stories
 
