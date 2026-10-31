@@ -1,0 +1,17 @@
+@layer components {
+  .pancake-dialog {
+    @apply font-pancake text-pancake-ink bg-pancake-surface rounded-pancake-16;
+    box-sizing: border-box;
+    width: calc(100% - var(--spacing-pancake-48));
+    max-width: var(--spacing-pancake-560);
+    max-height: calc(100% - var(--spacing-pancake-48));
+    padding: var(--spacing-pancake-24);
+    border: var(--pancake-border-default) solid var(--color-pancake-muted);
+    overflow: auto;
+    overflow-wrap: anywhere;
+  }
+  .pancake-dialog::backdrop {
+    background: var(--color-pancake-deep);
+    opacity: var(--pancake-opacity-overlay);
+  }
+}

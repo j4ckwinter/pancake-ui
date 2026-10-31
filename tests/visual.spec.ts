@@ -65,5 +65,16 @@ for (const width of [1100, 375]) {
     await expect(
       page.locator(".pancake-surface").filter({ has: field }),
     ).toHaveScreenshot(`fields-focus-${width}.png`);
+
+    const dialogTrigger = page.getByRole("button", {
+      name: "Open comparison dialog",
+    });
+    await dialogTrigger.click();
+    const dialog = page.getByRole("dialog", { name: "Review project changes" });
+    await expect(dialog).toBeVisible();
+    await expect(dialog).toHaveScreenshot(`dialog-${width}.png`);
+    await page.keyboard.press("Escape");
+    await expect(dialog).not.toBeVisible();
+    await expect(dialogTrigger).toBeFocused();
   });
 }

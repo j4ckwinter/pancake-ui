@@ -1,6 +1,7 @@
 import { createRef } from "react";
 import {
   Button,
+  Dialog,
   ButtonLink,
   IconButton,
   Checkbox,
@@ -176,3 +177,22 @@ const anchorRef = createRef<HTMLAnchorElement>();
 <IconButton ref={anchorRef} label="Add">
   +
 </IconButton>;
+
+const dialogRef = createRef<HTMLDialogElement>();
+<Dialog
+  title="Review"
+  open={false}
+  onOpenChange={(open) => open.valueOf()}
+  ref={dialogRef}
+  description="Review your changes."
+>
+  <Button>Save</Button>
+</Dialog>;
+// @ts-expect-error Dialog requires a visible title.
+<Dialog open={false} onOpenChange={() => {}} />;
+// @ts-expect-error Controlled dialogs require an open state.
+<Dialog title="Review" onOpenChange={() => {}} />;
+// @ts-expect-error Controlled dialogs require a dismissal handler.
+<Dialog title="Review" open={false} />;
+// @ts-expect-error Dialog refs target dialog elements.
+<Dialog title="Review" open={false} onOpenChange={() => {}} ref={buttonRef} />;

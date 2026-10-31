@@ -6,6 +6,7 @@ import {
   BannerToast,
   BottomNavigation,
   Button,
+  Dialog,
   ButtonLink,
   IconButton,
   Checkbox,
@@ -24,6 +25,8 @@ import {
 } from "pancake-ui";
 
 export function App() {
+  const [initialDialogOpen, setInitialDialogOpen] = useState(true);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const [name, setName] = useState("Server rendered");
   const [checked, setChecked] = useState(false);
   const [period, setPeriod] = useState("week");
@@ -110,6 +113,31 @@ export function App() {
           "+",
         ),
         h(ButtonLink, { href: "#hydration-details" }, "Hydrated destination"),
+        h(
+          Button,
+          { onClick: () => setDialogOpen(true) },
+          "Open hydrated dialog",
+        ),
+        h(
+          Dialog,
+          {
+            open: dialogOpen,
+            onOpenChange: setDialogOpen,
+            title: "Hydrated dialog",
+            description: "Server and client dialog identifiers agree.",
+          },
+          h(Text, { as: "p" }, "Dialog content"),
+        ),
+        h(
+          Dialog,
+          {
+            open: initialDialogOpen,
+            onOpenChange: setInitialDialogOpen,
+            title: "Initially hydrated dialog",
+            description: "Opened after server markup hydration.",
+          },
+          h(Text, { as: "p" }, "Initial modal content"),
+        ),
         h(Avatar, { name: "Alex Morgan" }),
         h(AvatarGroup, { items: [{ id: "alex", name: "Alex Morgan" }] }),
         h(StatusChip, { tone: "success" }, "Ready"),

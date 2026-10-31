@@ -27,6 +27,18 @@ for (const variant of ["minimum", "current"]) {
     });
     expect(associations.clientIds).toEqual(associations.serverIds);
     expect(associations.clientNames).toEqual(associations.serverNames);
+    const initialDialog = page.getByRole("dialog", {
+      name: "Initially hydrated dialog",
+    });
+    await expect(initialDialog).toBeVisible();
+    await expect(initialDialog).toHaveAccessibleDescription(
+      "Opened after server markup hydration.",
+    );
+    expect(await initialDialog.evaluate((node) => node.matches(":modal"))).toBe(
+      true,
+    );
+    await page.keyboard.press("Escape");
+    await expect(initialDialog).not.toBeVisible();
     const field = page.getByRole("textbox", { name: "Project name" });
     await expect(field).toHaveAccessibleDescription(
       "Keep this description associated after hydration.",
@@ -62,5 +74,18 @@ for (const variant of ["minimum", "current"]) {
     await destination.focus();
     await page.keyboard.press("Enter");
     await expect(page).toHaveURL(/#hydration-details$/);
+    const dialogTrigger = page.getByRole("button", {
+      name: "Open hydrated dialog",
+    });
+    await dialogTrigger.focus();
+    await page.keyboard.press("Enter");
+    const dialog = page.getByRole("dialog", { name: "Hydrated dialog" });
+    await expect(dialog).toBeVisible();
+    await expect(dialog).toHaveAccessibleDescription(
+      "Server and client dialog identifiers agree.",
+    );
+    await page.keyboard.press("Escape");
+    await expect(dialog).not.toBeVisible();
+    await expect(dialogTrigger).toBeFocused();
   });
 }

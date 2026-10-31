@@ -178,3 +178,19 @@ Add Storybook examples for relevant states and update the consuming example when
 `Select` accepts one scalar value, not `multiple` or listbox `size`. Uncontrolled controls use native form reset. For controlled forms, the app owns reset: restore state and reapply a select’s value after the native reset completes, including when the initial state has not changed. The contract fixture demonstrates this ordering.
 
 `IconButton` requires a `label` for its accessible name and renders decorative icon children. It shares Button variants, sizes, loading/disabled states and native button props. `ButtonLink` shares button styling but renders a native anchor with a required `href`; it supports anchor refs and link props, without fake disabled or loading states.
+
+## Dialogs
+
+`Dialog` is a controlled native modal. Pass `open`, `onOpenChange` and a visible `title`; an optional `description` is associated with the dialog. It uses `showModal()` after mounting, so server markup is stable and the modal opens after hydration. The browser owns modal focus containment and background inertness. Escape and the built-in close button request dismissal through `onOpenChange(false)`; the app must update `open`. Backdrop clicks do not dismiss it. Set `closeLabel` to localise the close button. Native refs, classes and styles target the dialog element.
+
+```tsx
+const [open, setOpen] = useState(false);
+
+<>
+  <Button onClick={() => setOpen(true)}>Review changes</Button>
+  <Dialog open={open} onOpenChange={setOpen} title="Review changes">
+    <Text as="p">Check your changes before saving.</Text>
+    <Button onClick={() => setOpen(false)}>Done</Button>
+  </Dialog>
+</>;
+```

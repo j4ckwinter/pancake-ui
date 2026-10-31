@@ -355,5 +355,22 @@
     "form": {
       "notApplicable": "Native anchors do not submit or reset form controls."
     }
+  },
+  "Dialog": {
+    "semantics": {
+      "test": "Dialog: modal semantics, descriptions, focus containment and ref"
+    },
+    "keyboard": {
+      "test": "Dialog: modal semantics, descriptions, focus containment and ref"
+    },
+    "state": {
+      "test": "Dialog: Escape, close action and controlled state restore focus"
+    },
+    "form": {
+      "test": "Dialog: native dialog form submission synchronises controlled state"
+    },
+    "ref": {
+      "test": "Dialog: modal semantics, descriptions, focus containment and ref"
+    }
   }
 }

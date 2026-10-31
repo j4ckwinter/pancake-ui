@@ -81,3 +81,4 @@ export {
   ButtonLink,
   type ButtonLinkProps,
 } from "./components/Button/ButtonLink";
+export { Dialog, type DialogProps } from "./components/Dialog/Dialog";

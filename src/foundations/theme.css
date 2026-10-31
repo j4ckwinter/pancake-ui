@@ -40,6 +40,7 @@
   --spacing-pancake-92: 92px;
   --spacing-pancake-104: 104px;
   --spacing-pancake-112: 112px;
+  --spacing-pancake-560: 560px;
   --radius-pancake-12: 12px;
   --radius-pancake-16: 16px;
   --radius-pancake-20: 20px;
@@ -87,4 +88,5 @@
   --pancake-border-default: 1px;
   --pancake-focus-ring-width: 2px;
   --pancake-opacity-disabled: 0.4;
+  --pancake-opacity-overlay: 0.5;
 }

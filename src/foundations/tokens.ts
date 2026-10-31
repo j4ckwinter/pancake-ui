@@ -71,6 +71,7 @@ export const sizing = Object.freeze({
   size92: 92,
   size104: 104,
   size112: 112,
+  size560: 560,
 } as const);
 
 export type SizingToken = keyof typeof sizing;
@@ -84,6 +85,7 @@ export type BorderToken = keyof typeof borders;
 
 export const opacity = Object.freeze({
   opacityDisabled: 0.4,
+  opacityOverlay: 0.5,
 } as const);
 
 export type OpacityToken = keyof typeof opacity;

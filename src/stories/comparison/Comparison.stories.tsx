@@ -5,6 +5,7 @@ import {
   BannerToast,
   BottomNavigation,
   Button,
+  Dialog,
   ButtonLink,
   IconButton,
   Checkbox,
@@ -21,6 +22,7 @@ import {
   Textarea,
   Select,
 } from "../../index";
+import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta = {
@@ -29,6 +31,44 @@ const meta = {
 } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+function ComparisonDialog() {
+  const [open, setOpen] = useState(false);
+  return (
+    <Surface data-component="Dialog">
+      <Stack>
+        <SectionHeader
+          title="Dialogs"
+          description="A focused task with native modal behaviour."
+        />
+        <Button onClick={() => setOpen(true)}>Open comparison dialog</Button>
+        <Dialog
+          open={open}
+          onOpenChange={setOpen}
+          title="Review project changes"
+          description="Check the details before saving them for your team."
+        >
+          <Stack>
+            <TextField
+              label="Change summary"
+              defaultValue="Update the shared project description"
+            />
+            <Text as="p">
+              Longer supporting content wraps within the dialog and remains
+              readable on a narrow screen.
+            </Text>
+            <Inline>
+              <Button onClick={() => setOpen(false)}>Save changes</Button>
+              <Button variant="ghost" onClick={() => setOpen(false)}>
+                Cancel changes
+              </Button>
+            </Inline>
+          </Stack>
+        </Dialog>
+      </Stack>
+    </Surface>
+  );
+}
 
 export const Catalogue: Story = {
   render: () => (
@@ -260,6 +300,7 @@ export const Catalogue: Story = {
             </Inline>
           </Stack>
         </Surface>
+        <ComparisonDialog />
       </Stack>
     </main>
   ),

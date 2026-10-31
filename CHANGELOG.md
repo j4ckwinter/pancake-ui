@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add a controlled native Dialog with keyboard, focus, lifecycle, visual and hydration verification.
+
 - Add labelled IconButton actions and native ButtonLink navigation with shared button styling and verification.
 
 - Add labelled Textarea and native Select controls with colocated behaviour tests, visual states, and installed-package compatibility coverage.
