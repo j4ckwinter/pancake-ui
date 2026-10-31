@@ -8,7 +8,9 @@
     "dist",
     "CHANGELOG.md",
     "docs/styling.md",
-    "docs/verification.md"
+    "docs/verification.md",
+    "docs/installation.md",
+    "docs/components.md"
   ],
   "sideEffects": [
     "**/*.css"
