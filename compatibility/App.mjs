@@ -6,6 +6,7 @@ import {
   BannerToast,
   BottomNavigation,
   Button,
+  DropdownMenu,
   Popover,
   FileField,
   Progress,
@@ -219,6 +220,23 @@ export function App() {
             "Close hydrated popover",
           ),
         ),
+        h(DropdownMenu, {
+          label: "Hydrated actions",
+          items: [
+            {
+              id: "count",
+              type: "action",
+              label: "Run hydrated action",
+              onSelect: () => setClicks((count) => count + 1),
+            },
+            {
+              id: "link",
+              type: "link",
+              label: "Hydrated menu link",
+              href: "#menu-destination",
+            },
+          ],
+        }),
         h(Avatar, { name: "Alex Morgan" }),
         h(AvatarGroup, { items: [{ id: "alex", name: "Alex Morgan" }] }),
         h(StatusChip, { tone: "success" }, "Ready"),

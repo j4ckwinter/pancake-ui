@@ -5,6 +5,7 @@ import {
   BannerToast,
   BottomNavigation,
   Button,
+  DropdownMenu,
   Popover,
   FileField,
   Progress,
@@ -39,6 +40,45 @@ const meta = {
 } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+function ComparisonMenu() {
+  const [result, setResult] = useState("Choose a project action.");
+  return (
+    <Stack>
+      <DropdownMenu
+        label="Project actions"
+        items={[
+          {
+            id: "duplicate",
+            type: "action",
+            label: "Duplicate project",
+            onSelect: () => setResult("Project duplicated."),
+          },
+          {
+            id: "archive",
+            type: "action",
+            label: "Archive this project and preserve its history",
+            onSelect: () => setResult("Project archived."),
+          },
+          {
+            id: "delete",
+            type: "action",
+            label: "Delete project",
+            disabled: true,
+            onSelect: () => setResult("Project deleted."),
+          },
+          {
+            id: "details",
+            type: "link",
+            label: "View project details",
+            href: "#project-details",
+          },
+        ]}
+      />
+      <Text as="p">{result}</Text>
+    </Stack>
+  );
+}
 
 function ComparisonDialog() {
   const [open, setOpen] = useState(false);
@@ -490,6 +530,12 @@ export const Catalogue: Story = {
                 </Button>
               </Stack>
             </Popover>
+          </Stack>
+        </Surface>
+        <Surface data-component="DropdownMenu">
+          <Stack>
+            <SectionHeader title="Action menus" />
+            <ComparisonMenu />
           </Stack>
         </Surface>
       </Stack>

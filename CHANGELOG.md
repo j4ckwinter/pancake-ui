@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add DropdownMenu actions and native links with menu keyboard navigation, focus management, compatibility and visual coverage.
+
 - Add native anchored Popover regions with dismissal, focus, positioning, compatibility and visual coverage.
 - Prevent Storybook and Playwright accessibility scans from overlapping; verify explicit scans reject an unnamed control.
 

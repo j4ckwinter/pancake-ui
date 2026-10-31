@@ -103,3 +103,8 @@ export {
   type FileFieldProps,
 } from "./components/FileField/FileField";
 export { Popover, type PopoverProps } from "./components/Popover/Popover";
+export {
+  DropdownMenu,
+  type DropdownMenuProps,
+  type DropdownMenuItem,
+} from "./components/DropdownMenu/DropdownMenu";

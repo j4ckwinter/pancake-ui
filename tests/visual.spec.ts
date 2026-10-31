@@ -85,5 +85,16 @@ for (const width of [1100, 375]) {
     await expect(popover).toHaveScreenshot(`popover-${width}.png`);
     await page.keyboard.press("Escape");
     await expect(popover).toBeHidden();
+    await page
+      .getByRole("button", { name: "Project actions", exact: true })
+      .click();
+    const menu = page.getByRole("menu", {
+      name: "Project actions",
+      exact: true,
+    });
+    await expect(menu).toBeVisible();
+    await expect(menu).toHaveScreenshot(`menu-${width}.png`);
+    await page.keyboard.press("Escape");
+    await expect(menu).toBeHidden();
   });
 }

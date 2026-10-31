@@ -1,6 +1,9 @@
 import { createRef } from "react";
 import {
   Button,
+  DropdownMenu,
+  type DropdownMenuProps,
+  type DropdownMenuItem,
   Popover,
   FileField,
   Progress,
@@ -363,3 +366,43 @@ const progressRef = createRef<HTMLProgressElement>();
 <Popover id="controlled-popover" label="Filters" open />;
 // @ts-expect-error Popover refs target div elements.
 <Popover id="wrong-ref" label="Filters" ref={buttonRef} />;
+
+<DropdownMenu
+  label="Actions"
+  ref={tabsRef}
+  triggerProps={{ ref: buttonRef, variant: "secondary" }}
+  items={[
+    { id: "save", type: "action", label: "Save", onSelect: () => {} },
+    {
+      id: "help",
+      type: "link",
+      label: "Help",
+      href: "/help",
+      target: "_blank",
+      rel: "noopener",
+    },
+  ]}
+/>;
+// @ts-expect-error Menu triggers require a visible label.
+<DropdownMenu items={[]} />;
+// @ts-expect-error Action items require a callback.
+const invalidMenuAction: DropdownMenuItem = {
+  id: "save",
+  type: "action",
+  label: "Save",
+};
+void invalidMenuAction;
+// @ts-expect-error Link items require a destination.
+const invalidMenuLink: DropdownMenuItem = {
+  id: "help",
+  type: "link",
+  label: "Help",
+};
+void invalidMenuLink;
+// @ts-expect-error Menu refs target the panel div.
+<DropdownMenu label="Actions" items={[]} ref={buttonRef} />;
+const invalidMenuTrigger: DropdownMenuProps["triggerProps"] = {
+  // @ts-expect-error The menu owns the trigger's button type.
+  type: "submit",
+};
+void invalidMenuTrigger;

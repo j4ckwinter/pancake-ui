@@ -104,6 +104,16 @@ for (const variant of ["minimum", "current"]) {
       .fill("Active");
     await page.getByRole("button", { name: "Close hydrated popover" }).click();
     await expect(filterPanel).toBeHidden();
+    await page.getByRole("button", { name: "Hydrated actions" }).click();
+    const hydratedMenu = page.getByRole("menu", { name: "Hydrated actions" });
+    await expect(hydratedMenu).toBeVisible();
+    await hydratedMenu
+      .getByRole("menuitem", { name: "Run hydrated action" })
+      .click();
+    await expect(hydratedMenu).toBeHidden();
+    await expect(page.getByLabel("Hydrated state")).toHaveText(
+      "Hydrated project / true / month / 3",
+    );
     const destination = page.getByRole("link", {
       name: "Hydrated destination",
     });

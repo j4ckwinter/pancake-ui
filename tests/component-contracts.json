@@ -508,5 +508,22 @@
     "ref": {
       "test": "Popover: named region, native props, ref and consumer styling"
     }
+  },
+  "DropdownMenu": {
+    "semantics": {
+      "test": "DropdownMenu: semantics, native props, refs and consumer styling"
+    },
+    "keyboard": {
+      "test": "DropdownMenu: keyboard entry, wrapping, disabled focus, typeahead and Escape"
+    },
+    "state": {
+      "test": "DropdownMenu: actions fire once, restore focus and never submit forms"
+    },
+    "form": {
+      "test": "DropdownMenu: actions fire once, restore focus and never submit forms"
+    },
+    "ref": {
+      "test": "DropdownMenu: semantics, native props, refs and consumer styling"
+    }
   }
 }
