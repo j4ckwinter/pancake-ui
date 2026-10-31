@@ -1,0 +1,53 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      verify_run_id:
+        description: Successful Verify run ID for the current main revision
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: npm-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.18.0
+      - run: npm install --global npm@11.5.1
+      - name: Require verified main source
+        id: source
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERIFY_RUN_ID: ${{ inputs.verify_run_id }}
+        run: node scripts/publish-source.mjs
+      - uses: actions/download-artifact@v4
+        with:
+          name: pancake-ui-package
+          path: artifacts/publish
+          github-token: ${{ github.token }}
+          run-id: ${{ steps.source.outputs.run-id }}
+      - name: Validate exact verified archive
+        id: artifact
+        run: node scripts/publish-artifact.mjs artifacts/publish
+      - name: Publish verified archive to npm
+        env:
+          ARCHIVE: ${{ steps.artifact.outputs.archive }}
+        run: npm publish "$ARCHIVE" --ignore-scripts --provenance --access public --registry https://registry.npmjs.org/

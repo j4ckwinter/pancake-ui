@@ -16,6 +16,7 @@ export async function validateArchive(packed) {
       `Missing package export: ${target}`,
     );
   for (const file of [
+    "LICENSE",
     "README.md",
     "CHANGELOG.md",
     "docs/styling.md",
@@ -33,6 +34,7 @@ export async function validateArchive(packed) {
     assert(
       file.startsWith("dist/") ||
         [
+          "LICENSE",
           "README.md",
           "CHANGELOG.md",
           "package.json",
@@ -60,6 +62,6 @@ export async function validateArchive(packed) {
     ) + "\n",
   );
   console.log(
-    `Validated ${packed.filename}: ${files.size} files, all exports and font licences included.`,
+    `Validated ${packed.filename}: ${files.size} files, all exports, code and font licences included.`,
   );
 }

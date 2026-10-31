@@ -5,7 +5,7 @@ For interactive examples, run `npm run storybook` from the repository. [Back to 
 ## Controls
 
 ```tsx
-import { Button, Checkbox, TextField } from "pancake-ui";
+import { Button, Checkbox, TextField } from "@jack.winter/pancake-ui";
 
 <form onSubmit={handleSubmit}>
   <TextField

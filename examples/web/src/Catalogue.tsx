@@ -14,7 +14,7 @@ import {
   StepProgress,
   Surface,
   Text,
-} from "pancake-ui";
+} from "@jack.winter/pancake-ui";
 
 const people = [
   { id: "alex", name: "Alex Morgan" },

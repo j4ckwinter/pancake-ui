@@ -34,7 +34,7 @@ import {
   TextField,
   Textarea,
   Select,
-} from "pancake-ui";
+} from "@jack.winter/pancake-ui";
 
 export function App() {
   const [initialDialogOpen, setInitialDialogOpen] = useState(true);

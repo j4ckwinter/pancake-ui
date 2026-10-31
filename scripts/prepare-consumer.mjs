@@ -22,7 +22,7 @@ const packResult = JSON.parse(
 );
 const packed = Array.isArray(packResult)
   ? packResult[0]
-  : packResult["pancake-ui"];
+  : packResult["@jack.winter/pancake-ui"];
 await validateArchive(packed);
 const consumer = resolve(".tmp/consumer");
 await rm(consumer, { recursive: true, force: true });
@@ -32,7 +32,7 @@ await cp("examples/web", consumer, {
     !/(?:^|\/)(node_modules|dist|package-lock.json)(?:\/|$)/.test(path),
 });
 const manifest = JSON.parse(await readFile(`${consumer}/package.json`, "utf8"));
-manifest.dependencies["pancake-ui"] =
+manifest.dependencies["@jack.winter/pancake-ui"] =
   `file:${resolve(".tmp/package", packed.filename)}`;
 await writeFile(`${consumer}/package.json`, JSON.stringify(manifest, null, 2));
 run(["install", "--ignore-scripts", "--no-audit", "--no-fund"], consumer);

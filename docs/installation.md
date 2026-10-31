@@ -4,7 +4,15 @@
 
 ## Install in an app
 
-Use React and React DOM 19.2+ within React 19, Node 22.18+, and an ESM bundler such as Vite. Tailwind is **not required**. The package is not published to npm; `npm install pancake-ui` is not the installation path for this repository.
+Use React and React DOM 19.2+ within React 19, Node 22.18+, and an ESM bundler such as Vite. Tailwind is **not required**. The npm package name is `@jack.winter/pancake-ui`; the unscoped `pancake-ui` package is unrelated. Install the public package with:
+
+```sh
+npm install @jack.winter/pancake-ui
+```
+
+Commit the app’s `package.json` and lockfile. For an exact version, use `npm install --save-exact @jack.winter/pancake-ui@0.1.0`.
+
+### Install a verified archive
 
 Successful **push runs on main** in [Verify](https://github.com/j4ckwinter/pancake-ui/actions/workflows/verify.yml) upload a `pancake-ui-package` artifact containing the exact compiled `.tgz` tested by CI and its `packed.json` manifest. Runs from before package uploads were added have no package artifact; use the local build instructions below if none is available.
 
@@ -12,7 +20,7 @@ Successful **push runs on main** in [Verify](https://github.com/j4ckwinter/panca
 2. Install the **`.tgz` inside the ZIP**, from your app's root:
 
 ```sh
-npm install ./vendor/pancake-ui/pancake-ui-0.1.0.tgz
+npm install ./vendor/pancake-ui/jack.winter-pancake-ui-0.1.0.tgz
 ```
 
 Use the filename from your download if its version differs. The app needs React and React DOM installed; an existing React app normally already has them. No library clone, Playwright, Tailwind or library build is needed.
@@ -21,21 +29,21 @@ With [GitHub CLI](https://cli.github.com/) installed and authenticated, you can 
 
 ```sh
 gh run download RUN_ID --repo j4ckwinter/pancake-ui --name pancake-ui-package --dir vendor/pancake-ui
-npm install ./vendor/pancake-ui/pancake-ui-0.1.0.tgz
+npm install ./vendor/pancake-ui/jack.winter-pancake-ui-0.1.0.tgz
 ```
 
 Commit the downloaded archive, `packed.json`, your app's `package.json`, and its lockfile. Fresh clones can then use `npm ci` without GitHub credentials. Record the source run URL when upgrading, use a new package version, and do not overwrite an archive already used by an app. GitHub artifacts expire after 90 days (or earlier if deleted); keeping the archive in your app makes it independent of that retention period. See [GitHub's artifact download instructions](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/download-workflow-artifacts).
 
-Direct Git installation is not a supported distribution path: this repository contains source rather than committed `dist/` files. A Git install can report success without usable exports. Use the compiled archive.
+Direct Git installation is not a supported distribution path: this repository contains source rather than committed `dist/` files. A Git install can report success without usable exports. Use the registry package after publication or the compiled archive.
 
 ### Add your first component
 
 Import styles once in your app entry point, and optionally import the bundled Inter fonts:
 
 ```tsx
-import { Button, Stack, Surface, Text } from "pancake-ui";
-import "pancake-ui/styles.css";
-import "pancake-ui/fonts.css"; // Optional bundled Inter fonts.
+import { Button, Stack, Surface, Text } from "@jack.winter/pancake-ui";
+import "@jack.winter/pancake-ui/styles.css";
+import "@jack.winter/pancake-ui/fonts.css"; // Optional bundled Inter fonts.
 
 export function Example() {
   return (
@@ -56,7 +64,7 @@ Exports include `Surface`, `Button`, `TextField`, `Checkbox`, and typed colour, 
 
 ## Theming
 
-For an application without Tailwind, import `pancake-ui/styles.css` as shown above. Override its CSS variables in your own stylesheet, loaded afterwards:
+For an application without Tailwind, import `@jack.winter/pancake-ui/styles.css` as shown above. Override its CSS variables in your own stylesheet, loaded afterwards:
 
 ```css
 :root {
@@ -69,13 +77,13 @@ For a Tailwind 4 application, use this in the application's Tailwind stylesheet:
 
 ```css
 @import "tailwindcss";
-@import "pancake-ui/styles.css";
-@import "pancake-ui/theme.css";
+@import "@jack.winter/pancake-ui/styles.css";
+@import "@jack.winter/pancake-ui/theme.css";
 ```
 
 Import that stylesheet once from the application's entry point. The theme enables namespaced utilities such as `bg-pancake-accent`, `p-pancake-24`, and `text-pancake-body`. No scan of the package in `node_modules` is required: component styles already ship compiled. Your own utility classes still need to be included in the consuming application's normal Tailwind source detection. `className` customises the underlying element; it does not perform runtime class-conflict merging.
 
-Edit `src/foundations/tokens.ts`, then run `npm run tokens`. `src/foundations/theme.css` is generated; the build refreshes it. Fonts retain the SIL Open Font License in `assets/fonts/OFL.txt` and the distributed fonts directory. Project code licensing and a registry destination must be chosen before publication.
+Edit `src/foundations/tokens.ts`, then run `npm run tokens`. `src/foundations/theme.css` is generated; the build refreshes it. Fonts retain the SIL Open Font License in `assets/fonts/OFL.txt` and the distributed fonts directory. Project code is licensed under [MIT](../LICENSE); the registry destination is public npm under `@jack.winter/pancake-ui`.
 
 Components use native HTML semantics and namespaced classes authored with Tailwind. No runtime dependencies beyond React peers are needed. Import the styles once at your application entry point. Fonts are opt-in; set `--font-pancake` to use your application’s font.
 
@@ -103,9 +111,9 @@ npx playwright install chromium firefox webkit
 npm run release:local
 ```
 
-This runs full verification and produces `artifacts/pancake-ui-0.1.0.tgz`, its SHA-256 checksum and a release manifest recording the source commit and whether the working tree was dirty. Copy the archive into the consuming app's `vendor/pancake-ui/` directory and install it as above. Ordinary `npm pack` builds an archive but does not run the full verification suite.
+This runs full verification and produces `artifacts/jack.winter-pancake-ui-0.1.0.tgz`, its SHA-256 checksum and a release manifest recording the source commit and whether the working tree was dirty. Copy the archive into the consuming app's `vendor/pancake-ui/` directory and install it as above. Ordinary `npm pack` builds an archive but does not run the full verification suite.
 
-## Versioning local releases
+## Versioning releases
 
 Before 1.0, use patch versions for compatible fixes and minor versions for additions or breaking API changes. Record breaking changes and migration instructions explicitly in [CHANGELOG.md](../CHANGELOG.md). Do not replace an archive already shared with a different implementation under the same version.
 
@@ -120,4 +128,18 @@ npm run release:local
 
 Use `minor` instead of `patch` when appropriate. The version command updates the package manifest and lockfile without creating a Git commit or tag. Refreshing the example install updates its local-package metadata. Review and commit those changes through the normal development workflow. Install the new versioned archive in each consumer and keep its lockfile in sync.
 
-Local releases do not publish to a registry or upload to GitHub. Code licensing and a registry destination remain undecided; the package stays private. Bundled Inter fonts retain their SIL Open Font License.
+Local releases do not publish to a registry or upload to GitHub. Bundled Inter fonts retain their SIL Open Font License.
+
+## Publish a verified release
+
+Publication uses the separate [Publish workflow](https://github.com/j4ckwinter/pancake-ui/actions/workflows/publish.yml). It publishes the exact archive from a successful main-branch Verify run, without rebuilding or repacking. The source revision must still be the current main revision. The workflow validates the source run, archive checksum, contents, package identity, version, MIT license, and public npm destination before publication.
+
+The first release needs an npm account with access to the `@jack.winter` scope. Bootstrap the package once by authenticating to npm and publishing the reviewed, verified archive; never commit credentials. Configure the package’s npm trusted publisher for GitHub Actions with owner `j4ckwinter`, repository `pancake-ui`, and workflow filename `publish.yml`. This workflow does not use a GitHub environment. Subsequent workflow publishes use OIDC and provenance, without a stored npm token.
+
+After a new version has been merged and Verify has succeeded on current main, dispatch Publish on main using that Verify run’s numeric ID:
+
+```sh
+gh workflow run publish.yml --repo j4ckwinter/pancake-ui --ref main -f verify_run_id=RUN_ID
+```
+
+Review the Publish result and confirm the registry version before telling consumers it is available. Published versions are immutable: make a new version and verify it again for any correction. To migrate an older local consumer, remove its `pancake-ui` dependency, install `@jack.winter/pancake-ui`, and update JavaScript and CSS imports to the scoped name. The component API is unchanged.

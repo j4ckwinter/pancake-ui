@@ -8,24 +8,28 @@ built with React, shared design tokens, and a familiar bit of lime green. bring 
 
 you’ll need a React 19.2+ app (within React 19), Node 22.18+, and an ESM bundler such as Vite. you don’t need Tailwind.
 
-download `pancake-ui-package` from a successful main-branch [Verify run](https://github.com/j4ckwinter/pancake-ui/actions/workflows/verify.yml). extract the ZIP into your app’s `vendor/pancake-ui/` folder, then run this from the app root:
+install the public package in your app:
 
 ```sh
-npm install ./vendor/pancake-ui/pancake-ui-0.1.0.tgz
+npm install @jack.winter/pancake-ui
 ```
 
-use the version you downloaded. commit the archive, manifest, and app lockfile alongside `package.json` so the next checkout works too.
+for an unpublished change, download `pancake-ui-package` from a successful main-branch [Verify run](https://github.com/j4ckwinter/pancake-ui/actions/workflows/verify.yml). extract the ZIP into your app’s `vendor/pancake-ui/` folder, then install the archive:
 
-nothing published to npm yet. if there’s no package artifact available, use the [local build instructions](docs/installation.md#build-an-archive-locally). that guide also covers GitHub CLI downloads, upgrades, and compatibility.
+```sh
+npm install ./vendor/pancake-ui/jack.winter-pancake-ui-0.1.0.tgz
+```
+
+use the filename you downloaded, and commit the archive, manifest, and app lockfile alongside `package.json`. see [installation and releases](docs/installation.md) for local builds, upgrades, and registry release setup.
 
 ## use it
 
 import the styles once in your app entry point. the bundled Inter fonts are optional.
 
 ```tsx
-import { Button, Stack, Surface, Text } from "pancake-ui";
-import "pancake-ui/styles.css";
-import "pancake-ui/fonts.css";
+import { Button, Stack, Surface, Text } from "@jack.winter/pancake-ui";
+import "@jack.winter/pancake-ui/styles.css";
+import "@jack.winter/pancake-ui/fonts.css";
 
 export function Example() {
   return (
@@ -86,3 +90,5 @@ npm run storybook
 ## a bit more
 
 [installation and releases](docs/installation.md) · [component reference](docs/components.md) · [styling](docs/styling.md) · [verification](docs/verification.md) · [changelog](CHANGELOG.md)
+
+code is licensed under [MIT](LICENSE). bundled Inter fonts retain their [SIL Open Font License](assets/fonts/OFL.txt).

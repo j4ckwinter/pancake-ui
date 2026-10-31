@@ -1,8 +1,8 @@
 import { createElement } from "react";
 import { hydrateRoot } from "react-dom/client";
 import { App } from "./App.mjs";
-import "pancake-ui/styles.css";
-import "pancake-ui/fonts.css";
+import "@jack.winter/pancake-ui/styles.css";
+import "@jack.winter/pancake-ui/fonts.css";
 
 window.serverIds = [...document.querySelectorAll("[id]")].map(
   (element) => element.id,

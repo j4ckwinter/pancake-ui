@@ -37,7 +37,7 @@ for (const variant of variants) {
     private: true,
     type: "module",
     dependencies: {
-      "pancake-ui": `file:${resolve(".tmp/package", packed.filename)}`,
+      "@jack.winter/pancake-ui": `file:${resolve(".tmp/package", packed.filename)}`,
       react: variant.react,
       "react-dom": variant.dom,
     },
