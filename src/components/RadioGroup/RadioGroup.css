@@ -1,0 +1,51 @@
+@layer components {
+  .pancake-radio-group {
+    @apply font-pancake text-pancake-body text-pancake-ink;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  .pancake-radio-legend {
+    @apply text-pancake-label;
+    padding: 0;
+    margin-bottom: var(--spacing-pancake-8);
+  }
+  .pancake-radio-options {
+    display: grid;
+    gap: var(--spacing-pancake-8);
+  }
+  .pancake-radio-option {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-pancake-12);
+    min-height: var(--spacing-pancake-40);
+    cursor: pointer;
+  }
+  .pancake-radio-input {
+    width: var(--spacing-pancake-24);
+    height: var(--spacing-pancake-24);
+    margin: var(--spacing-pancake-8);
+    flex: 0 0 auto;
+    accent-color: var(--color-pancake-deep);
+    cursor: inherit;
+  }
+  .pancake-radio-input:focus {
+    outline: var(--pancake-focus-ring-width) solid var(--color-pancake-deep);
+    outline-offset: var(--spacing-pancake-4);
+  }
+  .pancake-radio-option:has(.pancake-radio-input:disabled) {
+    opacity: var(--pancake-opacity-disabled);
+    cursor: not-allowed;
+  }
+  .pancake-radio-copy {
+    display: grid;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .pancake-radio-description {
+    @apply text-pancake-body text-pancake-muted;
+    display: block;
+    margin-top: var(--spacing-pancake-4);
+  }
+}

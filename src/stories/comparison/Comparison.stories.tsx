@@ -5,6 +5,8 @@ import {
   BannerToast,
   BottomNavigation,
   Button,
+  RadioGroup,
+  Switch,
   Dialog,
   ButtonLink,
   IconButton,
@@ -301,6 +303,60 @@ export const Catalogue: Story = {
           </Stack>
         </Surface>
         <ComparisonDialog />
+        <Surface>
+          <Stack>
+            <SectionHeader title="Choices and preferences" />
+            <RadioGroup
+              data-component="RadioGroup"
+              label="Delivery frequency"
+              defaultValue="daily"
+              helperText="Choose when to receive project updates."
+              options={[
+                {
+                  value: "daily",
+                  label: "Daily summary",
+                  description: "All updates together in one message.",
+                },
+                {
+                  value: "immediate",
+                  label: "As changes happen",
+                  description:
+                    "Receive every update from the projects you follow.",
+                },
+                { value: "weekly", label: "Weekly summary", disabled: true },
+              ]}
+            />
+            <RadioGroup
+              label="A longer preference label that wraps on a narrow screen"
+              error="Choose a preference before continuing."
+              required
+              options={[
+                { value: "one", label: "Only important changes" },
+                {
+                  value: "all",
+                  label: "Every change, including comments and status updates",
+                },
+              ]}
+            />
+            <RadioGroup
+              label="Managed delivery"
+              disabled
+              defaultValue="daily"
+              options={[{ value: "daily", label: "Daily summary" }]}
+            />
+            <Switch
+              data-component="Switch"
+              label="Enable notifications"
+              defaultChecked
+            />
+            <Switch label="Automatically include detailed summaries from every project I follow" />
+            <Switch
+              label="Managed notification preference"
+              disabled
+              defaultChecked
+            />
+          </Stack>
+        </Surface>
       </Stack>
     </main>
   ),

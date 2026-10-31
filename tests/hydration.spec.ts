@@ -87,5 +87,14 @@ for (const variant of ["minimum", "current"]) {
     await page.keyboard.press("Escape");
     await expect(dialog).not.toBeVisible();
     await expect(dialogTrigger).toBeFocused();
+    const delivery = page.getByRole("group", { name: "Hydrated delivery" });
+    await expect(delivery).toHaveAccessibleDescription(
+      "Select a delivery schedule",
+    );
+    await delivery.getByRole("radio", { name: "Immediate" }).check();
+    await page.getByRole("switch", { name: "Hydrated notifications" }).check();
+    await expect(page.getByLabel("Hydrated selection preferences")).toHaveText(
+      "immediate / true",
+    );
   });
 }

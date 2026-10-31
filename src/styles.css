@@ -17,3 +17,6 @@
 @import "./components/Button/actions.css";
 
 @import "./components/Dialog/Dialog.css";
+
+@import "./components/RadioGroup/RadioGroup.css";
+@import "./components/Switch/Switch.css";

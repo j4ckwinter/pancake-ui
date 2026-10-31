@@ -1,0 +1,58 @@
+@layer components {
+  .pancake-switch-label {
+    @apply font-pancake text-pancake-body text-pancake-ink;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-pancake-12);
+    cursor: pointer;
+  }
+  .pancake-switch {
+    @apply rounded-pancake-full bg-pancake-surface-muted;
+    appearance: none;
+    box-sizing: border-box;
+    position: relative;
+    width: var(--spacing-pancake-64);
+    height: var(--spacing-pancake-40);
+    flex: 0 0 auto;
+    margin: 0;
+    border: var(--pancake-border-default) solid var(--color-pancake-muted);
+    cursor: inherit;
+  }
+  .pancake-switch::before {
+    @apply rounded-pancake-full bg-pancake-deep;
+    content: "";
+    position: absolute;
+    width: var(--spacing-pancake-24);
+    height: var(--spacing-pancake-24);
+    inset-block-start: calc(
+      var(--spacing-pancake-8) - var(--pancake-border-default)
+    );
+    inset-inline-start: calc(
+      var(--spacing-pancake-8) - var(--pancake-border-default)
+    );
+  }
+  .pancake-switch:checked {
+    @apply bg-pancake-accent;
+  }
+  .pancake-switch:checked::before {
+    inset-inline-start: calc(
+      var(--spacing-pancake-32) - var(--pancake-border-default)
+    );
+  }
+  .pancake-switch:focus-visible {
+    outline: var(--pancake-focus-ring-width) solid var(--color-pancake-deep);
+    outline-offset: var(--spacing-pancake-4);
+  }
+  .pancake-switch-label:has(.pancake-switch:disabled) {
+    opacity: var(--pancake-opacity-disabled);
+    cursor: not-allowed;
+  }
+  @media (forced-colors: active) {
+    .pancake-switch {
+      appearance: auto;
+    }
+    .pancake-switch::before {
+      display: none;
+    }
+  }
+}

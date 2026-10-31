@@ -1,6 +1,8 @@
 import { createRef } from "react";
 import {
   Button,
+  RadioGroup,
+  Switch,
   Dialog,
   ButtonLink,
   IconButton,
@@ -23,6 +25,8 @@ import {
   SegmentedControl,
   StepProgress,
   type CheckboxProps,
+  type RadioGroupProps,
+  type SwitchProps,
   type SegmentedControlProps,
 } from "pancake-ui";
 
@@ -196,3 +200,34 @@ const dialogRef = createRef<HTMLDialogElement>();
 <Dialog title="Review" open={false} />;
 // @ts-expect-error Dialog refs target dialog elements.
 <Dialog title="Review" open={false} onOpenChange={() => {}} ref={buttonRef} />;
+
+const fieldsetRef = createRef<HTMLFieldSetElement>();
+<RadioGroup
+  label="Delivery"
+  ref={fieldsetRef}
+  options={[{ value: "daily", label: "Daily" }]}
+  value="daily"
+  onValueChange={(value) => value.toUpperCase()}
+/>;
+<Switch
+  label="Notifications"
+  ref={inputRef}
+  checked
+  onCheckedChange={(checked) => checked.valueOf()}
+/>;
+// @ts-expect-error Radio groups require a visible label.
+<RadioGroup options={[]} />;
+// @ts-expect-error Radio callbacks receive the selected string value.
+const wrongRadio: RadioGroupProps["onValueChange"] = (value: number) =>
+  value.toFixed();
+void wrongRadio;
+// @ts-expect-error Radio group refs target fieldsets.
+<RadioGroup label="Delivery" options={[]} ref={inputRef} />;
+// @ts-expect-error Switches require a visible label.
+<Switch />;
+// @ts-expect-error Switch refs target inputs.
+<Switch label="Notifications" ref={buttonRef} />;
+// @ts-expect-error Switch callbacks receive a boolean state.
+const wrongSwitch: SwitchProps["onCheckedChange"] = (value: string) =>
+  value.toUpperCase();
+void wrongSwitch;

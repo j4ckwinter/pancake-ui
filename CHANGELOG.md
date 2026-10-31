@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add native RadioGroup choices and Switch settings with behaviour, accessibility, visual and installed-package coverage.
+
 - Add a controlled native Dialog with keyboard, focus, lifecycle, visual and hydration verification.
 
 - Add labelled IconButton actions and native ButtonLink navigation with shared button styling and verification.

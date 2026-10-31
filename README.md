@@ -194,3 +194,5 @@ const [open, setOpen] = useState(false);
   </Dialog>
 </>;
 ```
+
+`RadioGroup` provides labelled native radio choices with optional option descriptions, group guidance/errors and disabled options. Use unique option values and `value`/`onValueChange` or `defaultValue`. `Switch` provides a labelled native checkbox with switch semantics and `onCheckedChange`; applications own the setting it changes. Native form props and consumer styling remain supported.

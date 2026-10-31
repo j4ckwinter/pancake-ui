@@ -372,5 +372,39 @@
     "ref": {
       "test": "Dialog: modal semantics, descriptions, focus containment and ref"
     }
+  },
+  "RadioGroup": {
+    "semantics": {
+      "test": "RadioGroup: semantics, descriptions, native props and ref"
+    },
+    "keyboard": {
+      "test": "RadioGroup: keyboard, controlled state and disabled options"
+    },
+    "state": {
+      "test": "RadioGroup: keyboard, controlled state and disabled options"
+    },
+    "form": {
+      "test": "RadioGroup: native submission, required validation and reset"
+    },
+    "ref": {
+      "test": "RadioGroup: semantics, descriptions, native props and ref"
+    }
+  },
+  "Switch": {
+    "semantics": {
+      "test": "Switch: semantics, keyboard, callbacks, disabled state and ref"
+    },
+    "keyboard": {
+      "test": "Switch: semantics, keyboard, callbacks, disabled state and ref"
+    },
+    "state": {
+      "test": "Switch: semantics, keyboard, callbacks, disabled state and ref"
+    },
+    "form": {
+      "test": "Switch: native submission, required validation and reset"
+    },
+    "ref": {
+      "test": "Switch: semantics, keyboard, callbacks, disabled state and ref"
+    }
   }
 }

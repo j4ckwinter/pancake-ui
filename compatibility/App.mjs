@@ -6,6 +6,8 @@ import {
   BannerToast,
   BottomNavigation,
   Button,
+  RadioGroup,
+  Switch,
   Dialog,
   ButtonLink,
   IconButton,
@@ -27,6 +29,8 @@ import {
 export function App() {
   const [initialDialogOpen, setInitialDialogOpen] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [notifications, setNotifications] = useState(false);
+  const [delivery, setDelivery] = useState("daily");
   const [name, setName] = useState("Server rendered");
   const [checked, setChecked] = useState(false);
   const [period, setPeriod] = useState("week");
@@ -137,6 +141,26 @@ export function App() {
             description: "Opened after server markup hydration.",
           },
           h(Text, { as: "p" }, "Initial modal content"),
+        ),
+        h(RadioGroup, {
+          label: "Hydrated delivery",
+          value: delivery,
+          onValueChange: setDelivery,
+          helperText: "Select a delivery schedule",
+          options: [
+            { value: "daily", label: "Daily" },
+            { value: "immediate", label: "Immediate" },
+          ],
+        }),
+        h(Switch, {
+          label: "Hydrated notifications",
+          checked: notifications,
+          onCheckedChange: setNotifications,
+        }),
+        h(
+          "output",
+          { "aria-label": "Hydrated selection preferences" },
+          `${delivery} / ${notifications}`,
         ),
         h(Avatar, { name: "Alex Morgan" }),
         h(AvatarGroup, { items: [{ id: "alex", name: "Alex Morgan" }] }),
