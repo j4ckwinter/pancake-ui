@@ -40,5 +40,17 @@ for (const variant of ["minimum", "current"]) {
     );
     await page.getByRole("button", { name: "Focus field" }).click();
     await expect(field).toBeFocused();
+    const details = page.getByRole("textbox", { name: "Hydrated details" });
+    await expect(details).toHaveAccessibleDescription("Additional details");
+    await expect(details).toHaveValue("Server details");
+    await details.fill("Client details");
+    await expect(details).toHaveValue("Client details");
+    const visibility = page.getByRole("combobox", {
+      name: "Hydrated visibility",
+    });
+    await expect(visibility).toHaveAccessibleDescription("Who can see this");
+    await expect(visibility).toHaveValue("team");
+    await visibility.selectOption("private");
+    await expect(visibility).toHaveValue("private");
   });
 }

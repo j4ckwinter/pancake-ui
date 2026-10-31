@@ -16,6 +16,8 @@ import {
   Surface,
   Text,
   TextField,
+  Textarea,
+  Select,
 } from "../../index";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
@@ -181,6 +183,49 @@ export const Catalogue: Story = {
                 },
               ]}
             />
+          </Stack>
+        </Surface>
+        <Surface>
+          <Stack>
+            <SectionHeader title="Long answers and choices" />
+            <Textarea
+              data-component="Textarea"
+              label="Project description"
+              defaultValue="A shared place for the team to plan and review their work."
+              helperText="Include the details your teammates need."
+            />
+            <Textarea
+              label="A longer description label that wraps naturally on a narrow screen"
+              error="Add a description before continuing."
+              required
+            />
+            <Textarea
+              label="Archived description"
+              defaultValue="This project is archived."
+              disabled
+            />
+            <Select
+              data-component="Select"
+              label="Project visibility"
+              defaultValue="team"
+              helperText="Choose who can see this project."
+            >
+              <option value="private">Only me</option>
+              <option value="team">My team</option>
+              <option value="public">Everyone</option>
+            </Select>
+            <Select
+              label="A longer selection label that wraps naturally on a narrow screen"
+              defaultValue=""
+              error="Choose a category."
+              required
+            >
+              <option value="">Choose a category</option>
+              <option value="work">Work</option>
+            </Select>
+            <Select label="Managed visibility" defaultValue="team" disabled>
+              <option value="team">My team</option>
+            </Select>
           </Stack>
         </Surface>
       </Stack>

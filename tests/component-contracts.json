@@ -287,5 +287,39 @@
     "ref": {
       "test": "TextField: state, descriptions, disabled, form reset and ref"
     }
+  },
+  "Textarea": {
+    "semantics": {
+      "test": "Textarea: native semantics, keyboard editing, descriptions and ref"
+    },
+    "keyboard": {
+      "test": "Textarea: native semantics, keyboard editing, descriptions and ref"
+    },
+    "state": {
+      "test": "Textarea: native semantics, keyboard editing, descriptions and ref"
+    },
+    "form": {
+      "test": "Textarea: required validation, submission and controlled/uncontrolled reset"
+    },
+    "ref": {
+      "test": "Textarea: native semantics, keyboard editing, descriptions and ref"
+    }
+  },
+  "Select": {
+    "semantics": {
+      "test": "Select: native semantics, keyboard selection, descriptions and ref"
+    },
+    "keyboard": {
+      "test": "Select: native semantics, keyboard selection, descriptions and ref"
+    },
+    "state": {
+      "test": "Select: native semantics, keyboard selection, descriptions and ref"
+    },
+    "form": {
+      "test": "Select: required validation, submission and controlled/uncontrolled reset"
+    },
+    "ref": {
+      "test": "Select: native semantics, keyboard selection, descriptions and ref"
+    }
   }
 }

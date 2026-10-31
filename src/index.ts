@@ -71,3 +71,5 @@ export {
   StepProgress,
   type StepProgressProps,
 } from "./components/navigation/StepProgress";
+export { Textarea, type TextareaProps } from "./components/Textarea/Textarea";
+export { Select, type SelectProps } from "./components/Select/Select";

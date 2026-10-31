@@ -3,6 +3,8 @@ import {
   Button,
   Checkbox,
   TextField,
+  Textarea,
+  Select,
   Stack,
   Inline,
   Text,
@@ -103,3 +105,38 @@ void wrongSegment;
 <Avatar name="Alex" size={13} />;
 // @ts-expect-error Navigation requires destinations, not just labels.
 <BottomNavigation items={[{ id: "home", label: "Home" }]} />;
+
+const textareaRef = createRef<HTMLTextAreaElement>();
+const selectRef = createRef<HTMLSelectElement>();
+<Textarea
+  label="Details"
+  ref={textareaRef}
+  rows={4}
+  name="details"
+  onChange={(event) => event.currentTarget.select()}
+/>;
+<Select
+  label="Visibility"
+  ref={selectRef}
+  name="visibility"
+  defaultValue="team"
+  onChange={(event) => event.currentTarget.value.toUpperCase()}
+>
+  <option value="team">Team</option>
+</Select>;
+// @ts-expect-error Textarea requires a visible label.
+<Textarea />;
+// @ts-expect-error Select requires a visible label.
+<Select />;
+// @ts-expect-error Textarea refs target textarea elements.
+<Textarea label="Details" ref={inputRef} />;
+// @ts-expect-error Select refs target select elements.
+<Select label="Visibility" ref={inputRef} />;
+
+// @ts-expect-error Select is a single-choice control.
+<Select label="Choice" multiple />;
+
+// @ts-expect-error A single Select accepts only one controlled value.
+<Select label="Choice" value={["one"]} />;
+// @ts-expect-error A single Select accepts only one default value.
+<Select label="Choice" defaultValue={["one"]} />;

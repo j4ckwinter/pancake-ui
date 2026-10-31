@@ -10,3 +10,6 @@
 @import "./components/feedback/feedback.css";
 @import "./components/navigation/navigation.css";
 @import "./components/Surface/Surface.css";
+
+@import "./components/Textarea/Textarea.css";
+@import "./components/Select/Select.css";

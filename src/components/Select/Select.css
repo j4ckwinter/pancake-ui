@@ -1,0 +1,24 @@
+@layer components {
+  .pancake-select-control {
+    position: relative;
+  }
+  .pancake-select {
+    appearance: none;
+    padding-inline-end: var(--spacing-pancake-40);
+  }
+  .pancake-select:read-only {
+    background: var(--color-pancake-surface);
+  }
+  .pancake-select-control .pancake-select:disabled + .pancake-select-chevron {
+    opacity: var(--pancake-opacity-disabled);
+  }
+  .pancake-select-chevron {
+    position: absolute;
+    inset-inline-end: var(--spacing-pancake-16);
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+  }
+}

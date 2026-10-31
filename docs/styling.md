@@ -18,7 +18,8 @@ Pancake UI uses shared tokens and namespaced component styles. New components sh
 
 - Use `src/foundations/tokens.ts` as the source of design values and CSS variables in component styles. Run `npm run tokens` after changing tokens. Do not edit the generated `src/foundations/theme.css`.
 - Use 4px for supporting-text spacing, 8px between labels and controls, 16px for ordinary vertical composition, and 24px for surface padding. Use `Stack`, `Inline`, and `Text` when composing components. Choose another existing spacing token when the composition calls for it.
-- Preserve component-family sizing: buttons use 40px or 48px minimum heights, fields 52px, segments 48px, checkboxes 40px, and notification dismiss targets 44px. These are current defaults, not a requirement to force every control to one height. New families need an explicit sizing choice in review.
+- Preserve component-family sizing: buttons use 40px or 48px minimum heights, fields (including Select) 52px, segments 48px, checkboxes 40px, and notification dismiss targets 44px. These are current defaults, not a requirement to force every control to one height. New families need an explicit sizing choice in review.
+- Textarea uses the field styles with four native text rows by default and vertical resizing; Select retains native selection with a decorative chevron and a 52px minimum height.
 - Choose a typography role instead of assigning separate font metrics. The type scale uses proportional line heights; it is not a four-point baseline grid.
 - Use existing radius roles: pill shapes for buttons and chips, 12px for fields, and 16px for surfaces. Other established components can use their existing radius tokens.
 - Focus outlines use the dark `deep` colour and 2px width. Buttons and checkboxes use a 4px offset; other existing interactive controls use 2px. The lime `focusRing` token currently accents the focused input border, not its outline.

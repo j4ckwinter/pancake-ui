@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add labelled Textarea and native Select controls with colocated behaviour tests, visual states, and installed-package compatibility coverage.
+
 - Organise runtime components, foundations, and stories into separate directories; extract contract fixtures and checker policy/helpers.
 - Enforce source placement, component boundaries, dependency direction, and a runtime-file size budget in verification.
 

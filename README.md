@@ -81,7 +81,7 @@ The library does not set body styles, page width, or a CSS reset. Set those in y
 
 ## Compatibility and verification
 
-The package requires React and React DOM 19.2 or later within React 19 and an ESM-capable bundler. It targets modern browsers supported by Tailwind 4. The included browser suite runs in Chromium; Firefox, WebKit, and assistive-technology announcements have not been verified. React Native is not supported by this package.
+The package requires React and React DOM 19.2 or later within React 19 and an ESM-capable bundler. It targets modern browsers supported by Tailwind 4. The browser suite runs in Chromium, Firefox and WebKit. Assistive-technology announcements have not been manually verified. React Native is not supported by this package.
 
 For frameworks with React Server Components, import interactive components from a client boundary (for example, a file beginning with `"use client"` in Next.js). Next.js integration is not part of the current verification matrix.
 
@@ -172,3 +172,7 @@ Follow the [verification and behaviour contracts](docs/verification.md) and the 
 Keep public exports in `src/index.ts` and use the shared tokens in `src/foundations/tokens.ts`. Keep component styles under namespaced `pancake-` classes and avoid global element styles. Components should accept application content and callbacks without importing app routes, services, or domain models.
 
 Add Storybook examples for relevant states and update the consuming example when adding a public API. Use the package browser tests for behaviour that needs regression coverage. Run `npm run verify` before sharing a release; it checks the installed archive, not just source imports. The GitHub Actions workflow runs the same verification on pushes and pull requests when hosted on GitHub.
+
+`Textarea` and `Select` provide labelled multiline and native selection controls with `helperText`, `error`, native form props, and refs to their controls. Supply `option` and `optgroup` children to `Select`. Like `TextField`, their `className` and `style` props target the control.
+
+`Select` accepts one scalar value, not `multiple` or listbox `size`. Uncontrolled controls use native form reset. For controlled forms, the app owns reset: restore state and reapply a select’s value after the native reset completes, including when the initial state has not changed. The contract fixture demonstrates this ordering.

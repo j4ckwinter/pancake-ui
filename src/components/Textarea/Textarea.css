@@ -1,0 +1,6 @@
+@layer components {
+  .pancake-textarea {
+    display: block;
+    resize: vertical;
+  }
+}

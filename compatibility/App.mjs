@@ -17,6 +17,8 @@ import {
   Surface,
   Text,
   TextField,
+  Textarea,
+  Select,
 } from "pancake-ui";
 
 export function App() {
@@ -79,6 +81,23 @@ export function App() {
           "output",
           { "aria-label": "Hydrated state" },
           `${name} / ${checked} / ${period} / ${clicks}`,
+        ),
+        h(Textarea, {
+          label: "Hydrated details",
+          name: "details",
+          defaultValue: "Server details",
+          helperText: "Additional details",
+        }),
+        h(
+          Select,
+          {
+            label: "Hydrated visibility",
+            name: "visibility",
+            defaultValue: "team",
+            helperText: "Who can see this",
+          },
+          h("option", { value: "team" }, "Team"),
+          h("option", { value: "private" }, "Private"),
         ),
         h(Avatar, { name: "Alex Morgan" }),
         h(AvatarGroup, { items: [{ id: "alex", name: "Alex Morgan" }] }),
