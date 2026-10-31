@@ -15,7 +15,8 @@
     height: var(--spacing-pancake-40);
     flex: 0 0 auto;
     margin: 0;
-    border: var(--pancake-border-default) solid var(--color-pancake-muted);
+    border: var(--pancake-border-default) solid
+      var(--color-pancake-control-border);
     cursor: inherit;
   }
   .pancake-switch::before {
@@ -40,7 +41,8 @@
     );
   }
   .pancake-switch:focus-visible {
-    outline: var(--pancake-focus-ring-width) solid var(--color-pancake-deep);
+    outline: var(--pancake-focus-ring-width) solid
+      var(--color-pancake-control-focus);
     outline-offset: var(--spacing-pancake-4);
   }
   .pancake-switch-label:has(.pancake-switch:disabled) {

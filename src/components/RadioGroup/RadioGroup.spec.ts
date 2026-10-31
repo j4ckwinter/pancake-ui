@@ -117,3 +117,48 @@ test("RadioGroup: native submission, required validation and reset", async ({
     ),
   ).toBe(true);
 });
+
+for (const forcedColors of ["none", "active"] as const) {
+  test(`RadioGroup: visible selection and native high-contrast fallback with forced colours ${forcedColors}`, async ({
+    page,
+  }) => {
+    await page.emulateMedia({ forcedColors });
+    const group = page.getByRole("group", {
+      name: "Controlled contact",
+      exact: true,
+    });
+    const email = group.getByRole("radio", { name: "Email", exact: true });
+    const post = group.getByRole("radio", { name: "Post", exact: true });
+    const forced = await page.evaluate(
+      () => matchMedia("(forced-colors: active)").matches,
+    );
+    await expect(email).toHaveCSS("appearance", forced ? "auto" : "none");
+    const marker = () =>
+      email.evaluate((element) => {
+        const style = getComputedStyle(element, "::before");
+        return {
+          content: style.content,
+          display: style.display,
+          width: style.width,
+          height: style.height,
+        };
+      });
+    if (forced) {
+      expect((await marker()).display).toBe("none");
+    } else {
+      expect((await marker()).display).not.toBe("none");
+      expect(await marker()).toMatchObject({
+        content: '""',
+        width: "12px",
+        height: "12px",
+      });
+    }
+    await email.focus();
+    await email.press("ArrowDown");
+    await expect(post).toBeChecked();
+    await expect(post).toBeFocused();
+    await expect(post).toHaveCSS("outline-style", "solid");
+    await expect(email).not.toBeChecked();
+    if (!forced) expect((await marker()).content).toBe("none");
+  });
+}

@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Coordinate form-control borders and focus outlines with olive theme tokens, use a warm invalid-field border, and style native radios to match checkbox and switch selection.
+
 - Soften button hover fills and decorative borders; use underlined selected tabs and segments while retaining keyboard focus indicators.
 - Remove unused bottom-navigation height and keep balanced spacing with icons, long labels, and narrow layouts.
 

@@ -4,6 +4,9 @@
   --color-pancake-accent-disabled-layer: rgba(173, 229, 51, 0.8);
   --color-pancake-border: #edede8;
   --color-pancake-canvas: #fbf8f0;
+  --color-pancake-control-border: #7e8c70;
+  --color-pancake-control-focus: #647a45;
+  --color-pancake-error-strong: #a34c3e;
   --color-pancake-danger: #ffd6d6;
   --color-pancake-danger-hover: #ffc2c2;
   --color-pancake-deep: #384540;

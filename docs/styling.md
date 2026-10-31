@@ -26,12 +26,12 @@ Pancake UI uses shared tokens and namespaced component styles. New components sh
 - DropdownMenu reuses Popover anchoring, with 8px panel padding, 40px minimum item heights and shared focus/disabled tokens. Long labels wrap within the panel.
 - Popover uses a 320px width token, 24px padding, 16px radius and 8px anchor spacing. Native CSS anchor positioning chooses the side with more room; viewport constraints and overflow scrolling keep long content reachable.
 - Dialog uses a 560px maximum-width sizing token, 24px surface padding, 16px radius, and a dedicated 50% backdrop-opacity token. Viewport margins and scrolling keep content reachable on narrow screens.
-- RadioGroup uses 24px native radios within 40px rows. Its outline applies on focus, including pointer focus, to retain a visible indicator during WebKit native arrow navigation. Switch uses a 64px by 40px track and a 24px thumb, with the existing focus and disabled tokens.
+- RadioGroup uses 24px styled native radio inputs within 40px rows. Its outline applies on focus, including pointer focus, to retain a visible indicator during WebKit native arrow navigation. Switch uses a 64px by 40px track and a 24px thumb, with the existing focus and disabled tokens.
 - Progress retains the native browser bar at a 16px height with a deep accent and an 8px label gap. LoadingIndicator uses static 4px decorative dots, body typography and an 8px text gap; status feedback does not depend on animation.
 - Tabs use 48px minimum button heights and the shared focus/selection tokens. Disclosure uses a native summary marker, 16px padding and the surface radius.
 - Choose a typography role instead of assigning separate font metrics. The type scale uses proportional line heights; it is not a four-point baseline grid.
 - Use existing radius roles: pill shapes for buttons and chips, 12px for fields, and 16px for surfaces. Other established components can use their existing radius tokens.
-- Focus outlines use the dark `deep` colour and 2px width. Buttons and checkboxes use a 4px offset; other existing interactive controls use 2px. The lime `focusRing` token currently accents the focused input border, not its outline.
+- Form controls and Disclosure use the olive `controlFocus` outline; other focus outlines use `deep`. Both use 2px width. Buttons and checkboxes use a 4px offset; other existing interactive controls use 2px. The lime `focusRing` token currently accents the focused input border, not its outline.
 - Disabled controls use the shared disabled opacity. Preserve native disabled behaviour and visible keyboard focus.
 
 These defaults preserve the current appearance. Changing them is a design change and should include before/after visual review.
@@ -88,3 +88,5 @@ The workspace registers `@apply` and `@theme` through `.vscode/tailwind.css-data
 Use soft fills for button hover and the border token for decorative panel edges and table dividers. Selected tabs and segments use a label underline as well as a fill, keeping selection distinct from keyboard focus even in forced colours. Preserve focus outlines and form-control boundaries.
 
 Bottom navigation sizes to its contents: 8px list padding surrounds links with a minimum 48px target height. Links fill their row when icons or wrapping labels make neighbouring items taller; do not add a fixed list minimum height.
+
+Form controls share the olive `controlBorder` token for their default boundaries. Keep it distinct from the faint decorative `border` token. Invalid fields use `errorStrong` with the existing thicker border and error message. Checkbox, radio and switch selection retains a checkmark, dot or thumb position as well as the lime fill; forced-colour mode restores native rendering.

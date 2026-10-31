@@ -56,7 +56,7 @@ test("controls support keyboard focus, validation, and native form data", async 
   await page.goto("http://127.0.0.1:4173");
   const name = page.getByRole("textbox", { name: "Your name" });
   const updates = page.getByRole("checkbox", { name: "Send me updates" });
-  await expect(name).toHaveCSS("border-color", "rgb(99, 107, 110)");
+  await expect(name).toHaveCSS("border-color", "rgb(126, 140, 112)");
   await page.keyboard.press(browserName === "webkit" ? "Alt+Tab" : "Tab");
   await expect(name).toBeFocused();
   await expect(name).toHaveCSS("outline-style", "solid");
@@ -65,7 +65,7 @@ test("controls support keyboard focus, validation, and native form data", async 
   await expect(name).toHaveAttribute("aria-invalid", "true");
   await expect(name).toBeFocused();
   await name.blur();
-  await expect(name).toHaveCSS("border-color", "rgb(56, 69, 64)");
+  await expect(name).toHaveCSS("border-color", "rgb(163, 76, 62)");
   await name.focus();
   await expect(name).toHaveAccessibleDescription(
     "Enter at least two characters.",

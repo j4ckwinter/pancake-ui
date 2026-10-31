@@ -23,15 +23,31 @@
     cursor: pointer;
   }
   .pancake-radio-input {
+    @apply bg-pancake-surface rounded-pancake-full;
+    appearance: none;
+    box-sizing: border-box;
+    display: grid;
+    place-content: center;
+    border: var(--pancake-border-default) solid
+      var(--color-pancake-control-border);
     width: var(--spacing-pancake-24);
     height: var(--spacing-pancake-24);
     margin: var(--spacing-pancake-8);
     flex: 0 0 auto;
-    accent-color: var(--color-pancake-deep);
     cursor: inherit;
   }
+  .pancake-radio-input:checked {
+    @apply bg-pancake-accent;
+  }
+  .pancake-radio-input:checked::before {
+    @apply bg-pancake-deep rounded-pancake-full;
+    content: "";
+    width: var(--spacing-pancake-12);
+    height: var(--spacing-pancake-12);
+  }
   .pancake-radio-input:focus {
-    outline: var(--pancake-focus-ring-width) solid var(--color-pancake-deep);
+    outline: var(--pancake-focus-ring-width) solid
+      var(--color-pancake-control-focus);
     outline-offset: var(--spacing-pancake-4);
   }
   .pancake-radio-option:has(.pancake-radio-input:disabled) {
@@ -47,5 +63,13 @@
     @apply text-pancake-body text-pancake-muted;
     display: block;
     margin-top: var(--spacing-pancake-4);
+  }
+  @media (forced-colors: active) {
+    .pancake-radio-input {
+      appearance: auto;
+    }
+    .pancake-radio-input::before {
+      display: none;
+    }
   }
 }

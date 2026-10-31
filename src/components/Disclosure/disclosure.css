@@ -11,7 +11,8 @@
     cursor: pointer;
   }
   .pancake-disclosure-summary:focus-visible {
-    outline: var(--pancake-focus-ring-width) solid var(--color-pancake-deep);
+    outline: var(--pancake-focus-ring-width) solid
+      var(--color-pancake-control-focus);
     outline-offset: var(--spacing-pancake-4);
   }
   .pancake-disclosure-content {
