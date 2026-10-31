@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Run CI once per PR revision, cancel superseded PR runs, share build outputs across parallel browser jobs, and retain a required gate for all checks.
+
 - Pin the macOS CI locale for native date/time screenshots and await settled Tooltip toggle callbacks in keyboard verification.
 
 - Document installation from verified GitHub Actions package artifacts and upload the tested archive after successful main-branch verification. Add repository metadata for consumers.

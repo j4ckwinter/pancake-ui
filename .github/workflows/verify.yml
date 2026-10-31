@@ -2,15 +2,75 @@ name: Verify
 
 on:
   push:
+    branches: [main]
   pull_request:
 
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
-  verify:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.18.0
+          cache: npm
+      - run: npm ci
+      - run: npm run check:source
+
+  build:
     runs-on: xcode-27
-    timeout-minutes: 25
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.18.0
+          cache: npm
+      - run: npm ci
+      - run: npm run verify:build
+      - run: npm run prepare:tests
+      - name: Bundle tested inputs
+        run: >-
+          tar -czf verification-build.tgz
+          dist storybook-static .tmp/package .tmp/consumer/dist
+          .tmp/compatibility/site .tmp/theme-proof.css
+      - uses: actions/upload-artifact@v4
+        with:
+          name: verification-build
+          path: verification-build.tgz
+          if-no-files-found: error
+          retention-days: 2
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: build-failures
+          path: test-results/
+          if-no-files-found: ignore
+
+  browsers:
+    needs: build
+    runs-on: xcode-27
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - project: chromium
+            browser: chromium
+          - project: firefox
+            browser: firefox
+          - project: webkit
+            browser: webkit
+          - project: visual
+            browser: chromium
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -22,11 +82,46 @@ jobs:
           defaults write NSGlobalDomain AppleLocale -string en_GB
           defaults write NSGlobalDomain AppleLanguages -array en-GB
       - run: npm ci
-      - run: npx playwright install --with-deps chromium firefox webkit
-      - run: npm run verify
+      - uses: actions/download-artifact@v4
+        with:
+          name: verification-build
+      - run: tar -xzf verification-build.tgz
+      - run: npx playwright install --with-deps ${{ matrix.browser }}
+      - name: Verify browser-test guardrails
+        if: matrix.project == 'chromium'
+        run: npm run test:verification
+      - run: npx playwright test --project=${{ matrix.project }}
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: verification-failures-${{ matrix.project }}
+          path: |
+            test-results/
+            artifacts/*.png
+          if-no-files-found: ignore
+
+  verify:
+    if: always()
+    needs: [checks, build, browsers]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.18.0
+      - name: Require every verification job to pass
+        env:
+          NEEDS_RESULTS: ${{ toJSON(needs) }}
+        run: node scripts/check-ci-results.mjs
+      - uses: actions/download-artifact@v4
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        with:
+          name: verification-build
       - name: Collect verified package
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
+          tar -xzf verification-build.tgz .tmp/package
           mkdir -p artifacts/package
           cp .tmp/package/*.tgz .tmp/package/packed.json artifacts/package/
       - name: Upload verified package
@@ -37,11 +132,3 @@ jobs:
           path: artifacts/package/
           if-no-files-found: error
           retention-days: 90
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: verification-failures
-          path: |
-            test-results/
-            artifacts/*.png
-          if-no-files-found: ignore

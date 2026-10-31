@@ -63,3 +63,16 @@ Every public component has its own `src/stories/catalogue/<Component>.stories.ts
 After a Storybook build, `npm run check:stories:built` requires every declared example and its autodocs page to appear in the generated index under the expected title and source path. This catches excluded stories and changes to Storybook discovery. The browser suite loads every dedicated example and docs page in Chromium, Firefox and WebKit, rejecting empty previews, error pages and unexpected runtime errors. These checks run in `verify`; focused component behavior contracts remain responsible for interaction correctness.
 
 `npm run test:stories` proves the gate rejects representative missing and misleading coverage. Adding a public export without its dedicated story fails automatically; there is no hand-maintained component allowlist.
+
+## CI execution
+
+GitHub runs Verify for pull requests and pushes to `main`, avoiding a second full run for each PR branch push. A newer revision cancels an older run of the same PR. Main-branch runs are not interrupted by newer pushes.
+
+- `checks` runs `npm run check:source` for formatting, types, lint and source/guardrail checks.
+- `build` runs `npm run verify:build` and `npm run prepare:tests` once. It builds Storybook, validates the package archive, and prepares the installed consumer and both React compatibility sites.
+- Four `browsers` jobs download those exact outputs and run Chromium, Firefox, WebKit and visual projects independently. The Chromium job also runs `test:verification`, including deliberate browser-warning probes. All browser jobs keep the existing macOS runner, native-control locale, two-worker limit and screenshot expectations.
+- The required `verify` job runs even when a dependency fails or is skipped. It only passes when `checks`, `build` and every browser matrix job succeeded. A successful main run then makes the tested package downloadable.
+
+The internal build bundle is retained for two days and contains no `node_modules`; each job installs pinned tool dependencies itself. Consumer package downloads remain available for 90 days. `npm run verify` still runs the complete suite locally. `npm run test:ci` tests failure propagation and critical workflow wiring, including deliberate missing-browser and ignored-failure mutations.
+
+The previous successful hosted run took 14.6 minutes, with 10.8 minutes in the browser suite. Parallel jobs are intended to reduce that critical path; a new hosted run is needed to measure the improvement. Queue time and available macOS concurrency can limit the gain.
