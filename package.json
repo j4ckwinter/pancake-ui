@@ -1,6 +1,6 @@
 {
   "name": "@jack.winter/pancake-ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "Reusable React components, compiled styles, and design tokens for web apps.",
   "files": [

@@ -17,7 +17,7 @@ npm install @jack.winter/pancake-ui
 for an unpublished change, download `pancake-ui-package` from a successful main-branch [Verify run](https://github.com/j4ckwinter/pancake-ui/actions/workflows/verify.yml). extract the ZIP into your app’s `vendor/pancake-ui/` folder, then install the archive:
 
 ```sh
-npm install ./vendor/pancake-ui/jack.winter-pancake-ui-0.1.0.tgz
+npm install ./vendor/pancake-ui/jack.winter-pancake-ui-0.1.1.tgz
 ```
 
 use the filename you downloaded, and commit the archive, manifest, and app lockfile alongside `package.json`. see [installation and releases](docs/installation.md) for local builds, upgrades, and registry release setup.

@@ -10,7 +10,7 @@ Use React and React DOM 19.2+ within React 19, Node 22.18+, and an ESM bundler s
 npm install @jack.winter/pancake-ui
 ```
 
-Commit the app’s `package.json` and lockfile. For an exact version, use `npm install --save-exact @jack.winter/pancake-ui@0.1.0`.
+Commit the app’s `package.json` and lockfile. For an exact version, use `npm install --save-exact @jack.winter/pancake-ui@0.1.1`.
 
 ### Install a verified archive
 
@@ -20,7 +20,7 @@ Successful **push runs on main** in [Verify](https://github.com/j4ckwinter/panca
 2. Install the **`.tgz` inside the ZIP**, from your app's root:
 
 ```sh
-npm install ./vendor/pancake-ui/jack.winter-pancake-ui-0.1.0.tgz
+npm install ./vendor/pancake-ui/jack.winter-pancake-ui-0.1.1.tgz
 ```
 
 Use the filename from your download if its version differs. The app needs React and React DOM installed; an existing React app normally already has them. No library clone, Playwright, Tailwind or library build is needed.
@@ -29,7 +29,7 @@ With [GitHub CLI](https://cli.github.com/) installed and authenticated, you can 
 
 ```sh
 gh run download RUN_ID --repo j4ckwinter/pancake-ui --name pancake-ui-package --dir vendor/pancake-ui
-npm install ./vendor/pancake-ui/jack.winter-pancake-ui-0.1.0.tgz
+npm install ./vendor/pancake-ui/jack.winter-pancake-ui-0.1.1.tgz
 ```
 
 Commit the downloaded archive, `packed.json`, your app's `package.json`, and its lockfile. Fresh clones can then use `npm ci` without GitHub credentials. Record the source run URL when upgrading, use a new package version, and do not overwrite an archive already used by an app. GitHub artifacts expire after 90 days (or earlier if deleted); keeping the archive in your app makes it independent of that retention period. See [GitHub's artifact download instructions](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/download-workflow-artifacts).
@@ -111,7 +111,7 @@ npx playwright install chromium firefox webkit
 npm run release:local
 ```
 
-This runs full verification and produces `artifacts/jack.winter-pancake-ui-0.1.0.tgz`, its SHA-256 checksum and a release manifest recording the source commit and whether the working tree was dirty. Copy the archive into the consuming app's `vendor/pancake-ui/` directory and install it as above. Ordinary `npm pack` builds an archive but does not run the full verification suite.
+This runs full verification and produces `artifacts/jack.winter-pancake-ui-0.1.1.tgz`, its SHA-256 checksum and a release manifest recording the source commit and whether the working tree was dirty. Copy the archive into the consuming app's `vendor/pancake-ui/` directory and install it as above. Ordinary `npm pack` builds an archive but does not run the full verification suite.
 
 ## Versioning releases
 
@@ -134,7 +134,7 @@ Local releases do not publish to a registry or upload to GitHub. Bundled Inter f
 
 Publication uses the separate [Publish workflow](https://github.com/j4ckwinter/pancake-ui/actions/workflows/publish.yml). It publishes the exact archive from a successful main-branch Verify run, without rebuilding or repacking. The source revision must still be the current main revision. The workflow validates the source run, archive checksum, contents, package identity, version, MIT license, and public npm destination before publication.
 
-The first release needs an npm account with access to the `@jack.winter` scope. Bootstrap the package once by authenticating to npm and publishing the reviewed, verified archive; never commit credentials. Configure the package’s npm trusted publisher for GitHub Actions with owner `j4ckwinter`, repository `pancake-ui`, and workflow filename `publish.yml`. This workflow does not use a GitHub environment. Subsequent workflow publishes use OIDC and provenance, without a stored npm token.
+The first release needs an npm account with access to the `@jack.winter` scope. Bootstrap the package once by authenticating to npm and publishing the reviewed, verified archive; never commit credentials. Configure the package’s npm trusted publisher for GitHub Actions with owner `j4ckwinter`, repository `pancake-ui`, and workflow filename `publish.yml`. This workflow does not use a GitHub environment. Subsequent workflow publishes use OIDC and provenance, without a stored npm token. Complete the first workflow release within two days of creating the trusted publisher; npm expires configurations that have not completed their first publish. See [npm’s configuration expiry policy](https://docs.npmjs.com/trusted-publishers/#trusted-publisher-configuration-expiry).
 
 After a new version has been merged and Verify has succeeded on current main, dispatch Publish on main using that Verify run’s numeric ID:
 
