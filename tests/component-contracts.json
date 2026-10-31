@@ -525,5 +525,22 @@
     "ref": {
       "test": "DropdownMenu: semantics, native props, refs and consumer styling"
     }
+  },
+  "Tooltip": {
+    "semantics": {
+      "test": "Tooltip: descriptions, native props, refs and consumer styling"
+    },
+    "keyboard": {
+      "test": "Tooltip: keyboard focus, Escape suppression and ordinary Tab order"
+    },
+    "state": {
+      "test": "Tooltip: hover remains readable across the trigger boundary and dismisses with Escape"
+    },
+    "form": {
+      "test": "Tooltip: native actions, form submission, links and disabled controls remain intact"
+    },
+    "ref": {
+      "test": "Tooltip: descriptions, native props, refs and consumer styling"
+    }
   }
 }

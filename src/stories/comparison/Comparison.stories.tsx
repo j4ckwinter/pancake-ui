@@ -6,6 +6,7 @@ import {
   BottomNavigation,
   Button,
   DropdownMenu,
+  Tooltip,
   Popover,
   FileField,
   Progress,
@@ -530,6 +531,19 @@ export const Catalogue: Story = {
                 </Button>
               </Stack>
             </Popover>
+          </Stack>
+        </Surface>
+        <Surface data-component="Tooltip">
+          <Stack>
+            <SectionHeader title="Supporting descriptions" />
+            <Tooltip content="Download the current project as a file. Your original stays unchanged.">
+              <Button variant="secondary">Export project</Button>
+            </Tooltip>
+            <Tooltip content="Open guidance for sharing a project with your team.">
+              <ButtonLink href="#sharing-guide" variant="ghost">
+                Sharing guide
+              </ButtonLink>
+            </Tooltip>
           </Stack>
         </Surface>
         <Surface data-component="DropdownMenu">

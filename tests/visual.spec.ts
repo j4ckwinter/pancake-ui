@@ -96,5 +96,13 @@ for (const width of [1100, 375]) {
     await expect(menu).toHaveScreenshot(`menu-${width}.png`);
     await page.keyboard.press("Escape");
     await expect(menu).toBeHidden();
+    await page
+      .getByRole("button", { name: "Export project", exact: true })
+      .focus();
+    const tooltip = page.getByRole("tooltip");
+    await expect(tooltip).toBeVisible();
+    await expect(tooltip).toHaveScreenshot(`tooltip-${width}.png`);
+    await page.keyboard.press("Escape");
+    await expect(tooltip).toBeHidden();
   });
 }

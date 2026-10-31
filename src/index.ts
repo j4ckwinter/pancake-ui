@@ -108,3 +108,5 @@ export {
   type DropdownMenuProps,
   type DropdownMenuItem,
 } from "./components/DropdownMenu/DropdownMenu";
+
+export { Tooltip, type TooltipProps } from "./components/Tooltip/Tooltip";

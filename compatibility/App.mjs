@@ -7,6 +7,7 @@ import {
   BottomNavigation,
   Button,
   DropdownMenu,
+  Tooltip,
   Popover,
   FileField,
   Progress,
@@ -56,6 +57,15 @@ export function App() {
         Stack,
         null,
         h(SectionHeader, { title: "State and identifiers" }),
+        h(
+          Tooltip,
+          { content: "Hydrated supporting description" },
+          h(
+            Button,
+            { onClick: () => setClicks((value) => value + 1) },
+            "Hydrated tooltip action",
+          ),
+        ),
         h(
           Text,
           { as: "p" },

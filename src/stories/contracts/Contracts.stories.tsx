@@ -13,6 +13,7 @@ import { ProgressContracts } from "./ProgressContracts";
 import { NativeFieldsContracts } from "./NativeFieldsContracts";
 import { FileFieldContracts } from "./FileFieldContracts";
 import { PopoverContracts } from "./PopoverContracts";
+import { TooltipContracts } from "./TooltipContracts";
 import { MenuContracts } from "./MenuContracts";
 import { markRef } from "./markRef";
 
@@ -47,6 +48,7 @@ function ContractHarness() {
         <FileFieldContracts />
         <PopoverContracts />
         <MenuContracts />
+        <TooltipContracts />
       </Stack>
     </main>
   );

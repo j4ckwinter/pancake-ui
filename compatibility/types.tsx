@@ -2,6 +2,7 @@ import { createRef } from "react";
 import {
   Button,
   DropdownMenu,
+  Tooltip,
   type DropdownMenuProps,
   type DropdownMenuItem,
   Popover,
@@ -406,3 +407,31 @@ const invalidMenuTrigger: DropdownMenuProps["triggerProps"] = {
   type: "submit",
 };
 void invalidMenuTrigger;
+
+<Tooltip
+  content="Save a copy"
+  ref={createRef<HTMLSpanElement>()}
+  className="consumer-tooltip"
+  style={{ borderRadius: 0 }}
+>
+  <Button ref={buttonRef} type="submit" aria-describedby="extra-help">
+    Save
+  </Button>
+</Tooltip>;
+<Tooltip content="Read help">
+  <a href="/help">Help</a>
+</Tooltip>;
+// @ts-expect-error Tooltip descriptions are required.
+<Tooltip>
+  <Button>Save</Button>
+</Tooltip>;
+// @ts-expect-error Tooltip content is noninteractive plain text.
+<Tooltip content={<Button>Action</Button>}>
+  <Button>Save</Button>
+</Tooltip>;
+// @ts-expect-error A tooltip requires one element that forwards its description.
+<Tooltip content="Save a copy">Save</Tooltip>;
+// @ts-expect-error Tooltip semantics cannot be replaced with a dialog role.
+<Tooltip content="Save a copy" role="dialog">
+  <Button>Save</Button>
+</Tooltip>;

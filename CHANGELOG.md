@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add text-only Tooltip descriptions for existing focusable controls, with keyboard, pointer, compatibility and visual coverage.
+
 - Add DropdownMenu actions and native links with menu keyboard navigation, focus management, compatibility and visual coverage.
 
 - Add native anchored Popover regions with dismissal, focus, positioning, compatibility and visual coverage.

@@ -114,6 +114,21 @@ for (const variant of ["minimum", "current"]) {
     await expect(page.getByLabel("Hydrated state")).toHaveText(
       "Hydrated project / true / month / 3",
     );
+    const tooltipTrigger = page.getByRole("button", {
+      name: "Hydrated tooltip action",
+    });
+    await expect(tooltipTrigger).toHaveAccessibleDescription(
+      "Hydrated supporting description",
+    );
+    await tooltipTrigger.focus();
+    await expect(page.getByRole("tooltip")).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(page.getByRole("tooltip")).toBeHidden();
+    await expect(tooltipTrigger).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(page.getByLabel("Hydrated state")).toHaveText(
+      "Hydrated project / true / month / 4",
+    );
     const destination = page.getByRole("link", {
       name: "Hydrated destination",
     });

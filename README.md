@@ -232,3 +232,15 @@ The browser owns visibility, outside-click dismissal, Escape, sibling/nested pop
 Enter, Space or ArrowDown opens at the first item; ArrowUp opens at the last. Arrow keys wrap, Home/End reach the edges, and typing searches labels. Escape returns focus to the trigger; Tab/Shift+Tab closes and leaves the composite. Action selection closes the menu and restores trigger focus before calling `onSelect`, so the action can move focus into a new dialog. Browser-owned visibility follows the same native dismissal model as Popover; `onOpenChange` observes settled changes.
 
 Native panel props, `className`, `style` and refs target the menu div. Use `triggerProps` for button styling, native handlers and a button ref; behavior-owned trigger attributes remain managed by the component. Empty menus disable their trigger. This component provides a single-level action/link menu; selection fields and hierarchical navigation use different interaction patterns.
+
+`Tooltip` adds a supplementary, noninteractive description to one existing focusable element. Pass plain-text `content` and a single inline child that forwards `aria-describedby` to its focusable DOM element, such as `Button`, `IconButton`, `ButtonLink`, or a native button/link. The child's existing descriptions, ref, styling and actions remain intact.
+
+```tsx
+<Tooltip content="Download a copy; the original stays unchanged.">
+  <Button onClick={downloadProject}>Export project</Button>
+</Tooltip>
+```
+
+Keyboard focus or pointer hover displays the tooltip without moving focus. The pointer can move onto the description; Escape dismisses it. Leaving both focus and hover closes it. Touch activation retains the child's normal action and does not introduce a hover-only interaction. Keep essential instructions visible in the page: touch users and keyboard users of natively disabled controls cannot depend on a tooltip. Use Popover for interactive contextual content. Custom child components must forward the description to their actual focus target; fragments, block-root components such as `TextField`, and multiple focus targets are unsupported. The wrapper is a span, so its child must be valid phrasing content.
+
+Tooltip refs and native props target the tooltip span; child refs still target the original child. `onOpenChange` observes settled native visibility changes. Consumer `className` and `style` override the description panel.

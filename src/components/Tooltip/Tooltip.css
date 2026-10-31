@@ -1,0 +1,17 @@
+@layer components {
+  .pancake-tooltip-anchor {
+    display: inline-flex;
+    align-self: flex-start;
+  }
+
+  .pancake-tooltip {
+    @apply text-pancake-body rounded-pancake-8;
+    width: max-content;
+    margin: 0;
+    max-width: min(
+      var(--spacing-pancake-320),
+      calc(100% - var(--spacing-pancake-32))
+    );
+    padding: var(--spacing-pancake-8);
+  }
+}
