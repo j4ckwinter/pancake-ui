@@ -6,6 +6,8 @@ import {
   BannerToast,
   BottomNavigation,
   Button,
+  Tabs,
+  Disclosure,
   RadioGroup,
   Switch,
   Dialog,
@@ -161,6 +163,27 @@ export function App() {
           "output",
           { "aria-label": "Hydrated selection preferences" },
           `${delivery} / ${notifications}`,
+        ),
+        h(Tabs, {
+          label: "Hydrated project panels",
+          defaultValue: "overview",
+          items: [
+            {
+              value: "overview",
+              label: "Project overview",
+              content: h(Text, { as: "p" }, "Hydrated overview content"),
+            },
+            {
+              value: "history",
+              label: "Project history",
+              content: h(Text, { as: "p" }, "Hydrated history content"),
+            },
+          ],
+        }),
+        h(
+          Disclosure,
+          { summary: "Hydrated supporting details", defaultOpen: true },
+          h(Text, { as: "p" }, "Hydrated disclosure content"),
         ),
         h(Avatar, { name: "Alex Morgan" }),
         h(AvatarGroup, { items: [{ id: "alex", name: "Alex Morgan" }] }),

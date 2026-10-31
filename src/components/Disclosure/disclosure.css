@@ -1,0 +1,20 @@
+@layer components {
+  .pancake-disclosure {
+    @apply font-pancake text-pancake-body text-pancake-ink bg-pancake-surface rounded-pancake-16;
+    border: var(--pancake-border-default) solid var(--color-pancake-muted);
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .pancake-disclosure-summary {
+    @apply text-pancake-label;
+    padding: var(--spacing-pancake-16);
+    cursor: pointer;
+  }
+  .pancake-disclosure-summary:focus-visible {
+    outline: var(--pancake-focus-ring-width) solid var(--color-pancake-deep);
+    outline-offset: var(--spacing-pancake-4);
+  }
+  .pancake-disclosure-content {
+    padding: 0 var(--spacing-pancake-16) var(--spacing-pancake-16);
+  }
+}

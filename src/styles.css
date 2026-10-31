@@ -20,3 +20,6 @@
 
 @import "./components/RadioGroup/RadioGroup.css";
 @import "./components/Switch/Switch.css";
+
+@import "./components/Tabs/Tabs.css";
+@import "./components/Disclosure/disclosure.css";

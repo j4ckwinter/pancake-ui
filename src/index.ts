@@ -88,3 +88,8 @@ export {
   type RadioOption,
 } from "./components/RadioGroup/RadioGroup";
 export { Switch, type SwitchProps } from "./components/Switch/Switch";
+export { Tabs, type TabsProps, type TabItem } from "./components/Tabs/Tabs";
+export {
+  Disclosure,
+  type DisclosureProps,
+} from "./components/Disclosure/Disclosure";

@@ -96,5 +96,17 @@ for (const variant of ["minimum", "current"]) {
     await expect(page.getByLabel("Hydrated selection preferences")).toHaveText(
       "immediate / true",
     );
+    await page.getByRole("tab", { name: "Project history" }).click();
+    await expect(
+      page.getByRole("tabpanel", { name: "Project history" }),
+    ).toHaveText("Hydrated history content");
+    const supporting = page.locator("details").filter({
+      has: page.locator("summary", {
+        hasText: "Hydrated supporting details",
+      }),
+    });
+    await expect(supporting).toHaveAttribute("open", "");
+    await supporting.locator("summary").click();
+    await expect(supporting).not.toHaveAttribute("open");
   });
 }

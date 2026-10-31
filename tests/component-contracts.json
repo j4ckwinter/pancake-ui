@@ -406,5 +406,39 @@
     "ref": {
       "test": "Switch: semantics, keyboard, callbacks, disabled state and ref"
     }
+  },
+  "Tabs": {
+    "semantics": {
+      "test": "Tabs: associations, overrides and native root ref"
+    },
+    "keyboard": {
+      "test": "Tabs: automatic keyboard navigation, disabled skipping and focus order"
+    },
+    "state": {
+      "test": "Tabs: controlled callbacks, mounted panels and native form safety"
+    },
+    "form": {
+      "test": "Tabs: controlled callbacks, mounted panels and native form safety"
+    },
+    "ref": {
+      "test": "Tabs: associations, overrides and native root ref"
+    }
+  },
+  "Disclosure": {
+    "semantics": {
+      "test": "Disclosure: native semantics, independent state and preserved children"
+    },
+    "keyboard": {
+      "test": "Disclosure: keyboard activation, native toggles, refs and form isolation"
+    },
+    "state": {
+      "test": "Disclosure: controlled requests, declined changes and prop updates"
+    },
+    "form": {
+      "test": "Disclosure: keyboard activation, native toggles, refs and form isolation"
+    },
+    "ref": {
+      "test": "Disclosure: keyboard activation, native toggles, refs and form isolation"
+    }
   }
 }

@@ -1,6 +1,9 @@
 import { createRef } from "react";
 import {
   Button,
+  Tabs,
+  Disclosure,
+  type TabsProps,
   RadioGroup,
   Switch,
   Dialog,
@@ -231,3 +234,50 @@ void wrongRadio;
 const wrongSwitch: SwitchProps["onCheckedChange"] = (value: string) =>
   value.toUpperCase();
 void wrongSwitch;
+
+const tabsRef = createRef<HTMLDivElement>();
+const detailsRef = createRef<HTMLDetailsElement>();
+<Tabs
+  ref={tabsRef}
+  label="Project"
+  items={[{ value: "overview", label: "Overview", content: <p>Overview</p> }]}
+  value="overview"
+  onValueChange={(value) => value.toUpperCase()}
+/>;
+<Disclosure ref={detailsRef} summary="More information" defaultOpen>
+  <p>Details</p>
+</Disclosure>;
+// @ts-expect-error Tabs require a label for the tablist.
+<Tabs items={[]} />;
+// @ts-expect-error Tab selection callbacks receive strings.
+const wrongTabChange: TabsProps["onValueChange"] = (value: number) =>
+  value.toFixed();
+void wrongTabChange;
+// @ts-expect-error Tab refs target their root div.
+<Tabs ref={buttonRef} label="Project" items={[]} />;
+// @ts-expect-error Disclosure requires a visible summary.
+<Disclosure />;
+// @ts-expect-error Disclosure refs target details elements.
+<Disclosure ref={buttonRef} summary="Details" />;
+
+<Disclosure
+  summary="Controlled details"
+  open={false}
+  onOpenChange={(open) => open.valueOf()}
+/>;
+// @ts-expect-error Controlled Disclosure requires an update handler.
+<Disclosure summary="Details" open={false} />;
+// @ts-expect-error Controlled and uncontrolled initial state cannot be combined.
+<Disclosure
+  summary="Details"
+  open={false}
+  defaultOpen
+  onOpenChange={() => {}}
+/>;
+// @ts-expect-error Native exclusive grouping belongs to uncontrolled disclosures.
+<Disclosure
+  summary="Details"
+  open={false}
+  name="group"
+  onOpenChange={() => {}}
+/>;

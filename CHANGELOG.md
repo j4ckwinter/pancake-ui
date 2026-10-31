@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add accessible Tabs and native Disclosure with keyboard, state, compatibility and visual verification.
+
 - Add native RadioGroup choices and Switch settings with behaviour, accessibility, visual and installed-package coverage.
 
 - Add a controlled native Dialog with keyboard, focus, lifecycle, visual and hydration verification.

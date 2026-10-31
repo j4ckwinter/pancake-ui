@@ -5,6 +5,8 @@ import {
   BannerToast,
   BottomNavigation,
   Button,
+  Tabs,
+  Disclosure,
   RadioGroup,
   Switch,
   Dialog,
@@ -355,6 +357,59 @@ export const Catalogue: Story = {
               disabled
               defaultChecked
             />
+          </Stack>
+        </Surface>
+        <Surface>
+          <Stack>
+            <SectionHeader title="Panels and expandable details" />
+            <Tabs
+              data-component="Tabs"
+              label="Project information"
+              defaultValue="overview"
+              items={[
+                {
+                  value: "overview",
+                  label: "Overview",
+                  content: (
+                    <Text as="p">
+                      A shared workspace for project information, updates and
+                      supporting details.
+                    </Text>
+                  ),
+                },
+                {
+                  value: "activity",
+                  label: "Activity and recent updates",
+                  content: (
+                    <Text as="p">Recent project changes appear here.</Text>
+                  ),
+                },
+                {
+                  value: "settings",
+                  label: "Settings",
+                  disabled: true,
+                  content: <Text as="p">Settings are unavailable.</Text>,
+                },
+              ]}
+            />
+            <Disclosure
+              data-component="Disclosure"
+              summary="What happens when I archive a project?"
+            >
+              <Text as="p">
+                Archived projects remain available to the team. You can restore
+                them whenever you need to continue the work.
+              </Text>
+            </Disclosure>
+            <Disclosure
+              summary="A longer explanation of how project permissions work across the team"
+              defaultOpen
+            >
+              <Text as="p">
+                Project members can read updates and contribute changes.
+                Administrators manage access separately.
+              </Text>
+            </Disclosure>
           </Stack>
         </Surface>
       </Stack>
