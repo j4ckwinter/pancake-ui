@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add native Table presentation and controlled/link Pagination with responsive, keyboard, compatibility and visual coverage.
+
 - Add text-only Tooltip descriptions for existing focusable controls, with keyboard, pointer, compatibility and visual coverage.
 
 - Add DropdownMenu actions and native links with menu keyboard navigation, focus management, compatibility and visual coverage.

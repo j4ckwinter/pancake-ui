@@ -542,5 +542,39 @@
     "ref": {
       "test": "Tooltip: descriptions, native props, refs and consumer styling"
     }
+  },
+  "Table": {
+    "semantics": {
+      "test": "Table: native caption, headers, props, ref and consumer styling"
+    },
+    "keyboard": {
+      "test": "Table: keyboard scrolling and nested control navigation"
+    },
+    "state": {
+      "test": "Table: application sorting and empty rows retain table semantics"
+    },
+    "form": {
+      "test": "Table: nested controls preserve native form submission"
+    },
+    "ref": {
+      "test": "Table: native caption, headers, props, ref and consumer styling"
+    }
+  },
+  "Pagination": {
+    "semantics": {
+      "test": "Pagination: navigation semantics, current page, native props and ref"
+    },
+    "keyboard": {
+      "test": "Pagination: keyboard activation updates once, preserves focus and never submits"
+    },
+    "state": {
+      "test": "Pagination: controlled state and shrinking page counts remain application owned"
+    },
+    "form": {
+      "test": "Pagination: keyboard activation updates once, preserves focus and never submits"
+    },
+    "ref": {
+      "test": "Pagination: navigation semantics, current page, native props and ref"
+    }
   }
 }

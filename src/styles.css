@@ -33,3 +33,6 @@
 @import "./components/DropdownMenu/DropdownMenu.css";
 
 @import "./components/Tooltip/Tooltip.css";
+
+@import "./components/Table/Table.css";
+@import "./components/Pagination/Pagination.css";

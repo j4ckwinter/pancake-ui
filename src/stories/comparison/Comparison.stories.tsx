@@ -7,6 +7,8 @@ import {
   Button,
   DropdownMenu,
   Tooltip,
+  Table,
+  Pagination,
   Popover,
   FileField,
   Progress,
@@ -41,6 +43,18 @@ const meta = {
 } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+function ComparisonPagination() {
+  const [page, setPage] = useState(2);
+  return (
+    <Pagination
+      label="Project pages"
+      page={page}
+      pageCount={12}
+      onPageChange={setPage}
+    />
+  );
+}
 
 function ComparisonMenu() {
   const [result, setResult] = useState("Choose a project action.");
@@ -544,6 +558,47 @@ export const Catalogue: Story = {
                 Sharing guide
               </ButtonLink>
             </Tooltip>
+          </Stack>
+        </Surface>
+        <Surface data-component="Table">
+          <Table caption="Project overview">
+            <thead>
+              <tr>
+                <th scope="col">Project</th>
+                <th scope="col">Owner</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Shared component library</th>
+                <td>Alex Morgan</td>
+                <td>
+                  <StatusChip tone="success">Ready</StatusChip>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  A longer project name that wraps on narrow screens
+                </th>
+                <td>Sam Rivera</td>
+                <td>
+                  <StatusChip tone="warning">Needs review</StatusChip>
+                </td>
+              </tr>
+            </tbody>
+          </Table>
+        </Surface>
+        <Surface data-component="Pagination">
+          <Stack>
+            <SectionHeader title="Page navigation" />
+            <ComparisonPagination />
+            <Pagination
+              label="Empty results pages"
+              page={1}
+              pageCount={0}
+              onPageChange={() => {}}
+            />
           </Stack>
         </Surface>
         <Surface data-component="DropdownMenu">

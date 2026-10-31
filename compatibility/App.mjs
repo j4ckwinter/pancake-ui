@@ -8,6 +8,8 @@ import {
   Button,
   DropdownMenu,
   Tooltip,
+  Table,
+  Pagination,
   Popover,
   FileField,
   Progress,
@@ -43,6 +45,7 @@ export function App() {
   const [checked, setChecked] = useState(false);
   const [period, setPeriod] = useState("week");
   const [clicks, setClicks] = useState(0);
+  const [resultPage, setResultPage] = useState(1);
   const [hydrated, setHydrated] = useState(false);
   const input = useRef(null);
   useEffect(() => setHydrated(true), []);
@@ -57,6 +60,22 @@ export function App() {
         Stack,
         null,
         h(SectionHeader, { title: "State and identifiers" }),
+        h(
+          Table,
+          { caption: "Hydrated records" },
+          h("thead", null, h("tr", null, h("th", { scope: "col" }, "Record"))),
+          h(
+            "tbody",
+            null,
+            h("tr", null, h("td", null, `Result page ${resultPage}`)),
+          ),
+        ),
+        h(Pagination, {
+          label: "Hydrated result pages",
+          page: resultPage,
+          pageCount: 4,
+          onPageChange: setResultPage,
+        }),
         h(
           Tooltip,
           { content: "Hydrated supporting description" },

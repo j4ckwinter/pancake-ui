@@ -15,6 +15,8 @@ import { FileFieldContracts } from "./FileFieldContracts";
 import { PopoverContracts } from "./PopoverContracts";
 import { TooltipContracts } from "./TooltipContracts";
 import { MenuContracts } from "./MenuContracts";
+import { TableContracts } from "./TableContracts";
+import { PaginationContracts } from "./PaginationContracts";
 import { markRef } from "./markRef";
 
 const meta = {
@@ -49,6 +51,8 @@ function ContractHarness() {
         <PopoverContracts />
         <MenuContracts />
         <TooltipContracts />
+        <TableContracts />
+        <PaginationContracts />
       </Stack>
     </main>
   );

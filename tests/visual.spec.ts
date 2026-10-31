@@ -104,5 +104,34 @@ for (const width of [1100, 375]) {
     await expect(tooltip).toHaveScreenshot(`tooltip-${width}.png`);
     await page.keyboard.press("Escape");
     await expect(tooltip).toBeHidden();
+    const pages = page.getByRole("navigation", {
+      name: "Project pages",
+      exact: true,
+    });
+    await pages.getByRole("button", { name: "Page 2", exact: true }).focus();
+    await expect(
+      comparison.locator('[data-component="Pagination"]'),
+    ).toHaveScreenshot(`pagination-focus-${width}.png`);
+    await page
+      .getByRole("region", { name: "Project overview", exact: true })
+      .focus();
+    await expect(
+      comparison.locator('[data-component="Table"]'),
+    ).toHaveScreenshot(`table-focus-${width}.png`);
+    if (width === 375) {
+      const tableRegion = page.getByRole("region", {
+        name: "Project overview",
+        exact: true,
+      });
+      await tableRegion.evaluate((node) => {
+        node.scrollLeft = node.scrollWidth;
+      });
+      expect(
+        await tableRegion.evaluate((node) => node.scrollLeft),
+      ).toBeGreaterThan(0);
+      await expect(
+        comparison.locator('[data-component="Table"]'),
+      ).toHaveScreenshot("table-scrolled-375.png");
+    }
   });
 }

@@ -1,0 +1,43 @@
+@layer components {
+  .pancake-table-scroll {
+    min-width: 0;
+    max-width: 100%;
+    overflow: auto;
+  }
+  .pancake-table-scroll:focus-visible {
+    outline: var(--pancake-focus-ring-width) solid var(--color-pancake-deep);
+    outline-offset: var(--pancake-focus-ring-width);
+  }
+  .pancake-table {
+    @apply font-pancake text-pancake-body text-pancake-ink bg-pancake-surface;
+    width: 100%;
+    border-collapse: collapse;
+    text-align: start;
+  }
+  .pancake-table > caption {
+    @apply text-pancake-heading;
+    padding-block: var(--spacing-pancake-16);
+    text-align: start;
+  }
+  .pancake-table > thead {
+    background-color: var(--color-pancake-surface-muted);
+  }
+  .pancake-table > thead > tr > th,
+  .pancake-table > tbody > tr > th,
+  .pancake-table > tfoot > tr > th {
+    @apply text-pancake-label;
+    text-align: start;
+  }
+  .pancake-table > thead > tr > th,
+  .pancake-table > thead > tr > td,
+  .pancake-table > tbody > tr > th,
+  .pancake-table > tbody > tr > td,
+  .pancake-table > tfoot > tr > th,
+  .pancake-table > tfoot > tr > td {
+    min-width: var(--spacing-pancake-112);
+    padding: var(--spacing-pancake-16);
+    border-bottom: var(--pancake-border-default) solid
+      var(--color-pancake-muted);
+    vertical-align: top;
+  }
+}

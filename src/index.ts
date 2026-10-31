@@ -110,3 +110,9 @@ export {
 } from "./components/DropdownMenu/DropdownMenu";
 
 export { Tooltip, type TooltipProps } from "./components/Tooltip/Tooltip";
+
+export { Table, type TableProps } from "./components/Table/Table";
+export {
+  Pagination,
+  type PaginationProps,
+} from "./components/Pagination/Pagination";

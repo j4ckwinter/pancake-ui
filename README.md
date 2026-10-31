@@ -244,3 +244,33 @@ Native panel props, `className`, `style` and refs target the menu div. Use `trig
 Keyboard focus or pointer hover displays the tooltip without moving focus. The pointer can move onto the description; Escape dismisses it. Leaving both focus and hover closes it. Touch activation retains the child's normal action and does not introduce a hover-only interaction. Keep essential instructions visible in the page: touch users and keyboard users of natively disabled controls cannot depend on a tooltip. Use Popover for interactive contextual content. Custom child components must forward the description to their actual focus target; fragments, block-root components such as `TextField`, and multiple focus targets are unsupported. The wrapper is a span, so its child must be valid phrasing content.
 
 Tooltip refs and native props target the tooltip span; child refs still target the original child. `onOpenChange` observes settled native visibility changes. Consumer `className` and `style` override the description panel.
+
+`Table` renders a native table with a required visible `caption` and a labelled, keyboard-focusable scroll region. Supply native `thead`, `tbody`, `tfoot`, `tr`, `th` and `td` children. Mark column headers with `scope="col"` and row headers with `scope="row"`; use native `colSpan`, `rowSpan`, `id` and `headers` for grouped headers. Cells have a 112px minimum content width plus padding to keep text and embedded controls readable. The wrapper contains horizontal overflow on narrow screens and retains ordinary keyboard navigation for controls inside cells. Table refs, native props, `className` and `style` target the table itself.
+
+```tsx
+<Table caption="Project overview">
+  <thead>
+    <tr>
+      <th scope="col">Project</th>
+      <th scope="col">Owner</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Component library</th>
+      <td>Alex Morgan</td>
+    </tr>
+  </tbody>
+</Table>
+```
+
+Applications own row data, empty/loading rows, selection and sorting. A sortable header can contain a `Button` and expose `aria-sort` on its `th`. Table does not add spreadsheet-style arrow navigation or virtualise rows.
+
+`Pagination` takes a navigation `label`, one-based `page` and `pageCount`. For local state, supply `onPageChange`; for URL navigation, supply `getPageHref`. Link mode renders real anchors and preserves browser navigation, including opening another tab. Button mode is controlled: requests only become the current page when the application updates `page`. It does not fetch data or move focus into results.
+
+```tsx
+<Pagination label="Project pages" page={page} pageCount={12} onPageChange={setPage} />
+<Pagination label="Archive pages" page={page} pageCount={12} getPageHref={(value) => `/archive?page=${value}`} />
+```
+
+The current page has `aria-current="page"`; unavailable Previous/Next controls cannot activate. Page numbers stay bounded around the current page, with first/last pages and noninteractive ellipses for gaps. Zero pages has no numbered controls. Counts are truncated and clamped to nonnegative safe integers; invalid counts become zero and the displayed page clamps to the available range without emitting callbacks. Use `labels.previous`, `labels.next` and `labels.page` to localise control text/names. Native refs, props and consumer styling target the navigation element.

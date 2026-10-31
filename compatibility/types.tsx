@@ -3,6 +3,8 @@ import {
   Button,
   DropdownMenu,
   Tooltip,
+  Table,
+  Pagination,
   type DropdownMenuProps,
   type DropdownMenuItem,
   Popover,
@@ -435,3 +437,54 @@ void invalidMenuTrigger;
 <Tooltip content="Save a copy" role="dialog">
   <Button>Save</Button>
 </Tooltip>;
+
+<Table
+  caption="Projects"
+  ref={createRef<HTMLTableElement>()}
+  className="consumer-table"
+  style={{ borderCollapse: "separate" }}
+>
+  <thead>
+    <tr>
+      <th scope="col">Project</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Library</td>
+    </tr>
+  </tbody>
+</Table>;
+// @ts-expect-error Tables require a caption.
+<Table>
+  <tbody />
+</Table>;
+// @ts-expect-error Table refs target the native table.
+<Table caption="Projects" ref={buttonRef}>
+  <tbody />
+</Table>;
+<Pagination
+  label="Results pages"
+  page={2}
+  pageCount={10}
+  onPageChange={(page) => page.toFixed()}
+  ref={createRef<HTMLElement>()}
+/>;
+<Pagination
+  label="Destination pages"
+  page={2}
+  pageCount={10}
+  getPageHref={(page) => `/projects?page=${page}`}
+/>;
+// @ts-expect-error Pagination requires an accessible navigation label.
+<Pagination page={1} pageCount={2} onPageChange={() => {}} />;
+// @ts-expect-error Button pagination requires a page-change handler.
+<Pagination label="Results pages" page={1} pageCount={2} />;
+// @ts-expect-error Link navigation and button state changes are distinct modes.
+<Pagination
+  label="Results pages"
+  page={1}
+  pageCount={2}
+  getPageHref={() => "/projects"}
+  onPageChange={() => {}}
+/>;

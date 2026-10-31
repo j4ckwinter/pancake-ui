@@ -129,6 +129,20 @@ for (const variant of ["minimum", "current"]) {
     await expect(page.getByLabel("Hydrated state")).toHaveText(
       "Hydrated project / true / month / 4",
     );
+    const records = page.getByRole("table", { name: "Hydrated records" });
+    await expect(
+      records.getByRole("columnheader", { name: "Record" }),
+    ).toBeVisible();
+    const resultPages = page.getByRole("navigation", {
+      name: "Hydrated result pages",
+    });
+    await resultPages
+      .getByRole("button", { name: "Page 2", exact: true })
+      .click();
+    await expect(
+      resultPages.getByRole("button", { name: "Page 2", exact: true }),
+    ).toHaveAttribute("aria-current", "page");
+    await expect(records.getByRole("cell")).toHaveText("Result page 2");
     const destination = page.getByRole("link", {
       name: "Hydrated destination",
     });
