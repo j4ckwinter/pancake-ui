@@ -102,3 +102,4 @@ export {
   FileField,
   type FileFieldProps,
 } from "./components/FileField/FileField";
+export { Popover, type PopoverProps } from "./components/Popover/Popover";

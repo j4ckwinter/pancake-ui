@@ -1,8 +1,9 @@
 import type { Locator, Page } from "@playwright/test";
 import { test as base, expect } from "./fixtures";
 
+// Playwright owns explicit axe scans; prevent Storybook from running axe concurrently.
 const story =
-  "http://127.0.0.1:6007/iframe.html?id=verification-contracts--interactive&viewMode=story";
+  "http://127.0.0.1:6007/iframe.html?id=verification-contracts--interactive&viewMode=story&globals=a11y.manual:!true";
 export const test = base.extend<{ contractStory: void }>({
   contractStory: [
     async ({ page, runtimeErrors }, provide) => {

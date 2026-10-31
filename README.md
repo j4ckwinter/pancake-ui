@@ -208,3 +208,21 @@ const [open, setOpen] = useState(false);
 `TextField` also supports native `number`, `date`, `time` and `datetime-local` controls. Pass native `min`, `max`, `step` and `required` constraints. Change events retain browser string values; read `event.currentTarget.valueAsNumber` for numeric conversion (empty input yields `NaN`). Dates use `YYYY-MM-DD`, times use `HH:mm` and local date-times use `YYYY-MM-DDTHH:mm`; `datetime-local` does not supply a time zone. Native picker presentation follows the browser and operating system.
 
 `FileField` provides a labelled native file input with the same helper/error treatment as other fields. Use `accept`, `multiple`, `required` and `onChange`; selected files are available through `event.currentTarget.files`, refs or native `FormData`. File selection is uncontrolled: `value`, `defaultValue` and `readOnly` are deliberately excluded. Native form reset clears the selection. `accept` is a picker hint, not validation; applications own file validation and upload transport. Consumer `className`, `style` and refs target the input.
+
+`Popover` provides a named, nonmodal contextual region in the browser's top layer. Give it a unique, stable `id` and `label`, and point an ordinary `Button` at that id with `popoverTarget`. A close button uses the same target and `popoverTargetAction="hide"`. Native invocation supplies the positioning anchor. The panel chooses the side with more space, limits its size to the available viewport area and scrolls long content.
+
+```tsx
+<>
+  <Button popoverTarget="project-filters">Filters</Button>
+  <Popover id="project-filters" label="Project filters">
+    <Stack>
+      <Checkbox label="Include archived projects" />
+      <Button popoverTarget="project-filters" popoverTargetAction="hide">
+        Done
+      </Button>
+    </Stack>
+  </Popover>
+</>
+```
+
+The browser owns visibility, outside-click dismissal, Escape, sibling/nested popovers and focus navigation. `onOpenChange` observes settled visibility changes; native toggle events may coalesce. There is no controlled `open` or `defaultOpen` prop. `onBeforeToggle` can cancel opening; native closing cannot be cancelled. Refs target the panel div and expose native popover methods; programmatic opening needs a source element to retain an anchor (`ref.current?.showPopover({ source: trigger })`). Children stay mounted while hidden. Consumer styles and native events are preserved. A popover is not a modal dialog or a menu: its contents use ordinary keyboard navigation, and background controls remain usable.

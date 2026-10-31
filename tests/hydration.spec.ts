@@ -94,6 +94,16 @@ for (const variant of ["minimum", "current"]) {
         (node: HTMLInputElement) => node.files?.[0]?.name,
       ),
     ).toBe("note.txt");
+    await page.getByRole("button", { name: "Open hydrated popover" }).click();
+    const filterPanel = page.getByRole("region", {
+      name: "Hydrated filter panel",
+    });
+    await expect(filterPanel).toBeVisible();
+    await filterPanel
+      .getByRole("textbox", { name: "Hydrated filter query" })
+      .fill("Active");
+    await page.getByRole("button", { name: "Close hydrated popover" }).click();
+    await expect(filterPanel).toBeHidden();
     const destination = page.getByRole("link", {
       name: "Hydrated destination",
     });

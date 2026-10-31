@@ -76,5 +76,14 @@ for (const width of [1100, 375]) {
     await page.keyboard.press("Escape");
     await expect(dialog).not.toBeVisible();
     await expect(dialogTrigger).toBeFocused();
+    const popoverTrigger = page.getByRole("button", {
+      name: "Open comparison popover",
+    });
+    await popoverTrigger.click();
+    const popover = page.getByRole("region", { name: "Project filters" });
+    await expect(popover).toBeVisible();
+    await expect(popover).toHaveScreenshot(`popover-${width}.png`);
+    await page.keyboard.press("Escape");
+    await expect(popover).toBeHidden();
   });
 }

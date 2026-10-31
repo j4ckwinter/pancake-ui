@@ -491,5 +491,22 @@
     "ref": {
       "test": "FileField: native semantics, descriptions, overrides and ref"
     }
+  },
+  "Popover": {
+    "semantics": {
+      "test": "Popover: named region, native props, ref and consumer styling"
+    },
+    "keyboard": {
+      "test": "Popover: keyboard activation, nonmodal Tab and conditional focus return"
+    },
+    "state": {
+      "test": "Popover: canceled opening and coalesced native transitions report settled state once"
+    },
+    "form": {
+      "test": "Popover: inside interaction, light dismissal, disabled trigger and form safety"
+    },
+    "ref": {
+      "test": "Popover: named region, native props, ref and consumer styling"
+    }
   }
 }

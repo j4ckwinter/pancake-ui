@@ -5,6 +5,7 @@ import {
   BannerToast,
   BottomNavigation,
   Button,
+  Popover,
   FileField,
   Progress,
   LoadingIndicator,
@@ -464,6 +465,31 @@ export const Catalogue: Story = {
               error="Choose a file before continuing."
             />
             <FileField label="Managed attachment" disabled />
+          </Stack>
+        </Surface>
+        <Surface data-component="Popover">
+          <Stack>
+            <SectionHeader title="Contextual details" />
+            <Button popoverTarget="comparison-popover">
+              Open comparison popover
+            </Button>
+            <Popover id="comparison-popover" label="Project filters">
+              <Stack>
+                <Text as="h2" variant="heading">
+                  Project filters
+                </Text>
+                <Text as="p">
+                  Refine the projects shown without leaving the page.
+                </Text>
+                <Checkbox label="Include archived projects" />
+                <Button
+                  popoverTarget="comparison-popover"
+                  popoverTargetAction="hide"
+                >
+                  Apply filters
+                </Button>
+              </Stack>
+            </Popover>
           </Stack>
         </Surface>
       </Stack>

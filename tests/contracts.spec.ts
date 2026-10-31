@@ -19,7 +19,7 @@ test("Accessibility: default, error and selected states", async ({ page }) => {
     .check();
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   await page.goto(
-    "http://127.0.0.1:6007/iframe.html?id=foundations-comparison--catalogue&viewMode=story",
+    "http://127.0.0.1:6007/iframe.html?id=foundations-comparison--catalogue&viewMode=story&globals=a11y.manual:!true",
   );
   await expect(page.getByTestId("comparison")).toBeVisible();
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
@@ -79,4 +79,25 @@ test("Contract probes reject broken callbacks, labels and disabled semantics", a
   });
   await disabled.evaluate((element) => element.removeAttribute("disabled"));
   await expect(assertDisabled(disabled)).rejects.toThrow();
+});
+
+test("Accessibility: explicit scans reject an unlabeled control", async ({
+  page,
+}) => {
+  await page.evaluate(() => {
+    const button = document.createElement("button");
+    button.id = "deliberate-unlabeled-control";
+    button.type = "button";
+    document.querySelector("main")!.append(button);
+  });
+  const violations = (await new AxeBuilder({ page }).analyze()).violations;
+  expect(
+    violations.some(
+      (violation) =>
+        violation.id === "button-name" &&
+        violation.nodes.some((node) =>
+          node.target.includes("#deliberate-unlabeled-control"),
+        ),
+    ),
+  ).toBe(true);
 });

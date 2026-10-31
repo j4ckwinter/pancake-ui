@@ -1,0 +1,20 @@
+@layer components {
+  .pancake-popover {
+    @apply font-pancake text-pancake-ink bg-pancake-surface rounded-pancake-16;
+    box-sizing: border-box;
+    position: fixed;
+    position-anchor: auto;
+    position-area: block-end;
+    position-try-fallbacks: flip-block;
+    position-try-order: most-height;
+    inset: auto;
+    margin: var(--spacing-pancake-8);
+    width: var(--spacing-pancake-320);
+    max-width: calc(100% - var(--spacing-pancake-32));
+    max-height: calc(100% - var(--spacing-pancake-32));
+    padding: var(--spacing-pancake-24);
+    border: var(--pancake-border-default) solid var(--color-pancake-muted);
+    overflow: auto;
+    overflow-wrap: anywhere;
+  }
+}

@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add native anchored Popover regions with dismissal, focus, positioning, compatibility and visual coverage.
+- Prevent Storybook and Playwright accessibility scans from overlapping; verify explicit scans reject an unnamed control.
+
 - Add native numeric/temporal TextField modes and FileField selection with form, compatibility and visual coverage.
 
 - Add labelled native Progress and LoadingIndicator status feedback with behaviour and package verification.

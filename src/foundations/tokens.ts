@@ -71,6 +71,7 @@ export const sizing = Object.freeze({
   size92: 92,
   size104: 104,
   size112: 112,
+  size320: 320,
   size560: 560,
 } as const);
 

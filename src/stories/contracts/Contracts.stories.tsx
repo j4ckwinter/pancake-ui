@@ -12,6 +12,7 @@ import { DisclosureContracts } from "./DisclosureContracts";
 import { ProgressContracts } from "./ProgressContracts";
 import { NativeFieldsContracts } from "./NativeFieldsContracts";
 import { FileFieldContracts } from "./FileFieldContracts";
+import { PopoverContracts } from "./PopoverContracts";
 import { markRef } from "./markRef";
 
 const meta = {
@@ -43,6 +44,7 @@ function ContractHarness() {
         <ProgressContracts />
         <NativeFieldsContracts />
         <FileFieldContracts />
+        <PopoverContracts />
       </Stack>
     </main>
   );

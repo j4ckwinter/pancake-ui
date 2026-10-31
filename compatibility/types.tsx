@@ -1,6 +1,7 @@
 import { createRef } from "react";
 import {
   Button,
+  Popover,
   FileField,
   Progress,
   LoadingIndicator,
@@ -340,3 +341,25 @@ const progressRef = createRef<HTMLProgressElement>();
 
 // @ts-expect-error Native file inputs do not support read-only state.
 <FileField label="Documents" readOnly />;
+
+<Button popoverTarget="typed-popover">Open filters</Button>;
+<Popover
+  id="typed-popover"
+  label="Filters"
+  ref={tabsRef}
+  onOpenChange={(open) => open.valueOf()}
+>
+  <Button popoverTarget="typed-popover" popoverTargetAction="hide">
+    Done
+  </Button>
+</Popover>;
+// @ts-expect-error Popovers require a stable native target id.
+<Popover label="Filters" />;
+// @ts-expect-error Popovers require an accessible region label.
+<Popover id="missing-label" />;
+// @ts-expect-error Popovers retain native automatic dismissal.
+<Popover id="manual-popover" label="Filters" popover="manual" />;
+// @ts-expect-error Popover visibility is browser-owned, not a controlled open prop.
+<Popover id="controlled-popover" label="Filters" open />;
+// @ts-expect-error Popover refs target div elements.
+<Popover id="wrong-ref" label="Filters" ref={buttonRef} />;

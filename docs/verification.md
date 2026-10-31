@@ -10,6 +10,8 @@ Run `npm ci`, then `npx playwright install chromium firefox webkit`, then `npm r
 4. Add positive and negative public API examples to `compatibility/types.tsx`. These compile against the installed archive with declaration checking enabled. Keep a descriptive `@ts-expect-error` beside each intentionally invalid call; it must fail compilation if the API accidentally starts accepting that call.
 5. Run the full suite and inspect visual changes. A contract entry or passing screenshot does not establish that an assertion is meaningful; independent review checks the test's expectations against the component's purpose.
 
+Playwright opens the contract and comparison pages with Storybook’s accessibility addon in manual mode when it owns explicit axe scans. This prevents concurrent scans of the same document; normal Storybook usage retains automatic checks. A deliberate unnamed-button probe verifies that the explicit scanner still detects violations.
+
 The contracts include explicit axe scans of the comparison and interactive states, plus narrow layout, reduced-motion and forced-colour checks. Automated accessibility scans do not establish screen-reader announcements or complete accessibility conformance. Review new interaction patterns with keyboard and assistive technology.
 
 ## What verification runs
