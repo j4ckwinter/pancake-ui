@@ -2,6 +2,25 @@ import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import ts from "typescript";
 
+export function publicComponents(checker, module) {
+  const unalias = (symbol) =>
+    symbol?.flags & ts.SymbolFlags.Alias
+      ? checker.getAliasedSymbol(symbol)
+      : symbol;
+  return checker.getExportsOfModule(module).flatMap((exported) => {
+    const symbol = unalias(exported);
+    const declaration = symbol?.valueDeclaration;
+    if (!declaration || !/^[A-Z]/.test(exported.name)) return [];
+    const type = checker.getTypeOfSymbolAtLocation(symbol, declaration);
+    if (
+      !type.getCallSignatures().length &&
+      !type.getConstructSignatures().length
+    )
+      return [];
+    return [{ name: exported.name, symbol }];
+  });
+}
+
 export function checkComparison({
   indexPath = "src/index.ts",
   storyPath = "src/stories/comparison/Comparison.stories.tsx",
@@ -35,18 +54,7 @@ export function checkComparison({
     symbol?.flags & ts.SymbolFlags.Alias
       ? checker.getAliasedSymbol(symbol)
       : symbol;
-  const components = checker.getExportsOfModule(module).flatMap((exported) => {
-    const symbol = unalias(exported);
-    const declaration = symbol?.valueDeclaration;
-    if (!declaration || !/^[A-Z]/.test(exported.name)) return [];
-    const type = checker.getTypeOfSymbolAtLocation(symbol, declaration);
-    if (
-      !type.getCallSignatures().length &&
-      !type.getConstructSignatures().length
-    )
-      return [];
-    return [{ name: exported.name, symbol }];
-  });
+  const components = publicComponents(checker, module);
   const imported = new Set();
   const namespaces = new Set();
   for (const statement of story.statements) {

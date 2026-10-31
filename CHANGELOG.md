@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add dedicated autodocs and state examples for every public component, with source, built-index and browser-rendering gates in verification.
+
 - Add native Table presentation and controlled/link Pagination with responsive, keyboard, compatibility and visual coverage.
 
 - Add text-only Tooltip descriptions for existing focusable controls, with keyboard, pointer, compatibility and visual coverage.

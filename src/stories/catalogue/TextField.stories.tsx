@@ -26,3 +26,51 @@ export const Password: Story = {
     helperText: "Use your account password.",
   },
 };
+
+export const Number: Story = {
+  args: {
+    label: "Quantity",
+    type: "number",
+    min: 1,
+    max: 100,
+    step: 1,
+    defaultValue: 4,
+    helperText: "Choose between 1 and 100.",
+    placeholder: undefined,
+  },
+};
+export const Date: Story = {
+  args: {
+    label: "Due date",
+    type: "date",
+    defaultValue: "2026-11-15",
+    helperText: "A calendar date without a time zone.",
+    placeholder: undefined,
+  },
+};
+export const Time: Story = {
+  args: {
+    label: "Start time",
+    type: "time",
+    defaultValue: "09:30",
+    helperText: "Use your local time.",
+    placeholder: undefined,
+  },
+};
+export const LocalDateTime: Story = {
+  args: {
+    label: "Appointment",
+    type: "datetime-local",
+    defaultValue: "2026-11-15T09:30",
+    helperText: "The application owns the time zone.",
+    placeholder: undefined,
+  },
+};
+export const Email: Story = {
+  args: {
+    label: "Email address",
+    type: "email",
+    placeholder: "alex@example.com",
+    helperText: "Where should we send updates?",
+  },
+};

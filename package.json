@@ -40,7 +40,7 @@
     "storybook:build": "storybook build",
     "example": "npm run build && npm --prefix examples/web install && npm --prefix examples/web run dev",
     "test:package": "node scripts/prepare-consumer.mjs && npm run check:compatibility && playwright test",
-    "verify": "npm run format:check && npm run typecheck && npm run lint && npm run check:structure && npm run test:structure && npm run check:styles && npm run test:styles && npm run check:comparison && npm run test:comparison && npm run check:contracts && npm run test:contracts && npm run test:verification && npm run build && npm run storybook:build && npm run test:package",
+    "verify": "npm run format:check && npm run typecheck && npm run lint && npm run check:structure && npm run test:structure && npm run check:styles && npm run test:styles && npm run check:comparison && npm run test:comparison && npm run check:stories && npm run test:stories && npm run check:contracts && npm run test:contracts && npm run test:verification && npm run build && npm run storybook:build && npm run check:stories:built && npm run test:package",
     "prepack": "npm run build",
     "release:local": "node scripts/release-local.mjs",
     "check:styles": "node scripts/generate-theme.mjs --check && node scripts/check-styles.mjs",
@@ -54,7 +54,10 @@
     "test:verification": "node --test scripts/verification.test.mjs",
     "check:compatibility": "node scripts/check-compatibility.mjs",
     "check:structure": "node scripts/check-structure.mjs",
-    "test:structure": "node --test scripts/check-structure.test.mjs"
+    "test:structure": "node --test scripts/check-structure.test.mjs",
+    "check:stories": "node scripts/check-stories.mjs",
+    "test:stories": "node --test scripts/check-stories.test.mjs",
+    "check:stories:built": "node scripts/check-stories.mjs --built"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.0",

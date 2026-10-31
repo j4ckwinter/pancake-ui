@@ -7,7 +7,8 @@
 - Keep checker policy and exceptions under `scripts/style`; parser helpers and rule evaluation have separate owners.
 
 - Read `docs/styling.md` and `docs/verification.md` before adding a component.
-- Add the public export, comparison story, applicable behaviour contracts, and installed-package type examples together. A screenshot alone is not behaviour coverage.
+- Add the public export, dedicated component stories, comparison story, applicable behaviour contracts, and installed-package type examples together. A screenshot alone is not behaviour coverage.
+- Every public component needs `src/stories/catalogue/<Component>.stories.tsx` with its matching public-import `component`, a title ending in the component name, `autodocs`, `Default`, and meaningful named state/variant/composition examples. Forward args so controls work; make stateful examples interactive. Group and contract stories do not substitute. `check:stories` and `check:stories:built` enforce source and built entries; browser tests render every dedicated example and docs page.
 - Run `npm run verify` before committing. Report failed or unavailable checks accurately; do not claim hosted CI ran from local results.
 - Do not remove assertions, skip tests, broaden exceptions, or update screenshot baselines merely to make a failure pass. Establish whether the implementation or the expectation is wrong first.
 - Identify changes to verification scripts, tests, baselines, lint configuration, and workflows in the completion report. These changes require independent review, including confirmation that an appropriate deliberate defect still fails the affected check.

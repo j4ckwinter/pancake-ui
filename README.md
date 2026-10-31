@@ -171,7 +171,7 @@ Follow the [verification and behaviour contracts](docs/verification.md) and the 
 
 Keep public exports in `src/index.ts` and use the shared tokens in `src/foundations/tokens.ts`. Keep component styles under namespaced `pancake-` classes and avoid global element styles. Components should accept application content and callbacks without importing app routes, services, or domain models.
 
-Add Storybook examples for relevant states and update the consuming example when adding a public API. Use the package browser tests for behaviour that needs regression coverage. Run `npm run verify` before sharing a release; it checks the installed archive, not just source imports. The GitHub Actions workflow runs the same verification on pushes and pull requests when hosted on GitHub.
+Add a dedicated `src/stories/catalogue/<Component>.stories.tsx` with autodocs, a Default story and relevant state/variant examples; keep its args and interactions usable. Update the consuming example when adding a public API. `npm run check:stories` enforces dedicated coverage for every public component, and `verify` also checks the built Storybook index and renders every example and docs page in all three browsers. Use the package browser tests for behaviour that needs regression coverage. Run `npm run verify` before sharing a release; it checks the installed archive, not just source imports. The GitHub Actions workflow runs the same verification on pushes and pull requests when hosted on GitHub.
 
 `Textarea` and `Select` provide labelled multiline and native selection controls with `helperText`, `error`, native form props, and refs to their controls. Supply `option` and `optgroup` children to `Select`. Like `TextField`, their `className` and `style` props target the control.
 
