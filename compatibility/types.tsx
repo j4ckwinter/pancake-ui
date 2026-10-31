@@ -1,6 +1,8 @@
 import { createRef } from "react";
 import {
   Button,
+  ButtonLink,
+  IconButton,
   Checkbox,
   TextField,
   Textarea,
@@ -140,3 +142,37 @@ const selectRef = createRef<HTMLSelectElement>();
 <Select label="Choice" value={["one"]} />;
 // @ts-expect-error A single Select accepts only one default value.
 <Select label="Choice" defaultValue={["one"]} />;
+
+const anchorRef = createRef<HTMLAnchorElement>();
+<IconButton
+  ref={buttonRef}
+  label="Add item"
+  onClick={(event) => event.currentTarget.focus()}
+>
+  +
+</IconButton>;
+<ButtonLink
+  ref={anchorRef}
+  href="/projects"
+  variant="secondary"
+  size={40}
+  onClick={(event) => event.currentTarget.href.toUpperCase()}
+>
+  Projects
+</ButtonLink>;
+// @ts-expect-error Icon actions require a label.
+<IconButton>+</IconButton>;
+// @ts-expect-error Navigation requires a destination.
+<ButtonLink>Projects</ButtonLink>;
+// @ts-expect-error Links do not support native disabled behaviour.
+<ButtonLink href="/projects" disabled>
+  Projects
+</ButtonLink>;
+// @ts-expect-error Link refs target anchors.
+<ButtonLink href="/projects" ref={buttonRef}>
+  Projects
+</ButtonLink>;
+// @ts-expect-error Icon button refs target buttons.
+<IconButton ref={anchorRef} label="Add">
+  +
+</IconButton>;

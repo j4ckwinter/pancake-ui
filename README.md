@@ -176,3 +176,5 @@ Add Storybook examples for relevant states and update the consuming example when
 `Textarea` and `Select` provide labelled multiline and native selection controls with `helperText`, `error`, native form props, and refs to their controls. Supply `option` and `optgroup` children to `Select`. Like `TextField`, their `className` and `style` props target the control.
 
 `Select` accepts one scalar value, not `multiple` or listbox `size`. Uncontrolled controls use native form reset. For controlled forms, the app owns reset: restore state and reapply a select’s value after the native reset completes, including when the initial state has not changed. The contract fixture demonstrates this ordering.
+
+`IconButton` requires a `label` for its accessible name and renders decorative icon children. It shares Button variants, sizes, loading/disabled states and native button props. `ButtonLink` shares button styling but renders a native anchor with a required `href`; it supports anchor refs and link props, without fake disabled or loading states.

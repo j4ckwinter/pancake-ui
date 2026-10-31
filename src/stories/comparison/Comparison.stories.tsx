@@ -5,6 +5,8 @@ import {
   BannerToast,
   BottomNavigation,
   Button,
+  ButtonLink,
+  IconButton,
   Checkbox,
   EmptyState,
   Inline,
@@ -226,6 +228,36 @@ export const Catalogue: Story = {
             <Select label="Managed visibility" defaultValue="team" disabled>
               <option value="team">My team</option>
             </Select>
+          </Stack>
+        </Surface>
+        <Surface>
+          <Stack>
+            <SectionHeader title="Icon actions and destinations" />
+            <Inline>
+              <IconButton data-component="IconButton" label="Add item">
+                +
+              </IconButton>
+              <IconButton label="Close panel" variant="ghost" size={40}>
+                ×
+              </IconButton>
+              <IconButton label="Remove item" variant="destructive" disabled>
+                ×
+              </IconButton>
+              <IconButton label="Saving item" loading>
+                ✓
+              </IconButton>
+            </Inline>
+            <Inline>
+              <ButtonLink data-component="ButtonLink" href="#projects">
+                View projects
+              </ButtonLink>
+              <ButtonLink href="#settings" variant="secondary" size={40}>
+                Settings
+              </ButtonLink>
+              <ButtonLink href="#details" variant="ghost">
+                Read the full project details and follow the latest updates
+              </ButtonLink>
+            </Inline>
           </Stack>
         </Surface>
       </Stack>

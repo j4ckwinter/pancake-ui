@@ -52,5 +52,15 @@ for (const variant of ["minimum", "current"]) {
     await expect(visibility).toHaveValue("team");
     await visibility.selectOption("private");
     await expect(visibility).toHaveValue("private");
+    await page.getByRole("button", { name: "Hydrated icon action" }).click();
+    await expect(page.getByLabel("Hydrated state")).toHaveText(
+      "Hydrated project / true / month / 2",
+    );
+    const destination = page.getByRole("link", {
+      name: "Hydrated destination",
+    });
+    await destination.focus();
+    await page.keyboard.press("Enter");
+    await expect(page).toHaveURL(/#hydration-details$/);
   });
 }

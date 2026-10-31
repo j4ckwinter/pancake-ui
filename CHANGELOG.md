@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add labelled IconButton actions and native ButtonLink navigation with shared button styling and verification.
+
 - Add labelled Textarea and native Select controls with colocated behaviour tests, visual states, and installed-package compatibility coverage.
 
 - Organise runtime components, foundations, and stories into separate directories; extract contract fixtures and checker policy/helpers.

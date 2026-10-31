@@ -73,3 +73,11 @@ export {
 } from "./components/navigation/StepProgress";
 export { Textarea, type TextareaProps } from "./components/Textarea/Textarea";
 export { Select, type SelectProps } from "./components/Select/Select";
+export {
+  IconButton,
+  type IconButtonProps,
+} from "./components/Button/IconButton";
+export {
+  ButtonLink,
+  type ButtonLinkProps,
+} from "./components/Button/ButtonLink";

@@ -321,5 +321,39 @@
     "ref": {
       "test": "Select: native semantics, keyboard selection, descriptions and ref"
     }
+  },
+  "IconButton": {
+    "semantics": {
+      "test": "IconButton: accessible name, keyboard activation, inactivity and ref"
+    },
+    "keyboard": {
+      "test": "IconButton: accessible name, keyboard activation, inactivity and ref"
+    },
+    "state": {
+      "test": "IconButton: accessible name, keyboard activation, inactivity and ref"
+    },
+    "form": {
+      "test": "IconButton: default button type and explicit form submission"
+    },
+    "ref": {
+      "test": "IconButton: accessible name, keyboard activation, inactivity and ref"
+    }
+  },
+  "ButtonLink": {
+    "semantics": {
+      "test": "ButtonLink: native link semantics, keyboard navigation and ref"
+    },
+    "keyboard": {
+      "test": "ButtonLink: native link semantics, keyboard navigation and ref"
+    },
+    "ref": {
+      "test": "ButtonLink: native link semantics, keyboard navigation and ref"
+    },
+    "state": {
+      "notApplicable": "Native navigation has no component-owned selection or editable state."
+    },
+    "form": {
+      "notApplicable": "Native anchors do not submit or reset form controls."
+    }
   }
 }

@@ -1,0 +1,27 @@
+@layer components {
+  .pancake-icon-button {
+    min-width: 0;
+    flex-shrink: 0;
+    padding: 0;
+  }
+  .pancake-icon-button.pancake-button--40 {
+    width: var(--spacing-pancake-40);
+    height: var(--spacing-pancake-40);
+  }
+  .pancake-icon-button.pancake-button--48 {
+    width: var(--spacing-pancake-48);
+    height: var(--spacing-pancake-48);
+  }
+  .pancake-icon-button-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--spacing-pancake-24);
+    height: var(--spacing-pancake-24);
+  }
+  .pancake-button-link {
+    max-width: 100%;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+  }
+}
