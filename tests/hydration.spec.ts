@@ -68,6 +68,12 @@ for (const variant of ["minimum", "current"]) {
     await expect(page.getByLabel("Hydrated state")).toHaveText(
       "Hydrated project / true / month / 2",
     );
+    await expect(
+      page.getByRole("progressbar", { name: "Hydrated upload" }),
+    ).toHaveJSProperty("value", 2);
+    await expect(
+      page.getByRole("status").filter({ hasText: "Project status ready" }),
+    ).toHaveText("Project status ready");
     const destination = page.getByRole("link", {
       name: "Hydrated destination",
     });

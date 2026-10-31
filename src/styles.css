@@ -23,3 +23,5 @@
 
 @import "./components/Tabs/Tabs.css";
 @import "./components/Disclosure/disclosure.css";
+
+@import "./components/progress/progress.css";

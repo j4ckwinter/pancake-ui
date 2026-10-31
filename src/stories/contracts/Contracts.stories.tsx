@@ -9,6 +9,7 @@ import { DialogContracts } from "./DialogContracts";
 import { SelectionContracts } from "./SelectionContracts";
 import { TabsContracts } from "./TabsContracts";
 import { DisclosureContracts } from "./DisclosureContracts";
+import { ProgressContracts } from "./ProgressContracts";
 import { markRef } from "./markRef";
 
 const meta = {
@@ -37,6 +38,7 @@ function ContractHarness() {
         <SelectionContracts />
         <TabsContracts />
         <DisclosureContracts />
+        <ProgressContracts />
       </Stack>
     </main>
   );

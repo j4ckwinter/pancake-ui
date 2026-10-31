@@ -5,6 +5,8 @@ import {
   BannerToast,
   BottomNavigation,
   Button,
+  Progress,
+  LoadingIndicator,
   Tabs,
   Disclosure,
   RadioGroup,
@@ -410,6 +412,25 @@ export const Catalogue: Story = {
                 Administrators manage access separately.
               </Text>
             </Disclosure>
+          </Stack>
+        </Surface>
+        <Surface>
+          <Stack>
+            <SectionHeader title="Loading and task progress" />
+            <Progress
+              data-component="Progress"
+              label="Uploading files"
+              value={45}
+            />
+            <Progress
+              label="A longer task label that stays readable on narrow screens"
+              value={0}
+            />
+            <Progress label="Import complete" value={100} />
+            <LoadingIndicator
+              data-component="LoadingIndicator"
+              label="Loading your projects…"
+            />
           </Stack>
         </Surface>
       </Stack>

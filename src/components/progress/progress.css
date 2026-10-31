@@ -1,0 +1,34 @@
+@layer components {
+  .pancake-progress-field {
+    display: grid;
+    gap: var(--spacing-pancake-8);
+    min-width: 0;
+  }
+  .pancake-progress-label {
+    @apply font-pancake text-pancake-label text-pancake-ink;
+    overflow-wrap: anywhere;
+  }
+  .pancake-progress {
+    width: 100%;
+    height: var(--spacing-pancake-16);
+    accent-color: var(--color-pancake-deep);
+  }
+  .pancake-loading-indicator {
+    @apply font-pancake text-pancake-body text-pancake-ink;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-pancake-8);
+    overflow-wrap: anywhere;
+  }
+  .pancake-loading-dots {
+    display: inline-flex;
+    flex-shrink: 0;
+    gap: var(--spacing-pancake-4);
+  }
+  .pancake-loading-dot {
+    @apply rounded-pancake-full;
+    width: var(--spacing-pancake-4);
+    height: var(--spacing-pancake-4);
+    background: currentColor;
+  }
+}

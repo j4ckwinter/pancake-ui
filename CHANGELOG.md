@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add labelled native Progress and LoadingIndicator status feedback with behaviour and package verification.
+
 - Add accessible Tabs and native Disclosure with keyboard, state, compatibility and visual verification.
 
 - Add native RadioGroup choices and Switch settings with behaviour, accessibility, visual and installed-package coverage.

@@ -440,5 +440,39 @@
     "ref": {
       "test": "Disclosure: keyboard activation, native toggles, refs and form isolation"
     }
+  },
+  "Progress": {
+    "semantics": {
+      "test": "Progress: native semantics, label, normalization and ref"
+    },
+    "keyboard": {
+      "notApplicable": "Noninteractive status output has no keyboard action."
+    },
+    "state": {
+      "test": "Progress: determinate and indeterminate state transitions"
+    },
+    "form": {
+      "notApplicable": "Status output does not submit form data or own resettable input state."
+    },
+    "ref": {
+      "test": "Progress: native semantics, label, normalization and ref"
+    }
+  },
+  "LoadingIndicator": {
+    "semantics": {
+      "test": "LoadingIndicator: status semantics, visible label and root ref"
+    },
+    "keyboard": {
+      "notApplicable": "Noninteractive status output has no keyboard action."
+    },
+    "state": {
+      "test": "LoadingIndicator: status text updates in place"
+    },
+    "form": {
+      "notApplicable": "Status output does not submit form data or own resettable input state."
+    },
+    "ref": {
+      "test": "LoadingIndicator: status semantics, visible label and root ref"
+    }
   }
 }

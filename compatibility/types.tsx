@@ -1,6 +1,8 @@
 import { createRef } from "react";
 import {
   Button,
+  Progress,
+  LoadingIndicator,
   Tabs,
   Disclosure,
   type TabsProps,
@@ -281,3 +283,18 @@ void wrongTabChange;
   name="group"
   onOpenChange={() => {}}
 />;
+
+const progressRef = createRef<HTMLProgressElement>();
+<Progress label="Uploading" value={25} max={100} ref={progressRef} />;
+<Progress label="Preparing" />;
+<LoadingIndicator label="Loading projects" ref={tabsRef} />;
+// @ts-expect-error Progress requires a visible label.
+<Progress value={10} />;
+// @ts-expect-error Progress values are numeric.
+<Progress label="Uploading" value="half" />;
+// @ts-expect-error Progress refs target native progress elements.
+<Progress label="Uploading" ref={buttonRef} />;
+// @ts-expect-error Loading indicators require visible status text.
+<LoadingIndicator />;
+// @ts-expect-error Loading indicator refs target div elements.
+<LoadingIndicator label="Loading" ref={buttonRef} />;

@@ -93,3 +93,8 @@ export {
   Disclosure,
   type DisclosureProps,
 } from "./components/Disclosure/Disclosure";
+export { Progress, type ProgressProps } from "./components/progress/Progress";
+export {
+  LoadingIndicator,
+  type LoadingIndicatorProps,
+} from "./components/progress/LoadingIndicator";
