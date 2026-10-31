@@ -1,6 +1,6 @@
 # Verification and component contracts
 
-Run `npm ci`, then `npx playwright install chromium firefox webkit`, then `npm run verify`. Verification builds the package and Storybook, installs the archive into consumers, and runs production-browser tests. Screenshot baselines remain specific to macOS Chromium; see [styling.md](styling.md) before updating them.
+Run `npm ci`, then `npx playwright install chromium firefox webkit`, then `npm run verify`. Verification builds the package and Storybook, installs the archive into consumers, and runs production-browser tests. The macOS CI runner sets `AppleLocale=en_GB` and `AppleLanguages=en-GB` before starting browsers because native date/time formatting also depends on OS preferences; Playwright locale alone is insufficient. Screenshot baselines remain specific to macOS Chromium; see [styling.md](styling.md) before updating them.
 
 ## Required evidence for a new component
 
@@ -48,9 +48,11 @@ Compatibility consumers live under `.tmp/compatibility/` and are rebuilt for eac
 
 Changes to tests, checkers, workflow configuration, contract applicability, or screenshot baselines require independent review, as recorded in `AGENTS.md`. Report which expectations changed and why. Demonstrate that an appropriate deliberate defect still fails the affected check. Do not broadly suppress console warnings, accessibility rules, type errors, or screenshot differences to obtain a pass.
 
-Repository instructions are guidance, not a security boundary. GitHub must separately require the `verify` status check and pull-request review on `main`, dismiss stale approvals after changes, and block force pushes/deletion. Review must come from an account other than the PR author; an agent using the owner's account cannot approve its own PR. Keep verification/baseline changes visible in that review. Local tests cannot enforce GitHub branch settings.
+Repository instructions are guidance, not a security boundary. GitHub separately requires pull requests and the `verify` status check on `main`, and blocks force pushes/deletion. This solo-maintainer repository does not require an approving GitHub review or latest-push approval; its author can merge once checks pass and discussions are resolved. Independent agent review remains required for the changes described above. Keep verification/baseline changes visible in that review. Local tests cannot enforce GitHub branch settings.
 
-The configured repository is `j4ckwinter/pancake-ui`. The intended main-branch policy is recorded in `.github/main-ruleset.json`: one approving review, stale-approval dismissal, latest-push approval, resolved discussions, and the GitHub Actions `verify` check on an up-to-date branch. Force pushes and deletion are blocked, with no bypass actors. The status-check rule permits initial branch creation because this repository has no `main` branch yet. The [active GitHub ruleset](https://github.com/j4ckwinter/pancake-ui/rules/26247432) was applied and read back on 2026-10-30. The repository is still empty: no code has been pushed and no hosted CI run has occurred. Initial publication creates `main`; subsequent updates must satisfy the rules. A local green run is not evidence of hosted CI success.
+The configured repository is [j4ckwinter/pancake-ui](https://github.com/j4ckwinter/pancake-ui). The main-branch policy is recorded in `.github/main-ruleset.json`: zero required approving reviews, no latest-push approval, resolved discussions, and the GitHub Actions `verify` check on an up-to-date branch. Force pushes and deletion are blocked, with no bypass actors. The [active GitHub ruleset](https://github.com/j4ckwinter/pancake-ui/rules/26247432) was read back on 2026-10-31 after the initial push. Check the [workflow runs](https://github.com/j4ckwinter/pancake-ui/actions/workflows/verify.yml) for current hosted results; a local green run does not establish hosted CI success.
+
+After verification succeeds on a push to `main`, the workflow uploads the tested `.tmp/package` archive and its SHA-256/file manifest as `pancake-ui-package`. It does not rebuild or repack after testing. Pull-request runs and failed verification do not upload a consumer package. Artifacts are retained for 90 days; consuming apps should vendor the archive and commit their lockfile, as described in the README. No npm registry credentials or publication are involved.
 
 ## Dedicated component stories
 
@@ -61,3 +63,16 @@ Every public component has its own `src/stories/catalogue/<Component>.stories.ts
 After a Storybook build, `npm run check:stories:built` requires every declared example and its autodocs page to appear in the generated index under the expected title and source path. This catches excluded stories and changes to Storybook discovery. The browser suite loads every dedicated example and docs page in Chromium, Firefox and WebKit, rejecting empty previews, error pages and unexpected runtime errors. These checks run in `verify`; focused component behavior contracts remain responsible for interaction correctness.
 
 `npm run test:stories` proves the gate rejects representative missing and misleading coverage. Adding a public export without its dedicated story fails automatically; there is no hand-maintained component allowlist.
+
+## CI execution
+
+GitHub runs Verify for pull requests and pushes to `main`, avoiding a second full run for each PR branch push. A newer revision cancels an older run of the same PR. Main-branch runs are not interrupted by newer pushes.
+
+- `checks` runs `npm run check:source` for formatting, types, lint and source/guardrail checks.
+- `build` runs `npm run verify:build` and `npm run prepare:tests` once. It builds Storybook, validates the package archive, and prepares the installed consumer and both React compatibility sites.
+- Four `browsers` jobs download those exact outputs and run Chromium, Firefox, WebKit and visual projects independently. The Chromium job also runs `test:verification`, including deliberate browser-warning probes. All browser jobs keep the existing macOS runner, native-control locale, two-worker limit and screenshot expectations.
+- The required `verify` job runs even when a dependency fails or is skipped. It only passes when `checks`, `build` and every browser matrix job succeeded. A successful main run then makes the tested package downloadable.
+
+The internal build bundle is retained for two days and contains no `node_modules`; each job installs pinned tool dependencies itself. Consumer package downloads remain available for 90 days. `npm run verify` still runs the complete suite locally. `npm run test:ci` tests failure propagation and critical workflow wiring, including deliberate missing-browser and ignored-failure mutations.
+
+The previous successful hosted run took 14.6 minutes, with 10.8 minutes in the browser suite. Parallel jobs are intended to reduce that critical path; a new hosted run is needed to measure the improvement. Queue time and available macOS concurrency can limit the gain.

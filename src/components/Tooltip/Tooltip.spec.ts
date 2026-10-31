@@ -45,6 +45,7 @@ test("Tooltip: keyboard focus, Escape suppression and ordinary Tab order", async
   await expect(page.getByLabel("Tooltip changes")).toHaveText("true,");
   await page.keyboard.press("Escape");
   await expect(panel).toBeHidden();
+  await expect(page.getByLabel("Tooltip changes")).toHaveText("true,false,");
   await expect(trigger).toBeFocused();
   await page.keyboard.press("ArrowRight");
   await expect(panel).toBeHidden();
@@ -54,6 +55,9 @@ test("Tooltip: keyboard focus, Escape suppression and ordinary Tab order", async
   ).toBeFocused();
   await trigger.focus();
   await expect(panel).toBeVisible();
+  await expect(page.getByLabel("Tooltip changes")).toHaveText(
+    "true,false,true,",
+  );
   await page.keyboard.press(tab);
   await expect(panel).toBeHidden();
   await expect(page.getByLabel("Tooltip changes")).toHaveText(
