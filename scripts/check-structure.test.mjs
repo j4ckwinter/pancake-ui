@@ -36,7 +36,7 @@ for (const [path, source] of [
   ],
   [
     "src/components/Button/Button.tsx",
-    'import {Text} from "pancake-ui"; export function Button(){return <Text/>}',
+    'import {Text} from "@jack.winter/pancake-ui"; export function Button(){return <Text/>}',
   ],
   [
     "src/components/Button/Button.tsx",

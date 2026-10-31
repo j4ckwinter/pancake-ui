@@ -1,11 +1,11 @@
 {
-  "name": "pancake-ui",
+  "name": "@jack.winter/pancake-ui",
   "version": "0.1.0",
-  "private": true,
   "type": "module",
   "description": "Reusable React components, compiled styles, and design tokens for web apps.",
   "files": [
     "dist",
+    "LICENSE",
     "CHANGELOG.md",
     "docs/styling.md",
     "docs/verification.md",
@@ -60,10 +60,12 @@
     "check:stories": "node scripts/check-stories.mjs",
     "test:stories": "node --test scripts/check-stories.test.mjs",
     "check:stories:built": "node scripts/check-stories.mjs --built",
-    "check:source": "npm run format:check && npm run typecheck && npm run lint && npm run check:structure && npm run test:structure && npm run check:styles && npm run test:styles && npm run check:comparison && npm run test:comparison && npm run check:stories && npm run test:stories && npm run check:contracts && npm run test:contracts && npm run test:ci",
+    "check:source": "npm run format:check && npm run typecheck && npm run lint && npm run check:structure && npm run test:structure && npm run check:styles && npm run test:styles && npm run check:comparison && npm run test:comparison && npm run check:stories && npm run test:stories && npm run check:contracts && npm run test:contracts && npm run test:ci && npm run test:publish && npm run test:archive",
     "verify:build": "npm run build && npm run storybook:build && npm run check:stories:built",
     "prepare:tests": "node scripts/prepare-consumer.mjs && npm run check:compatibility",
-    "test:ci": "node --test scripts/ci.test.mjs"
+    "test:ci": "node --test scripts/ci.test.mjs",
+    "test:publish": "node --test scripts/publish.test.mjs",
+    "test:archive": "node --test scripts/validate-archive.test.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.0",
@@ -98,5 +100,10 @@
   "homepage": "https://github.com/j4ckwinter/pancake-ui#readme",
   "bugs": {
     "url": "https://github.com/j4ckwinter/pancake-ui/issues"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }

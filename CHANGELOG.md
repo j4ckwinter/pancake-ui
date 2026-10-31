@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Prepare the first npm release as `@jack.winter/pancake-ui@0.1.0` (publication pending), with MIT code licensing and retained SIL Open Font License notices for Inter. Migrate consumer imports to the scoped name.
+- Add a manual trusted-publishing workflow that publishes the exact verified main-branch archive, with source, checksum, package metadata, and license checks.
+
 - Run CI once per PR revision, cancel superseded PR runs, share build outputs across parallel browser jobs, and retain a required gate for all checks.
 
 - Pin the macOS CI locale for native date/time screenshots and await settled Tooltip toggle callbacks in keyboard verification.

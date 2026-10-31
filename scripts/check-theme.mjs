@@ -7,7 +7,7 @@ const requireFromConsumer = createRequire(
   new URL("../.tmp/consumer/package.json", import.meta.url),
 );
 const theme = await readFile(
-  requireFromConsumer.resolve("pancake-ui/theme.css"),
+  requireFromConsumer.resolve("@jack.winter/pancake-ui/theme.css"),
   "utf8",
 );
 const result = await compile(`${theme}\n@tailwind utilities;`);

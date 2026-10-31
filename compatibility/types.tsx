@@ -41,7 +41,7 @@ import {
   type RadioGroupProps,
   type SwitchProps,
   type SegmentedControlProps,
-} from "pancake-ui";
+} from "@jack.winter/pancake-ui";
 
 const buttonRef = createRef<HTMLButtonElement>();
 const inputRef = createRef<HTMLInputElement>();

@@ -52,7 +52,7 @@ Repository instructions are guidance, not a security boundary. GitHub separately
 
 The configured repository is [j4ckwinter/pancake-ui](https://github.com/j4ckwinter/pancake-ui). The main-branch policy is recorded in `.github/main-ruleset.json`: zero required approving reviews, no latest-push approval, resolved discussions, and the GitHub Actions `verify` check on an up-to-date branch. Force pushes and deletion are blocked, with no bypass actors. The [active GitHub ruleset](https://github.com/j4ckwinter/pancake-ui/rules/26247432) was read back on 2026-10-31 after the initial push. Check the [workflow runs](https://github.com/j4ckwinter/pancake-ui/actions/workflows/verify.yml) for current hosted results; a local green run does not establish hosted CI success.
 
-After verification succeeds on a push to `main`, the workflow uploads the tested `.tmp/package` archive and its SHA-256/file manifest as `pancake-ui-package`. It does not rebuild or repack after testing. Pull-request runs and failed verification do not upload a consumer package. Artifacts are retained for 90 days; consuming apps should vendor the archive and commit their lockfile, as described in the README. No npm registry credentials or publication are involved.
+After verification succeeds on a push to `main`, the workflow uploads the tested `.tmp/package` archive and its SHA-256/file manifest as `pancake-ui-package`. It does not rebuild or repack after testing. Pull-request runs and failed verification do not upload a consumer package. Artifacts are retained for 90 days; consuming apps should vendor the archive and commit their lockfile, as described in the README. Verify does not publish to npm. The separate manually dispatched Publish workflow validates and publishes that exact archive using npm trusted publishing; see [release setup](installation.md#publish-a-verified-release).
 
 ## Dedicated component stories
 
@@ -76,3 +76,5 @@ GitHub runs Verify for pull requests and pushes to `main`, avoiding a second ful
 The internal build bundle is retained for two days and contains no `node_modules`; each job installs pinned tool dependencies itself. Consumer package downloads remain available for 90 days. `npm run verify` still runs the complete suite locally. `npm run test:ci` tests failure propagation and critical workflow wiring, including deliberate missing-browser and ignored-failure mutations.
 
 The previous successful hosted run took 14.6 minutes, with 10.8 minutes in the browser suite. Parallel jobs are intended to reduce that critical path; a new hosted run is needed to measure the improvement. Queue time and available macOS concurrency can limit the gain.
+
+`npm run test:archive` proves archive validation rejects missing code or font licenses and unexpected files. `npm run test:publish` exercises the source-run and publication archive gates, including deliberately invalid source and archive metadata. Both run in `check:source`.

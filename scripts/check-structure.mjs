@@ -102,7 +102,7 @@ export function checkStructure(files) {
         : value;
       if (
         (runtime || foundation) &&
-        (target === "pancake-ui" ||
+        (target === "@jack.winter/pancake-ui" ||
           /^src(?:\/index(?:\.[jt]sx?)?)?$/.test(target))
       )
         report(

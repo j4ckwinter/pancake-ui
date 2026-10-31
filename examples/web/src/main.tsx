@@ -8,9 +8,9 @@ import {
   Surface,
   colors,
   typography,
-} from "pancake-ui";
-import "pancake-ui/styles.css";
-import "pancake-ui/fonts.css";
+} from "@jack.winter/pancake-ui";
+import "@jack.winter/pancake-ui/styles.css";
+import "@jack.winter/pancake-ui/fonts.css";
 import "./styles.css";
 import { Catalogue } from "./Catalogue";
 
