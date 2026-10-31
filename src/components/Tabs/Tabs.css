@@ -25,10 +25,14 @@
   }
   .pancake-tabs-tab[aria-selected="true"] {
     @apply bg-pancake-accent;
-    border-color: var(--color-pancake-deep);
+    text-decoration: underline;
+    text-underline-offset: var(--spacing-pancake-4);
   }
   .pancake-tabs-tab:hover:not(:disabled) {
-    border-color: var(--color-pancake-muted);
+    @apply bg-pancake-surface-muted;
+  }
+  .pancake-tabs-tab[aria-selected="true"]:hover:not(:disabled) {
+    @apply bg-pancake-surface-accent;
   }
   .pancake-tabs-tab:disabled {
     opacity: var(--pancake-opacity-disabled);

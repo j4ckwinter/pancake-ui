@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Soften button hover fills and decorative borders; use underlined selected tabs and segments while retaining keyboard focus indicators.
+- Remove unused bottom-navigation height and keep balanced spacing with icons, long labels, and narrow layouts.
+
 - Add dedicated autodocs and state examples for every public component, with source, built-index and browser-rendering gates in verification.
 
 - Add native Table presentation and controlled/link Pagination with responsive, keyboard, compatibility and visual coverage.

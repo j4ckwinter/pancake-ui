@@ -4,6 +4,7 @@ export const colors = Object.freeze({
   border: "#edede8",
   canvas: "#fbf8f0",
   danger: "#ffd6d6",
+  dangerHover: "#ffc2c2",
   deep: "#384540",
   info: "#d6edfa",
   ink: "#0e1716",

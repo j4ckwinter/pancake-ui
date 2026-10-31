@@ -37,7 +37,7 @@
     min-width: var(--spacing-pancake-112);
     padding: var(--spacing-pancake-16);
     border-bottom: var(--pancake-border-default) solid
-      var(--color-pancake-muted);
+      var(--color-pancake-border);
     vertical-align: top;
   }
 }

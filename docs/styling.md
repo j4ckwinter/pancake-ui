@@ -82,3 +82,9 @@ Inspect every changed image in `tests/visual.spec.ts-snapshots/` and review the 
 The checked-in baselines were generated with the locked Playwright Chromium on macOS 27 ARM64, using bundled Inter fonts. The visual project pins `en-GB` locale for native date/time and file-control labels. CI uses GitHub’s [`xcode-27` macOS ARM64 runner](https://docs.github.com/en/actions/reference/runners/github-hosted-runners). [Playwright snapshots vary by operating system](https://playwright.dev/docs/test-snapshots), so Linux and Windows need separately generated and reviewed baselines; no platform is silently skipped. Hosted CI has not yet been exercised for these initial baselines, and even macOS runner updates can require reviewing rendering differences. Keep the browser dependency pinned and use the same environment when updating snapshots.
 
 The workspace registers `@apply` and `@theme` through `.vscode/tailwind.css-data.json` for VS Code-compatible CSS validation. Unknown at-rule diagnostics remain enabled. Reload the editor window if it has not picked up `.vscode/settings.json`.
+
+### Borders and navigation spacing
+
+Use soft fills for button hover and the border token for decorative panel edges and table dividers. Selected tabs and segments use a label underline as well as a fill, keeping selection distinct from keyboard focus even in forced colours. Preserve focus outlines and form-control boundaries.
+
+Bottom navigation sizes to its contents: 8px list padding surrounds links with a minimum 48px target height. Links fill their row when icons or wrapping labels make neighbouring items taller; do not add a fixed list minimum height.

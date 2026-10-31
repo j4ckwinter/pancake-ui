@@ -43,7 +43,6 @@
     border: var(--pancake-border-default) solid var(--color-pancake-border);
   }
   .pancake-bottom-navigation ul {
-    min-height: var(--spacing-pancake-76);
     box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
@@ -53,12 +52,14 @@
     gap: var(--spacing-pancake-4);
   }
   .pancake-bottom-navigation li {
+    display: flex;
     flex: 1 1 80px;
     min-width: 0;
   }
   .pancake-bottom-navigation a {
     @apply text-pancake-label text-pancake-text-secondary rounded-pancake-12;
     display: flex;
+    flex: 1;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -129,8 +130,9 @@
     border: var(--pancake-border-default) solid transparent;
   }
   .pancake-segment input:checked + span {
+    text-decoration: underline;
+    text-underline-offset: var(--spacing-pancake-4);
     @apply bg-pancake-surface;
-    border-color: var(--color-pancake-deep);
   }
   .pancake-segment input:focus-visible + span {
     outline: var(--pancake-focus-ring-width) solid var(--color-pancake-deep);

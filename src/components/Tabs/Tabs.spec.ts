@@ -147,3 +147,24 @@ test("Tabs: invalid selections and dynamic items normalize without callbacks", a
   );
   await expect(page.getByLabel("Dynamic tab events")).toHaveText("1");
 });
+
+for (const forcedColors of ["none", "active"] as const) {
+  test(`Tabs: selection remains distinct from focus with forced colours ${forcedColors}`, async ({
+    page,
+  }) => {
+    await page.emulateMedia({ forcedColors });
+    const list = page.getByRole("tablist", {
+      name: "Manual tabs",
+      exact: true,
+    });
+    const first = list.getByRole("tab", { name: "First" });
+    const last = list.getByRole("tab", { name: "Last" });
+    await first.focus();
+    await expect(first).toHaveCSS("outline-style", "solid");
+    await expect(first).toHaveCSS("text-decoration-line", "none");
+    await expect(last).toHaveCSS("text-decoration-line", "underline");
+    await first.press("Space");
+    await expect(first).toHaveCSS("text-decoration-line", "underline");
+    await expect(last).toHaveCSS("text-decoration-line", "none");
+  });
+}
