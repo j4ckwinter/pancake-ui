@@ -1,4 +1,5 @@
 import { useId, type ComponentPropsWithRef, type ReactNode } from "react";
+import { fieldDescription } from "../TextField/field.shared";
 
 export type SelectProps = Omit<
   ComponentPropsWithRef<"select">,
@@ -24,8 +25,13 @@ export function Select({
 }: SelectProps) {
   const generatedId = useId();
   const inputId = id ?? generatedId;
-  const descriptionId = `${generatedId}-description`;
-  const description = error || helperText;
+  const description = fieldDescription({
+    generatedId,
+    error,
+    helperText,
+    describedBy,
+    invalid,
+  });
   return (
     <div className="pancake-field">
       <label className="pancake-field-label" htmlFor={inputId}>
@@ -37,25 +43,21 @@ export function Select({
           {...props}
           id={inputId}
           required={required}
-          aria-invalid={error ? true : invalid}
-          aria-describedby={
-            [describedBy, description ? descriptionId : undefined]
-              .filter(Boolean)
-              .join(" ") || undefined
-          }
+          aria-invalid={description.invalid}
+          aria-describedby={description.describedBy}
           className={`pancake-field-input pancake-select ${className}`}
         />
         <span className="pancake-select-chevron" aria-hidden="true">
           ⌄
         </span>
       </div>
-      {description && (
+      {description.text && (
         <p
-          id={descriptionId}
+          id={description.id}
           className="pancake-field-description"
-          aria-live={error ? "assertive" : "polite"}
+          aria-live={description.live}
         >
-          {description}
+          {description.text}
         </p>
       )}
     </div>
