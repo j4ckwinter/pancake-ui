@@ -1,6 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
 import { compatibilitySite, consumerApp, storybook } from "./tests/servers";
 
+const scratchCopies = /\/\.tmp\//;
+
 export default defineConfig({
   forbidOnly: true,
   failOnFlakyTests: true,
@@ -16,22 +18,23 @@ export default defineConfig({
   projects: [
     {
       name: "chromium",
-      testIgnore: "visual.spec.ts",
+      testIgnore: [scratchCopies, "visual.spec.ts"],
       use: { ...devices["Desktop Chrome"] },
     },
     {
       name: "firefox",
-      testIgnore: "visual.spec.ts",
+      testIgnore: [scratchCopies, "visual.spec.ts"],
       use: { ...devices["Desktop Firefox"] },
     },
     {
       name: "webkit",
-      testIgnore: "visual.spec.ts",
+      testIgnore: [scratchCopies, "visual.spec.ts"],
       use: { ...devices["Desktop Safari"] },
     },
     {
       name: "visual",
       testMatch: "visual.spec.ts",
+      testIgnore: scratchCopies,
       use: { ...devices["Desktop Chrome"], locale: "en-GB" },
     },
   ],
