@@ -1,6 +1,6 @@
 @layer components {
   .pancake-button {
-    @apply font-pancake text-pancake-label text-pancake-ink rounded-pancake-full min-w-pancake-112 px-pancake-24;
+    @apply font-pancake text-pancake-body-strong text-pancake-ink rounded-pancake-full px-pancake-12;
     appearance: none;
     box-sizing: border-box;
     display: inline-flex;
@@ -9,15 +9,19 @@
     gap: var(--spacing-pancake-8);
     border: 0;
     cursor: pointer;
-    padding-block: var(--spacing-pancake-8);
+    padding-block: var(--spacing-pancake-4);
     text-align: center;
   }
 
+  .pancake-button--32 {
+    min-height: var(--spacing-pancake-32);
+  }
+  .pancake-button--36 {
+    min-height: var(--spacing-pancake-36);
+  }
   .pancake-button--40 {
     min-height: var(--spacing-pancake-40);
-  }
-  .pancake-button--48 {
-    min-height: var(--spacing-pancake-48);
+    padding-inline: var(--spacing-pancake-16);
   }
   .pancake-button--primary {
     @apply bg-pancake-accent;

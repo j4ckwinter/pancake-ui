@@ -3,7 +3,7 @@
     @apply font-pancake text-pancake-body text-pancake-ink;
     display: inline-flex;
     align-items: center;
-    gap: var(--spacing-pancake-12);
+    gap: var(--spacing-pancake-8);
     cursor: pointer;
   }
   .pancake-switch {
@@ -11,8 +11,8 @@
     appearance: none;
     box-sizing: border-box;
     position: relative;
-    width: var(--spacing-pancake-64);
-    height: var(--spacing-pancake-40);
+    width: var(--spacing-pancake-40);
+    height: var(--spacing-pancake-24);
     flex: 0 0 auto;
     margin: 0;
     border: var(--pancake-border-default) solid
@@ -23,13 +23,13 @@
     @apply rounded-pancake-full bg-pancake-deep;
     content: "";
     position: absolute;
-    width: var(--spacing-pancake-24);
-    height: var(--spacing-pancake-24);
+    width: var(--spacing-pancake-16);
+    height: var(--spacing-pancake-16);
     inset-block-start: calc(
-      var(--spacing-pancake-8) - var(--pancake-border-default)
+      var(--spacing-pancake-4) - var(--pancake-border-default)
     );
     inset-inline-start: calc(
-      var(--spacing-pancake-8) - var(--pancake-border-default)
+      var(--spacing-pancake-4) - var(--pancake-border-default)
     );
   }
   .pancake-switch:checked {
@@ -37,7 +37,7 @@
   }
   .pancake-switch:checked::before {
     inset-inline-start: calc(
-      var(--spacing-pancake-32) - var(--pancake-border-default)
+      var(--spacing-pancake-20) - var(--pancake-border-default)
     );
   }
   .pancake-switch:focus-visible {

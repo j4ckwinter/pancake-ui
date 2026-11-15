@@ -55,7 +55,7 @@ export function Pagination({
     if (getPageHref) {
       return disabled ? (
         <span
-          className="pancake-button pancake-button--secondary pancake-button--40 pancake-pagination-control pancake-pagination-unavailable"
+          className="pancake-button pancake-button--secondary pancake-button--32 pancake-pagination-control pancake-pagination-unavailable"
           aria-disabled="true"
         >
           {text}
@@ -65,7 +65,7 @@ export function Pagination({
           target={linkProps?.target}
           rel={linkProps?.rel}
           href={getPageHref(value)}
-          size={40}
+          size={32}
           variant={active ? "primary" : "secondary"}
           className="pancake-pagination-control"
           aria-label={name}
@@ -78,7 +78,7 @@ export function Pagination({
     return (
       <Button
         type="button"
-        size={40}
+        size={32}
         variant={active ? "primary" : "secondary"}
         className="pancake-pagination-control"
         disabled={disabled}

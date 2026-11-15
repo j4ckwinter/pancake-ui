@@ -19,7 +19,7 @@ type Story = StoryObj<typeof meta>;
 export const Section: Story = {
   args: {
     description: "A place for your latest work.",
-    action: <Button size={40}>View all</Button>,
+    action: <Button size={32}>View all</Button>,
   },
 };
 export const Header: Story = {

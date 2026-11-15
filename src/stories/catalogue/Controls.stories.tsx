@@ -19,7 +19,7 @@ export const Variants: Story = {
       <Button variant="secondary">Back</Button>
       <Button variant="destructive">Delete item</Button>
       <Button variant="ghost">Cancel</Button>
-      <Button size={40}>Compact</Button>
+      <Button size={32}>Compact</Button>
     </div>
   ),
 };

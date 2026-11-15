@@ -7,7 +7,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--spacing-pancake-8);
+    gap: var(--spacing-pancake-4);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -18,9 +18,9 @@
     max-width: 100%;
   }
   .pancake-pagination-control {
-    min-width: var(--spacing-pancake-40);
+    min-width: var(--spacing-pancake-32);
     max-width: 100%;
-    padding-inline: var(--spacing-pancake-12);
+    padding-inline: var(--spacing-pancake-8);
     overflow-wrap: anywhere;
   }
   .pancake-pagination-unavailable {

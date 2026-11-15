@@ -2,13 +2,13 @@ import type { ComponentPropsWithRef } from "react";
 
 export type ButtonProps = ComponentPropsWithRef<"button"> & {
   variant?: "primary" | "secondary" | "destructive" | "ghost";
-  size?: 40 | 48;
+  size?: 32 | 36 | 40;
   loading?: boolean;
 };
 
 export function Button({
   variant = "primary",
-  size = 48,
+  size = 36,
   loading = false,
   disabled = false,
   type = "button",

@@ -1,7 +1,7 @@
 @layer components {
   .pancake-progress-field {
     display: grid;
-    gap: var(--spacing-pancake-8);
+    gap: var(--spacing-pancake-4);
     min-width: 0;
   }
   .pancake-progress-label {
@@ -10,7 +10,7 @@
   }
   .pancake-progress {
     width: 100%;
-    height: var(--spacing-pancake-16);
+    height: var(--spacing-pancake-8);
     accent-color: var(--color-pancake-deep);
   }
   .pancake-loading-indicator {

@@ -56,13 +56,13 @@ for (const width of [1100, 375]) {
         };
       });
       expect(geometry.links).toHaveLength(3);
-      expect(geometry.topInset).toBeCloseTo(8, 0);
-      expect(geometry.bottomInset).toBeCloseTo(8, 0);
+      expect(geometry.topInset).toBeCloseTo(4, 0);
+      expect(geometry.bottomInset).toBeCloseTo(4, 0);
       for (const link of geometry.links) {
-        expect(link.height).toBeGreaterThanOrEqual(48);
+        expect(link.height).toBeGreaterThanOrEqual(40);
         expect(link.unusedRowHeight).toBeCloseTo(0, 0);
       }
-      if (story === "default") expect(geometry.height).toBeCloseTo(66, 0);
+      if (story === "default") expect(geometry.height).toBeCloseTo(50, 0);
       await expect(navigation.locator('[aria-current="page"]')).toHaveCount(1);
     });
   }

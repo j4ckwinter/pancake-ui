@@ -9,7 +9,7 @@
     @apply font-pancake text-pancake-body text-pancake-ink;
     display: inline-flex;
     align-items: center;
-    gap: var(--spacing-pancake-12);
+    gap: var(--spacing-pancake-8);
     cursor: pointer;
   }
   .pancake-checkbox-label:has(.pancake-checkbox:disabled) {
@@ -17,14 +17,14 @@
     cursor: not-allowed;
   }
   .pancake-checkbox {
-    @apply bg-pancake-surface text-pancake-ink rounded-pancake-8;
+    @apply bg-pancake-surface text-pancake-ink rounded-pancake-4;
     appearance: none;
     box-sizing: border-box;
     flex: 0 0 auto;
     display: grid;
     place-content: center;
-    width: var(--spacing-pancake-40);
-    height: var(--spacing-pancake-40);
+    width: var(--spacing-pancake-20);
+    height: var(--spacing-pancake-20);
     margin: 0;
     border: var(--pancake-border-default) solid
       var(--color-pancake-control-border);
@@ -35,8 +35,8 @@
   }
   .pancake-checkbox:checked::before {
     content: "";
-    width: var(--spacing-pancake-8);
-    height: var(--spacing-pancake-16);
+    width: var(--spacing-pancake-4);
+    height: var(--spacing-pancake-8);
     border: solid currentColor;
     border-width: 0 var(--pancake-focus-ring-width)
       var(--pancake-focus-ring-width) 0;

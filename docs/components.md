@@ -19,7 +19,7 @@ import { Button, Checkbox, TextField } from "@jack.winter/pancake-ui";
 </form>;
 ```
 
-`Button` defaults to `type="button"` to prevent accidental form submission. Its `variant` is `primary`, `secondary`, `destructive`, or `ghost`; `size` is 40 or 48. `loading` sets `aria-busy` and disables activation while preserving the label. All variants support disabled/loading states and both sizes.
+`Button` defaults to `type="button"` to prevent accidental form submission. Its `variant` is `primary`, `secondary`, `destructive`, or `ghost`; `size` is 32, 36, or 40, and defaults to 36. `loading` sets `aria-busy` and disables activation while preserving the label. All variants support disabled/loading states at every size.
 
 `TextField` requires a visible `label`; supports text, email, password, search, tel, and URL inputs; and uses ordinary `value`/`defaultValue` and `onChange` props. `helperText` and `error` link to the input's accessible description. An error sets `aria-invalid`; application validation remains the caller's responsibility. `className` and `ref` target the input. Password visibility toggles and explicit search-clear actions are not built in.
 

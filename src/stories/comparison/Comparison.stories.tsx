@@ -164,7 +164,7 @@ export const Catalogue: Story = {
               <Button variant="secondary">Back</Button>
               <Button variant="destructive">Remove</Button>
               <Button variant="ghost">Cancel</Button>
-              <Button size={40}>Compact</Button>
+              <Button size={32}>Compact</Button>
               <Button disabled>Unavailable</Button>
               <Button loading>Saving changes</Button>
             </Inline>
@@ -340,7 +340,7 @@ export const Catalogue: Story = {
               <IconButton data-component="IconButton" label="Add item">
                 +
               </IconButton>
-              <IconButton label="Close panel" variant="ghost" size={40}>
+              <IconButton label="Close panel" variant="ghost" size={32}>
                 ×
               </IconButton>
               <IconButton label="Remove item" variant="destructive" disabled>
@@ -354,7 +354,7 @@ export const Catalogue: Story = {
               <ButtonLink data-component="ButtonLink" href="#projects">
                 View projects
               </ButtonLink>
-              <ButtonLink href="#settings" variant="secondary" size={40}>
+              <ButtonLink href="#settings" variant="secondary" size={32}>
                 Settings
               </ButtonLink>
               <ButtonLink href="#details" variant="ghost">

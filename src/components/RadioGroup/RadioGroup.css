@@ -9,17 +9,17 @@
   .pancake-radio-legend {
     @apply text-pancake-label;
     padding: 0;
-    margin-bottom: var(--spacing-pancake-8);
+    margin-bottom: var(--spacing-pancake-4);
   }
   .pancake-radio-options {
     display: grid;
-    gap: var(--spacing-pancake-8);
+    gap: var(--spacing-pancake-4);
   }
   .pancake-radio-option {
     display: flex;
     align-items: center;
-    gap: var(--spacing-pancake-12);
-    min-height: var(--spacing-pancake-40);
+    gap: var(--spacing-pancake-4);
+    min-height: var(--spacing-pancake-28);
     cursor: pointer;
   }
   .pancake-radio-input {
@@ -30,9 +30,9 @@
     place-content: center;
     border: var(--pancake-border-default) solid
       var(--color-pancake-control-border);
-    width: var(--spacing-pancake-24);
-    height: var(--spacing-pancake-24);
-    margin: var(--spacing-pancake-8);
+    width: var(--spacing-pancake-16);
+    height: var(--spacing-pancake-16);
+    margin: var(--spacing-pancake-4);
     flex: 0 0 auto;
     cursor: inherit;
   }
@@ -42,8 +42,8 @@
   .pancake-radio-input:checked::before {
     @apply bg-pancake-deep rounded-pancake-full;
     content: "";
-    width: var(--spacing-pancake-12);
-    height: var(--spacing-pancake-12);
+    width: var(--spacing-pancake-8);
+    height: var(--spacing-pancake-8);
   }
   .pancake-radio-input:focus {
     outline: var(--pancake-focus-ring-width) solid
@@ -60,9 +60,8 @@
     overflow-wrap: anywhere;
   }
   .pancake-radio-description {
-    @apply text-pancake-body text-pancake-muted;
+    @apply text-pancake-caption text-pancake-muted;
     display: block;
-    margin-top: var(--spacing-pancake-4);
   }
   @media (forced-colors: active) {
     .pancake-radio-input {

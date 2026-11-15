@@ -125,7 +125,7 @@ function SortableTable(args: TableProps) {
           <th scope="col" aria-sort={descending ? "descending" : "ascending"}>
             <Button
               variant="secondary"
-              size={40}
+              size={32}
               onClick={() => setDescending((value) => !value)}
             >
               Sort project name {descending ? "↓" : "↑"}

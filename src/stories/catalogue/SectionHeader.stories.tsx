@@ -15,7 +15,7 @@ export const Default: Story = {};
 export const WithAction: Story = {
   args: {
     action: (
-      <ButtonLink href="#activity" variant="secondary" size={40}>
+      <ButtonLink href="#activity" variant="secondary" size={32}>
         View all
       </ButtonLink>
     ),

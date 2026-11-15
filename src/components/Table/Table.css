@@ -16,7 +16,7 @@
   }
   .pancake-table > caption {
     @apply text-pancake-heading;
-    padding-block: var(--spacing-pancake-16);
+    padding-block: var(--spacing-pancake-12);
     text-align: start;
   }
   .pancake-table > thead {
@@ -34,8 +34,8 @@
   .pancake-table > tbody > tr > td,
   .pancake-table > tfoot > tr > th,
   .pancake-table > tfoot > tr > td {
-    min-width: var(--spacing-pancake-112);
-    padding: var(--spacing-pancake-16);
+    min-width: var(--spacing-pancake-80);
+    padding: var(--spacing-pancake-8) var(--spacing-pancake-12);
     border-bottom: var(--pancake-border-default) solid
       var(--color-pancake-border);
     vertical-align: top;
