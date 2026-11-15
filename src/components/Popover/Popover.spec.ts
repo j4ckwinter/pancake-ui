@@ -30,7 +30,7 @@ test("Popover: named region, native props, ref and consumer styling", async ({
 
 test("Popover: keyboard activation, nonmodal Tab and conditional focus return", async ({
   page,
-  browserName,
+  tabKey,
 }) => {
   const trigger = page.getByRole("button", {
     name: "Open contract popover",
@@ -42,11 +42,10 @@ test("Popover: keyboard activation, nonmodal Tab and conditional focus return", 
   });
   const draft = page.getByRole("textbox", { name: "Popover draft" });
   const outside = page.getByRole("button", { name: "Popover outside action" });
-  const tab = browserName === "webkit" ? "Alt+Tab" : "Tab";
   await trigger.focus();
   await page.keyboard.press("Enter");
   await expect(panel).toBeVisible();
-  await page.keyboard.press(tab);
+  await page.keyboard.press(tabKey);
   await expect(draft).toBeFocused();
   await page.keyboard.press("Escape");
   await expect(panel).not.toBeVisible();
@@ -56,7 +55,7 @@ test("Popover: keyboard activation, nonmodal Tab and conditional focus return", 
   await panel
     .getByRole("button", { name: "Close contract popover", exact: true })
     .focus();
-  await page.keyboard.press(tab);
+  await page.keyboard.press(tabKey);
   await expect(outside).toBeFocused();
   await expect(panel).toBeVisible();
   await page.keyboard.press("Escape");

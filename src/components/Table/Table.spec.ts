@@ -36,14 +36,13 @@ test("Table: native caption, headers, props, ref and consumer styling", async ({
 
 test("Table: keyboard scrolling and nested control navigation", async ({
   page,
-  browserName,
+  tabKey,
 }) => {
   await page.setViewportSize({ width: 375, height: 700 });
   const region = page.getByRole("region", { name: "Contract records" });
   const table = page.getByRole("table", { name: "Contract records" });
-  const tab = browserName === "webkit" ? "Alt+Tab" : "Tab";
   await page.getByRole("button", { name: "Before table" }).focus();
-  await page.keyboard.press(tab);
+  await page.keyboard.press(tabKey);
   await expect(region).toBeFocused();
   await expect(region).toHaveCSS("outline-style", "solid");
   expect(
@@ -62,11 +61,11 @@ test("Table: keyboard scrolling and nested control navigation", async ({
       (node) => node.getBoundingClientRect().right <= innerWidth,
     ),
   ).toBe(true);
-  await page.keyboard.press(tab);
+  await page.keyboard.press(tabKey);
   await expect(
     table.getByRole("button", { name: "Sort record name" }),
   ).toBeFocused();
-  await page.keyboard.press(tab);
+  await page.keyboard.press(tabKey);
   await expect(
     table.getByRole("checkbox", { name: "Select Alpha" }),
   ).toBeFocused();
@@ -74,7 +73,7 @@ test("Table: keyboard scrolling and nested control navigation", async ({
   await expect(
     table.getByRole("checkbox", { name: "Select Alpha" }),
   ).toBeChecked();
-  await page.keyboard.press(tab);
+  await page.keyboard.press(tabKey);
   await expect(
     table.getByRole("button", { name: "Inspect Alpha" }),
   ).toBeFocused();

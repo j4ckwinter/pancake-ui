@@ -2,7 +2,8 @@ import { test, expect } from "../../../tests/contracts-fixture";
 
 test("IconButton: accessible name, keyboard activation, inactivity and ref", async ({
   page,
-  browserName,
+  tabKey,
+  shiftTabKey,
 }) => {
   const icon = page.getByRole("button", { name: "Add item", exact: true });
   await expect(icon).toHaveClass(/consumer-icon/);
@@ -14,10 +15,8 @@ test("IconButton: accessible name, keyboard activation, inactivity and ref", asy
   ).toHaveCount(0);
   await page.getByRole("button", { name: "Focus icon ref" }).click();
   await expect(icon).toBeFocused();
-  await page.keyboard.press(browserName === "webkit" ? "Alt+Tab" : "Tab");
-  await page.keyboard.press(
-    browserName === "webkit" ? "Alt+Shift+Tab" : "Shift+Tab",
-  );
+  await page.keyboard.press(tabKey);
+  await page.keyboard.press(shiftTabKey);
   await expect(icon).toBeFocused();
   await expect(icon).toHaveCSS("outline-style", "solid");
   await page.keyboard.press("Enter");

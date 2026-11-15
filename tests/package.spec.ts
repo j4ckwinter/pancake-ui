@@ -1,11 +1,10 @@
 import { test, expect } from "./fixtures";
+import { consumerApp, storyUrl } from "./servers";
 import AxeBuilder from "@axe-core/playwright";
 test("packed consumer renders themed foundations and loads bundled fonts", async ({
   page,
 }) => {
-  const errors: string[] = [];
-  page.on("pageerror", (error) => errors.push(error.message));
-  await page.goto("http://127.0.0.1:4173");
+  await page.goto(consumerApp.origin);
   await expect(
     page.getByRole("heading", { name: "A familiar starting point." }),
   ).toBeVisible();
@@ -37,12 +36,9 @@ test("packed consumer renders themed foundations and loads bundled fonts", async
     path: "artifacts/consumer-mobile.png",
     fullPage: true,
   });
-  expect(errors).toEqual([]);
 });
 test("built Storybook renders the foundation story", async ({ page }) => {
-  await page.goto(
-    "http://127.0.0.1:6007/iframe.html?id=foundations-theme--palette&viewMode=story",
-  );
+  await page.goto(storyUrl("foundations-theme--palette"));
   await expect(
     page.getByRole("heading", { name: "Pancake UI foundations" }),
   ).toBeVisible();
@@ -51,13 +47,13 @@ test("built Storybook renders the foundation story", async ({ page }) => {
 
 test("controls support keyboard focus, validation, and native form data", async ({
   page,
-  browserName,
+  tabKey,
 }) => {
-  await page.goto("http://127.0.0.1:4173");
+  await page.goto(consumerApp.origin);
   const name = page.getByRole("textbox", { name: "Your name" });
   const updates = page.getByRole("checkbox", { name: "Send me updates" });
   await expect(name).toHaveCSS("border-color", "rgb(126, 140, 112)");
-  await page.keyboard.press(browserName === "webkit" ? "Alt+Tab" : "Tab");
+  await page.keyboard.press(tabKey);
   await expect(name).toBeFocused();
   await expect(name).toHaveCSS("outline-style", "solid");
   await name.fill("A");
@@ -73,12 +69,12 @@ test("controls support keyboard focus, validation, and native form data", async 
   await expect(name).toBeFocused();
   await name.fill("Alex");
   await expect(name).not.toHaveAttribute("aria-invalid", "true");
-  await page.keyboard.press(browserName === "webkit" ? "Alt+Tab" : "Tab");
+  await page.keyboard.press(tabKey);
   await expect(updates).toBeFocused();
   await expect(updates).toHaveCSS("outline-style", "solid");
   await page.keyboard.press("Space");
   await expect(updates).toBeChecked();
-  await page.keyboard.press(browserName === "webkit" ? "Alt+Tab" : "Tab");
+  await page.keyboard.press(tabKey);
   await expect(
     page.getByRole("button", { name: "Save preferences" }),
   ).toBeFocused();
@@ -105,7 +101,7 @@ test("controls support keyboard focus, validation, and native form data", async 
 test("read-only, disabled, loading, and uncontrolled controls retain browser semantics", async ({
   page,
 }) => {
-  await page.goto("http://127.0.0.1:4173");
+  await page.goto(consumerApp.origin);
   await expect(
     page.getByRole("textbox", { name: "Account email" }),
   ).not.toBeEditable();
@@ -142,7 +138,7 @@ test("read-only, disabled, loading, and uncontrolled controls retain browser sem
 test("avatars recover from missing images and expose overflow identities", async ({
   page,
 }) => {
-  await page.goto("http://127.0.0.1:4173");
+  await page.goto(consumerApp.origin);
   const avatar = page.getByRole("img", { name: "Taylor Brooks", exact: true });
   await expect(avatar).toHaveText("TB");
   await page.getByRole("button", { name: "Try missing photo" }).click();
@@ -166,7 +162,7 @@ test("avatars recover from missing images and expose overflow identities", async
 test("feedback actions, navigation links, progress and theme overrides work", async ({
   page,
 }) => {
-  await page.goto("http://127.0.0.1:4173");
+  await page.goto(consumerApp.origin);
   await page.getByRole("button", { name: "Show notification" }).click();
   await expect(
     page.getByRole("status").filter({ hasText: "Changes saved" }),
@@ -201,7 +197,7 @@ test("feedback actions, navigation links, progress and theme overrides work", as
 test("segmented selections support arrow keys, native form data, disabled options and reset", async ({
   page,
 }) => {
-  await page.goto("http://127.0.0.1:4173");
+  await page.goto(consumerApp.origin);
   const period = page.getByRole("group", { name: "Period", exact: true });
   const week = period.getByRole("radio", { name: "Week" });
   const month = period.getByRole("radio", { name: "Month" });

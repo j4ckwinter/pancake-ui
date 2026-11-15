@@ -1,5 +1,6 @@
 import { execFileSync } from "node:child_process";
 import { test, expect } from "./fixtures";
+import { storyUrl } from "./servers";
 
 const parsedComponents: unknown = JSON.parse(
   execFileSync(process.execPath, ["scripts/check-comparison.mjs", "--json"], {
@@ -18,9 +19,7 @@ const components: string[] = parsedComponents;
 for (const width of [1100, 375]) {
   test(`component comparison at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
-    await page.goto(
-      "http://127.0.0.1:6007/iframe.html?id=foundations-comparison--catalogue&viewMode=story",
-    );
+    await page.goto(storyUrl("foundations-comparison--catalogue"));
     const comparison = page.getByTestId("comparison");
     await expect(comparison).toBeVisible();
     await page.evaluate(() => document.fonts.ready);

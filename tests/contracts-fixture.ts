@@ -1,9 +1,11 @@
 import type { Locator, Page } from "@playwright/test";
 import { test as base, expect } from "./fixtures";
+import { storyUrl } from "./servers";
 
-// Playwright owns explicit axe scans; prevent Storybook from running axe concurrently.
-const story =
-  "http://127.0.0.1:6007/iframe.html?id=verification-contracts--interactive&viewMode=story&globals=a11y.manual:!true";
+const probeTimeoutMs = 1000;
+const story = storyUrl("verification-contracts--interactive", {
+  storybookAxe: "manual",
+});
 export const test = base.extend<{ contractStory: void }>({
   contractStory: [
     async ({ page, runtimeErrors }, provide) => {
@@ -23,17 +25,17 @@ export async function assertActionCount(page: Page, expected: string) {
   await expect(page.getByLabel("Action count", { exact: true })).toHaveText(
     expected,
     {
-      timeout: 1000,
+      timeout: probeTimeoutMs,
     },
   );
 }
 export async function assertFieldName(field: Locator) {
   await expect(field).toHaveAccessibleName("Controlled title", {
-    timeout: 1000,
+    timeout: probeTimeoutMs,
   });
 }
 export async function assertDisabled(control: Locator) {
-  await expect(control).toBeDisabled({ timeout: 1000 });
+  await expect(control).toBeDisabled({ timeout: probeTimeoutMs });
 }
 
 export { expect };

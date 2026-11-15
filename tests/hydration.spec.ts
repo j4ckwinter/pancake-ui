@@ -1,4 +1,5 @@
 import { test, expect } from "./fixtures";
+import { compatibilitySite } from "./servers";
 
 declare global {
   interface Window {
@@ -11,7 +12,7 @@ for (const variant of ["minimum", "current"]) {
   test(`installed archive hydrates with ${variant} supported React`, async ({
     page,
   }) => {
-    await page.goto(`http://127.0.0.1:4174/${variant}/`);
+    await page.goto(`${compatibilitySite.origin}/${variant}/`);
     await expect(page.locator("main")).toHaveAttribute("data-hydrated", "yes");
     const associations = await page.evaluate(() => {
       return {

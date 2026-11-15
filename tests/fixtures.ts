@@ -2,7 +2,20 @@ import { mkdtemp, mkdir, rm } from "node:fs/promises";
 import { resolve, join } from "node:path";
 import { test as base, expect } from "@playwright/test";
 
-export const test = base.extend<{ runtimeErrors: void }>({
+const reachesEveryControl = (browserName: string) =>
+  browserName === "webkit" ? "Alt+" : "";
+
+export const test = base.extend<{
+  runtimeErrors: void;
+  tabKey: string;
+  shiftTabKey: string;
+}>({
+  tabKey: async ({ browserName }, provide) => {
+    await provide(`${reachesEveryControl(browserName)}Tab`);
+  },
+  shiftTabKey: async ({ browserName }, provide) => {
+    await provide(`${reachesEveryControl(browserName)}Shift+Tab`);
+  },
   launchOptions: [
     async ({ launchOptions, browserName }, provide) => {
       if (browserName !== "firefox" || process.platform !== "darwin") {

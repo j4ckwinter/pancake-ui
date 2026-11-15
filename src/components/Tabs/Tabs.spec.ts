@@ -25,12 +25,11 @@ test("Tabs: associations, overrides and native root ref", async ({ page }) => {
 
 test("Tabs: automatic keyboard navigation, disabled skipping and focus order", async ({
   page,
-  browserName,
+  tabKey,
 }) => {
   const root = page.getByTestId("controlled-tabs");
   const first = root.getByRole("tab", { name: "First" });
   const last = root.getByRole("tab", { name: "Last" });
-  const tabKey = browserName === "webkit" ? "Alt+Tab" : "Tab";
   await page.getByRole("button", { name: "Before tabs", exact: true }).focus();
   await page.keyboard.press(tabKey);
   await expect(first).toBeFocused();
