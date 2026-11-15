@@ -10,6 +10,7 @@
     display: inline-flex;
     align-items: center;
     gap: var(--spacing-pancake-8);
+    min-height: var(--spacing-pancake-24);
     cursor: pointer;
   }
   .pancake-checkbox-label:has(.pancake-checkbox:disabled) {

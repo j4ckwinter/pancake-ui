@@ -1,6 +1,5 @@
 @layer components {
   .pancake-icon-button {
-    min-width: 0;
     flex-shrink: 0;
     padding: 0;
   }

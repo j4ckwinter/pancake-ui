@@ -39,12 +39,12 @@ export const spacing = Object.freeze({
 export type SpacingToken = keyof typeof spacing;
 
 export const radii = Object.freeze({
+  radius4: 4,
   radius12: 12,
   radius16: 16,
   radius20: 20,
   radius28: 28,
   radius36: 36,
-  radius4: 4,
   radius8: 8,
   radiusFull: 999,
 } as const);

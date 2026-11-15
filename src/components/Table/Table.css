@@ -34,7 +34,7 @@
   .pancake-table > tbody > tr > td,
   .pancake-table > tfoot > tr > th,
   .pancake-table > tfoot > tr > td {
-    min-width: var(--spacing-pancake-80);
+    min-width: var(--spacing-pancake-112);
     padding: var(--spacing-pancake-8) var(--spacing-pancake-12);
     border-bottom: var(--pancake-border-default) solid
       var(--color-pancake-border);
