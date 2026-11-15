@@ -51,10 +51,6 @@ export function checkStories({
   const stories = [];
   if (!components.length)
     errors.push("No public component exports were found.");
-  const unalias = (symbol) =>
-    symbol?.flags & ts.SymbolFlags.Alias
-      ? checker.getAliasedSymbol(symbol)
-      : symbol;
   const unwrap = (node) => {
     while (
       node &&
@@ -150,7 +146,7 @@ export function checkStories({
           module
       );
     });
-    if (!directImport || unalias(imported) !== symbol)
+    if (!directImport || unalias(checker, imported) !== symbol)
       fail(
         "metadata component must be the matching named import from the public entry point.",
       );

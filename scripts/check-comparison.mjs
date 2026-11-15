@@ -2,13 +2,25 @@ import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import ts from "typescript";
 
+export const unalias = (checker, symbol) =>
+  symbol?.flags & ts.SymbolFlags.Alias
+    ? checker.getAliasedSymbol(symbol)
+    : symbol;
+
+export const createCoverageProgram = (files) =>
+  ts.createProgram(files, {
+    target: ts.ScriptTarget.ESNext,
+    module: ts.ModuleKind.ESNext,
+    moduleResolution: ts.ModuleResolutionKind.Bundler,
+    jsx: ts.JsxEmit.Preserve,
+    skipLibCheck: true,
+    noEmit: true,
+    types: [],
+  });
+
 export function publicComponents(checker, module) {
-  const unalias = (symbol) =>
-    symbol?.flags & ts.SymbolFlags.Alias
-      ? checker.getAliasedSymbol(symbol)
-      : symbol;
   return checker.getExportsOfModule(module).flatMap((exported) => {
-    const symbol = unalias(exported);
+    const symbol = unalias(checker, exported);
     const declaration = symbol?.valueDeclaration;
     if (!declaration || !/^[A-Z]/.test(exported.name)) return [];
     const type = checker.getTypeOfSymbolAtLocation(symbol, declaration);
@@ -27,15 +39,7 @@ export function checkComparison({
 } = {}) {
   const indexFile = resolve(indexPath);
   const storyFile = resolve(storyPath);
-  const program = ts.createProgram([indexFile, storyFile], {
-    target: ts.ScriptTarget.ESNext,
-    module: ts.ModuleKind.ESNext,
-    moduleResolution: ts.ModuleResolutionKind.Bundler,
-    jsx: ts.JsxEmit.Preserve,
-    skipLibCheck: true,
-    noEmit: true,
-    types: [],
-  });
+  const program = createCoverageProgram([indexFile, storyFile]);
   const checker = program.getTypeChecker();
   const entry = program.getSourceFile(indexFile);
   const story = program.getSourceFile(storyFile);
@@ -50,10 +54,6 @@ export function checkComparison({
   const module = checker.getSymbolAtLocation(entry);
   if (!module)
     return { components: [], errors: ["Package entry point has no exports."] };
-  const unalias = (symbol) =>
-    symbol?.flags & ts.SymbolFlags.Alias
-      ? checker.getAliasedSymbol(symbol)
-      : symbol;
   const components = publicComponents(checker, module);
   const imported = new Set();
   const namespaces = new Set();
@@ -83,7 +83,8 @@ export function checkComparison({
       const namespaceUsage =
         ts.isPropertyAccessExpression(node.tagName) &&
         namespaces.has(checker.getSymbolAtLocation(node.tagName.expression));
-      if (imported.has(symbol) || namespaceUsage) rendered.add(unalias(symbol));
+      if (imported.has(symbol) || namespaceUsage)
+        rendered.add(unalias(checker, symbol));
     }
     ts.forEachChild(node, visit);
   }
