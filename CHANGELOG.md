@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.2
+
+- No component API or behaviour changes. Remove a Pagination hover rule that had nothing left to cancel, and move the `Progress` and `sizing` notes from doc comments in the type declarations to the guides.
+- Give repeated rules one owner inside the library: field descriptions and their ARIA wiring, token-name to CSS-variable naming, the font family, menu typeahead timing, and the tooltip hide delay.
+- Give the test servers, story URLs and WebKit tab key one owner in the browser suite, and type through the keyboard in the TextField keyboard contract test.
+- Report only a missing Storybook build as missing in the story checks, share symbol discovery between the story and comparison gates, and make the contract-gate tests fail for the rules they name.
+- Add commands, an owners table, standards and commit rules to the contributor instructions.
+
 ## 0.1.1
 
 - Clarify registry installation and the first trusted-publisher release deadline.
