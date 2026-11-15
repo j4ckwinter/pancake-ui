@@ -4,7 +4,9 @@ export function menuItems(panel: HTMLDivElement) {
   return Array.from(panel.querySelectorAll<HTMLElement>('[role="menuitem"]'));
 }
 
-export function menuKeyboard() {
+const typeaheadResetMs = 500;
+
+export function menuKeyboard(now: () => number) {
   let query = "";
   let lastTyped = 0;
   return (
@@ -39,9 +41,10 @@ export function menuKeyboard() {
       !event.altKey &&
       event.key !== " "
     ) {
-      const now = Date.now();
-      query = now - lastTyped > 500 ? event.key : query + event.key;
-      lastTyped = now;
+      const typedAt = now();
+      query =
+        typedAt - lastTyped > typeaheadResetMs ? event.key : query + event.key;
+      lastTyped = typedAt;
       const search = [...query].every((letter) => letter === query[0])
         ? query[0]
         : query;

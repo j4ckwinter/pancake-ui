@@ -55,7 +55,7 @@ export function DropdownMenu({
   const trigger = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
   const reportedOpen = useRef(false);
-  const keyboard = useRef(menuKeyboard());
+  const keyboard = useRef(menuKeyboard(Date.now));
   const focusedId = useRef<string | undefined>(undefined);
   useLayoutEffect(() => {
     if (
@@ -121,7 +121,7 @@ export function DropdownMenu({
         onToggle={(event) => {
           const visible = event.currentTarget.matches(":popover-open");
           setOpen(visible);
-          if (!visible) keyboard.current = menuKeyboard();
+          if (!visible) keyboard.current = menuKeyboard(Date.now);
           if (
             visible &&
             event.currentTarget.ownerDocument.activeElement === trigger.current
