@@ -16,7 +16,7 @@ Pancake UI uses shared tokens and namespaced component styles. New components sh
 
 ## Choose values by their role
 
-- Use `src/foundations/tokens.ts` as the source of design values and CSS variables in component styles. Run `npm run tokens` after changing tokens. Do not edit the generated `src/foundations/theme.css`.
+- Use `src/foundations/tokens.ts` as the source of design values and CSS variables in component styles. Run `npm run tokens` after changing tokens. Do not edit the generated `src/foundations/theme.css`. The `sizing` tokens hold fixed UI geometry on the shared four-point grid.
 - Use 4px for supporting-text spacing, 8px between labels and controls, 16px for ordinary vertical composition, and 24px for surface padding. Use `Stack`, `Inline`, and `Text` when composing components. Choose another existing spacing token when the composition calls for it.
 - Preserve component-family sizing: buttons use 40px or 48px minimum heights, fields (including Select) 52px, segments 48px, checkboxes 40px, and notification dismiss targets 44px. These are current defaults, not a requirement to force every control to one height. New families need an explicit sizing choice in review.
 - Numeric and temporal TextField modes retain native browser controls within the 52px field family. FileField uses the same field shell and native file selector, with token-based button padding and typography.

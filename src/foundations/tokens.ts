@@ -50,7 +50,6 @@ export const radii = Object.freeze({
 
 export type RadiusToken = keyof typeof radii;
 
-/** Fixed UI geometry on the shared four-point grid. */
 export const sizing = Object.freeze({
   size0: 0,
   size4: 4,

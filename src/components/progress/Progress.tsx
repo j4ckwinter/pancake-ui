@@ -9,7 +9,6 @@ export type ProgressProps = Omit<
   max?: number;
 };
 
-/** Native progress; ref, className and style target the progress element. */
 export function Progress({
   label,
   value,
