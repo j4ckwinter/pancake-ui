@@ -12,10 +12,10 @@ test("packed consumer renders themed foundations and loads bundled fonts", async
     await page
       .locator(".note")
       .evaluate((node) => parseFloat(getComputedStyle(node).lineHeight)),
-  ).toBeCloseTo(16.8, 4);
+  ).toBeCloseTo(20, 4);
   const surface = page.getByLabel("Foundation preview");
   await expect(surface).toHaveCSS("background-color", "rgb(255, 255, 255)");
-  await expect(surface).toHaveCSS("padding", "24px");
+  await expect(surface).toHaveCSS("padding", "16px");
   await expect(surface).toHaveCSS("border-radius", "16px");
   await page.evaluate(() => document.fonts.ready);
   expect(
@@ -42,7 +42,7 @@ test("built Storybook renders the foundation story", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: "Pancake UI foundations" }),
   ).toBeVisible();
-  await expect(page.locator(".pancake-surface")).toHaveCSS("padding", "24px");
+  await expect(page.locator(".pancake-surface")).toHaveCSS("padding", "16px");
 });
 
 test("controls support keyboard focus, validation, and native form data", async ({
@@ -242,5 +242,5 @@ test("installed theme builds utilities for a Tailwind consumer", async ({
     await text.evaluate((node) =>
       parseFloat(getComputedStyle(node).lineHeight),
     ),
-  ).toBeCloseTo(16.8, 4);
+  ).toBeCloseTo(20, 4);
 });

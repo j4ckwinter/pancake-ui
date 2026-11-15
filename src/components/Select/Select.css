@@ -4,7 +4,7 @@
   }
   .pancake-select {
     appearance: none;
-    padding-inline-end: var(--spacing-pancake-40);
+    padding-inline-end: var(--spacing-pancake-32);
   }
   .pancake-select:read-only {
     background: var(--color-pancake-surface);
@@ -14,7 +14,7 @@
   }
   .pancake-select-chevron {
     position: absolute;
-    inset-inline-end: var(--spacing-pancake-16);
+    inset-inline-end: var(--spacing-pancake-12);
     top: 0;
     bottom: 0;
     display: flex;

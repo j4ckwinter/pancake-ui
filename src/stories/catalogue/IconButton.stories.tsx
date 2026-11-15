@@ -17,7 +17,8 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
-export const Compact: Story = { args: { size: 40 } };
+export const Compact: Story = { args: { size: 32 } };
+export const Large: Story = { args: { size: 40 } };
 export const Destructive: Story = {
   args: { variant: "destructive", label: "Remove item", children: "×" },
 };

@@ -89,7 +89,7 @@ function App() {
         <div className="actions">
           <Button variant="destructive">Remove</Button>
           <Button variant="ghost">Cancel</Button>
-          <Button size={40}>Compact</Button>
+          <Button size={32}>Compact</Button>
           <Button disabled>Unavailable</Button>
           <Button loading>Saving</Button>
         </div>

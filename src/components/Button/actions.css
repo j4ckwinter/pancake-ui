@@ -1,23 +1,26 @@
 @layer components {
   .pancake-icon-button {
-    min-width: 0;
     flex-shrink: 0;
     padding: 0;
+  }
+  .pancake-icon-button.pancake-button--32 {
+    width: var(--spacing-pancake-32);
+    height: var(--spacing-pancake-32);
+  }
+  .pancake-icon-button.pancake-button--36 {
+    width: var(--spacing-pancake-36);
+    height: var(--spacing-pancake-36);
   }
   .pancake-icon-button.pancake-button--40 {
     width: var(--spacing-pancake-40);
     height: var(--spacing-pancake-40);
   }
-  .pancake-icon-button.pancake-button--48 {
-    width: var(--spacing-pancake-48);
-    height: var(--spacing-pancake-48);
-  }
   .pancake-icon-button-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--spacing-pancake-24);
-    height: var(--spacing-pancake-24);
+    width: var(--spacing-pancake-20);
+    height: var(--spacing-pancake-20);
   }
   .pancake-button-link {
     max-width: 100%;

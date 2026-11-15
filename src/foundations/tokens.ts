@@ -39,6 +39,7 @@ export const spacing = Object.freeze({
 export type SpacingToken = keyof typeof spacing;
 
 export const radii = Object.freeze({
+  radius4: 4,
   radius12: 12,
   radius16: 16,
   radius20: 20,
@@ -75,6 +76,7 @@ export const sizing = Object.freeze({
   size104: 104,
   size112: 112,
   size320: 320,
+  size480: 480,
   size560: 560,
 } as const);
 
@@ -113,23 +115,23 @@ export const typography = Object.freeze({
     fontSize: 14,
     fontWeight: "400",
     fontStyle: "normal",
-    lineHeight: "16.8px",
+    lineHeight: "20px",
     letterSpacing: 0,
   }),
   bodyStrong: style({
     fontFamily,
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: "600",
     fontStyle: "normal",
-    lineHeight: "18px",
+    lineHeight: "20px",
     letterSpacing: 0,
   }),
   caption: style({
     fontFamily,
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: "400",
     fontStyle: "normal",
-    lineHeight: "13.2px",
+    lineHeight: "16px",
     letterSpacing: 0,
   }),
   display: style({
@@ -137,7 +139,7 @@ export const typography = Object.freeze({
     fontSize: 28,
     fontWeight: "700",
     fontStyle: "normal",
-    lineHeight: "33.6px",
+    lineHeight: "36px",
     letterSpacing: 0,
   }),
   heading: style({
@@ -145,7 +147,7 @@ export const typography = Object.freeze({
     fontSize: 18,
     fontWeight: "700",
     fontStyle: "normal",
-    lineHeight: "21.6px",
+    lineHeight: "24px",
     letterSpacing: 0,
   }),
   label: style({
@@ -153,7 +155,7 @@ export const typography = Object.freeze({
     fontSize: 12,
     fontWeight: "600",
     fontStyle: "normal",
-    lineHeight: "14.4px",
+    lineHeight: "16px",
     letterSpacing: 0,
   }),
   micro: style({
@@ -169,15 +171,15 @@ export const typography = Object.freeze({
     fontSize: 20,
     fontWeight: "700",
     fontStyle: "normal",
-    lineHeight: "24px",
+    lineHeight: "28px",
     letterSpacing: 0,
   }),
   title: style({
     fontFamily,
-    fontSize: 25,
+    fontSize: 24,
     fontWeight: "700",
     fontStyle: "normal",
-    lineHeight: "30px",
+    lineHeight: "32px",
     letterSpacing: 0,
   }),
 } as const satisfies Readonly<Record<string, FoundationTextStyle>>);

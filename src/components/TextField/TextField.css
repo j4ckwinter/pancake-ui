@@ -7,14 +7,14 @@
   .pancake-field-label {
     @apply text-pancake-label text-pancake-text-secondary;
     display: block;
-    margin-bottom: var(--spacing-pancake-8);
+    margin-bottom: var(--spacing-pancake-4);
   }
   .pancake-field-input {
-    @apply bg-pancake-surface text-pancake-ink rounded-pancake-12 text-pancake-body font-pancake;
+    @apply bg-pancake-surface text-pancake-ink rounded-pancake-8 text-pancake-body font-pancake;
     box-sizing: border-box;
     width: 100%;
-    min-height: var(--spacing-pancake-52);
-    padding: var(--spacing-pancake-8) var(--spacing-pancake-16);
+    min-height: var(--spacing-pancake-40);
+    padding: var(--spacing-pancake-8) var(--spacing-pancake-12);
     border: var(--pancake-border-default) solid
       var(--color-pancake-control-border);
   }

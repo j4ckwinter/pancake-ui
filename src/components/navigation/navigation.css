@@ -6,13 +6,13 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: var(--spacing-pancake-16);
-    min-height: var(--spacing-pancake-44);
+    gap: var(--spacing-pancake-12);
+    min-height: var(--spacing-pancake-36);
   }
   .pancake-app-header {
-    @apply bg-pancake-canvas rounded-pancake-20;
-    min-height: var(--spacing-pancake-88);
-    padding: var(--spacing-pancake-16);
+    @apply bg-pancake-canvas rounded-pancake-16;
+    min-height: var(--spacing-pancake-64);
+    padding: var(--spacing-pancake-12) var(--spacing-pancake-16);
     box-sizing: border-box;
   }
   .pancake-header-copy {
@@ -30,7 +30,7 @@
   }
   .pancake-header-description {
     @apply text-pancake-body text-pancake-text-secondary;
-    margin: var(--spacing-pancake-8) 0 0;
+    margin: var(--spacing-pancake-4) 0 0;
   }
   .pancake-header-action {
     flex: 0 1 auto;
@@ -48,7 +48,7 @@
     flex-wrap: wrap;
     list-style: none;
     margin: 0;
-    padding: var(--spacing-pancake-8);
+    padding: var(--spacing-pancake-4);
     gap: var(--spacing-pancake-4);
   }
   .pancake-bottom-navigation li {
@@ -64,8 +64,8 @@
     align-items: center;
     justify-content: center;
     gap: var(--spacing-pancake-4);
-    padding: var(--spacing-pancake-8);
-    min-height: var(--spacing-pancake-48);
+    padding: var(--spacing-pancake-4) var(--spacing-pancake-8);
+    min-height: var(--spacing-pancake-40);
     box-sizing: border-box;
     text-decoration: none;
     text-align: center;
@@ -91,7 +91,7 @@
   .pancake-segmented-control legend {
     @apply text-pancake-label;
     padding: 0;
-    margin-bottom: var(--spacing-pancake-8);
+    margin-bottom: var(--spacing-pancake-4);
   }
   .pancake-segments {
     @apply bg-pancake-surface-muted rounded-pancake-20;
@@ -117,14 +117,14 @@
     cursor: inherit;
   }
   .pancake-segment > span {
-    @apply text-pancake-label rounded-pancake-20;
+    @apply text-pancake-body-strong rounded-pancake-20;
     display: flex;
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
     width: 100%;
-    min-height: var(--spacing-pancake-48);
-    padding: var(--spacing-pancake-8) var(--spacing-pancake-12);
+    min-height: var(--spacing-pancake-32);
+    padding: var(--spacing-pancake-4) var(--spacing-pancake-12);
     text-align: center;
     overflow-wrap: anywhere;
     border: var(--pancake-border-default) solid transparent;
@@ -148,7 +148,7 @@
     @apply font-pancake text-pancake-label text-pancake-ink;
     display: flex;
     flex-wrap: wrap;
-    gap: var(--spacing-pancake-16);
+    gap: var(--spacing-pancake-12);
     list-style: none;
     margin: 0;
     padding: 0;
@@ -164,8 +164,8 @@
     @apply bg-pancake-surface-muted rounded-pancake-full;
     display: grid;
     place-items: center;
-    width: var(--spacing-pancake-32);
-    height: var(--spacing-pancake-32);
+    width: var(--spacing-pancake-24);
+    height: var(--spacing-pancake-24);
     flex: 0 0 auto;
   }
   .pancake-step-progress [data-complete] .pancake-step-number {

@@ -148,8 +148,8 @@ for (const forcedColors of ["none", "active"] as const) {
       expect((await marker()).display).not.toBe("none");
       expect(await marker()).toMatchObject({
         content: '""',
-        width: "12px",
-        height: "12px",
+        width: "8px",
+        height: "8px",
       });
     }
     await email.focus();

@@ -81,7 +81,7 @@ export function Dialog({
           <IconButton
             label={closeLabel}
             variant="ghost"
-            size={40}
+            size={32}
             onClick={() => onOpenChange(false)}
           >
             ×

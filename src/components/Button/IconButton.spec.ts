@@ -8,8 +8,8 @@ test("IconButton: accessible name, keyboard activation, inactivity and ref", asy
   const icon = page.getByRole("button", { name: "Add item", exact: true });
   await expect(icon).toHaveClass(/consumer-icon/);
   await expect(icon).toHaveCSS("border-radius", "0px");
-  await expect(icon).toHaveCSS("width", "48px");
-  await expect(icon).toHaveCSS("height", "48px");
+  await expect(icon).toHaveCSS("width", "36px");
+  await expect(icon).toHaveCSS("height", "36px");
   await expect(
     page.getByRole("img", { name: "Decorative icon name" }),
   ).toHaveCount(0);

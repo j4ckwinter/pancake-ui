@@ -103,6 +103,20 @@ void valid;
 <Button variant="tertiary" />;
 // @ts-expect-error Native button type must retain its HTML union.
 <Button type="link" />;
+<Button size={32}>Compact</Button>;
+<IconButton label="Add" size={36}>
+  +
+</IconButton>;
+// @ts-expect-error Button sizes are 32, 36 or 40.
+<Button size={48} />;
+// @ts-expect-error Link buttons share the button sizes.
+<ButtonLink href="/projects" size={48}>
+  Projects
+</ButtonLink>;
+// @ts-expect-error Icon buttons share the button sizes.
+<IconButton label="Add" size={48}>
+  +
+</IconButton>;
 // @ts-expect-error Button refs target a button, not an input.
 <Button ref={inputRef} />;
 // @ts-expect-error Text field refs target an input, not a button.

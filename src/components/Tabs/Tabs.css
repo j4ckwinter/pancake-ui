@@ -6,19 +6,19 @@
   .pancake-tabs-list {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--spacing-pancake-8);
-    padding: var(--spacing-pancake-8);
+    gap: var(--spacing-pancake-4);
+    padding: var(--spacing-pancake-4);
   }
   .pancake-tabs-list--vertical {
     flex-direction: column;
     align-items: stretch;
   }
   .pancake-tabs-tab {
-    @apply font-pancake text-pancake-label text-pancake-ink bg-pancake-surface rounded-pancake-12;
-    min-height: var(--spacing-pancake-48);
+    @apply font-pancake text-pancake-body-strong text-pancake-ink bg-pancake-surface rounded-pancake-8;
+    min-height: var(--spacing-pancake-36);
     min-width: 0;
     max-width: 100%;
-    padding: var(--spacing-pancake-12) var(--spacing-pancake-16);
+    padding: var(--spacing-pancake-4) var(--spacing-pancake-12);
     border: var(--pancake-border-default) solid transparent;
     cursor: pointer;
     overflow-wrap: anywhere;
@@ -44,7 +44,7 @@
     outline-offset: var(--spacing-pancake-4);
   }
   .pancake-tabs-panel {
-    padding: var(--spacing-pancake-16) var(--spacing-pancake-8);
+    padding: var(--spacing-pancake-12) var(--spacing-pancake-4);
     overflow-wrap: anywhere;
   }
 }

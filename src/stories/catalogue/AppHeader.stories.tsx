@@ -15,12 +15,12 @@ export const Default: Story = {};
 export const WithNavigation: Story = {
   args: {
     leading: (
-      <ButtonLink href="#workspace" variant="secondary" size={40}>
+      <ButtonLink href="#workspace" variant="secondary" size={32}>
         Back
       </ButtonLink>
     ),
     trailing: (
-      <ButtonLink href="#account" variant="secondary" size={40}>
+      <ButtonLink href="#account" variant="secondary" size={32}>
         Account
       </ButtonLink>
     ),

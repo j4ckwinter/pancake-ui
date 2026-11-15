@@ -175,8 +175,8 @@ test("Dialog: narrow viewports keep long content and final actions reachable", a
   }));
   expect(geometry.scrolls).toBe(true);
   expect(geometry.fits).toBe(true);
-  expect(geometry.width).toBeLessThanOrEqual(327);
-  expect(geometry.height).toBeLessThanOrEqual(452);
+  expect(geometry.width).toBeLessThanOrEqual(343);
+  expect(geometry.height).toBeLessThanOrEqual(468);
   await modal
     .getByRole("button", { name: "Confirm native dialog form" })
     .click();

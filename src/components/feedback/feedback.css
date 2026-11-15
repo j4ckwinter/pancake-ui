@@ -5,8 +5,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: var(--spacing-pancake-36);
-    padding: var(--spacing-pancake-4) var(--spacing-pancake-12);
+    min-height: var(--spacing-pancake-24);
+    padding: var(--spacing-pancake-4) var(--spacing-pancake-8);
     overflow-wrap: anywhere;
   }
   .pancake-tone-neutral {
@@ -25,13 +25,13 @@
     @apply bg-pancake-info;
   }
   .pancake-banner {
-    @apply font-pancake text-pancake-ink rounded-pancake-16;
+    @apply font-pancake text-pancake-ink rounded-pancake-12;
     box-sizing: border-box;
     display: flex;
     align-items: center;
     gap: var(--spacing-pancake-8);
-    padding: var(--spacing-pancake-12);
-    min-height: var(--spacing-pancake-72);
+    padding: var(--spacing-pancake-8) var(--spacing-pancake-12);
+    min-height: var(--spacing-pancake-48);
     width: 100%;
   }
   .pancake-banner-copy {
@@ -45,7 +45,6 @@
   }
   .pancake-banner-description {
     @apply text-pancake-caption text-pancake-text-secondary;
-    margin-top: var(--spacing-pancake-4);
   }
   .pancake-banner-dismiss {
     @apply font-pancake text-pancake-ink rounded-pancake-full;
@@ -53,8 +52,8 @@
     border: none;
     cursor: pointer;
     flex: 0 0 auto;
-    min-width: var(--spacing-pancake-44);
-    min-height: var(--spacing-pancake-44);
+    min-width: var(--spacing-pancake-32);
+    min-height: var(--spacing-pancake-32);
     font-size: 24px;
   }
   .pancake-banner-dismiss:hover {
@@ -71,7 +70,7 @@
     overflow-wrap: anywhere;
   }
   .pancake-empty-icon {
-    margin-bottom: var(--spacing-pancake-16);
+    margin-bottom: var(--spacing-pancake-12);
   }
   .pancake-empty-title {
     @apply text-pancake-heading;
@@ -79,9 +78,9 @@
   }
   .pancake-empty-description {
     @apply text-pancake-body text-pancake-text-secondary;
-    margin-top: var(--spacing-pancake-8);
+    margin-top: var(--spacing-pancake-4);
   }
   .pancake-empty-action {
-    margin-top: var(--spacing-pancake-20);
+    margin-top: var(--spacing-pancake-16);
   }
 }

@@ -17,24 +17,24 @@ Pancake UI uses shared tokens and namespaced component styles. New components sh
 ## Choose values by their role
 
 - Use `src/foundations/tokens.ts` as the source of design values and CSS variables in component styles. Run `npm run tokens` after changing tokens. Do not edit the generated `src/foundations/theme.css`. The `sizing` tokens hold fixed UI geometry on the shared four-point grid.
-- Use 4px for supporting-text spacing, 8px between labels and controls, 16px for ordinary vertical composition, and 24px for surface padding. Use `Stack`, `Inline`, and `Text` when composing components. Choose another existing spacing token when the composition calls for it.
-- Preserve component-family sizing: buttons use 40px or 48px minimum heights, fields (including Select) 52px, segments 48px, checkboxes 40px, and notification dismiss targets 44px. These are current defaults, not a requirement to force every control to one height. New families need an explicit sizing choice in review.
-- Numeric and temporal TextField modes retain native browser controls within the 52px field family. FileField uses the same field shell and native file selector, with token-based button padding and typography.
-- Textarea uses the field styles with four native text rows by default and vertical resizing; Select retains native selection with a decorative chevron and a 52px minimum height.
-- Table uses body typography, 16px cell padding and a 112px minimum cell content width inside a keyboard-scrollable wrapper. This keeps embedded controls and status labels readable; narrow layouts scroll instead of compressing columns into letter fragments. Pagination uses the 40px button family, 8px gaps, wrapping and shared current/focus states.
-- Tooltip reuses native Popover anchoring with body typography, 8px padding and an 8px radius. Its trigger retains the original component styling.
-- DropdownMenu reuses Popover anchoring, with 8px panel padding, 40px minimum item heights and shared focus/disabled tokens. Long labels wrap within the panel.
-- Popover uses a 320px width token, 24px padding, 16px radius and 8px anchor spacing. Native CSS anchor positioning chooses the side with more room; viewport constraints and overflow scrolling keep long content reachable.
-- Dialog uses a 560px maximum-width sizing token, 24px surface padding, 16px radius, and a dedicated 50% backdrop-opacity token. Viewport margins and scrolling keep content reachable on narrow screens.
-- RadioGroup uses 24px styled native radio inputs within 40px rows. Its outline applies on focus, including pointer focus, to retain a visible indicator during WebKit native arrow navigation. Switch uses a 64px by 40px track and a 24px thumb, with the existing focus and disabled tokens.
-- Progress retains the native browser bar at a 16px height with a deep accent and an 8px label gap. LoadingIndicator uses static 4px decorative dots, body typography and an 8px text gap; status feedback does not depend on animation.
-- Tabs use 48px minimum button heights and the shared focus/selection tokens. Disclosure uses a native summary marker, 16px padding and the surface radius.
-- Choose a typography role instead of assigning separate font metrics. The type scale uses proportional line heights; it is not a four-point baseline grid.
-- Use existing radius roles: pill shapes for buttons and chips, 12px for fields, and 16px for surfaces. Other established components can use their existing radius tokens.
+- The defaults are compact: 14px text on 20px lines, 36px buttons, menu items and tabs, and 40px fields. Use 4px between a label or supporting text and its control, 8px between a control and its inline label, 16px for ordinary vertical composition, and 16px for surface padding. Use `Stack`, `Inline`, and `Text` when composing components. Choose another existing spacing token when the composition calls for it.
+- Preserve component-family sizing: buttons use 32px, 36px, or 40px minimum heights with 12px inline padding (16px at 40px) and size to their content. Icon buttons are squares of the same heights with a 20px icon box. Fields (including Select) use 40px, segments 32px inside a 40px control, checkboxes 20px within a 24px label row, status chips 24px, and notification dismiss targets 32px. These are current defaults, not a requirement to force every control to one height. New families need an explicit sizing choice in review.
+- Numeric and temporal TextField modes retain native browser controls within the 40px field family. FileField uses the same field shell and native file selector, with token-based button padding and typography.
+- Textarea uses the field styles with four native text rows by default and vertical resizing; Select retains native selection with a decorative chevron and a 40px minimum height.
+- Table uses body typography, 8px by 12px cell padding and a 112px minimum cell content width inside a keyboard-scrollable wrapper. This keeps embedded controls and status labels readable; narrow layouts scroll instead of compressing columns into letter fragments. Pagination uses the 32px button family, 4px gaps, wrapping and shared current/focus states.
+- Tooltip reuses native Popover anchoring with caption typography, 4px by 8px padding and an 8px radius. Its trigger retains the original component styling.
+- DropdownMenu reuses Popover anchoring, with 4px panel padding, a 12px panel radius, 36px minimum item heights and shared focus/disabled tokens. Long labels wrap within the panel.
+- Popover uses a 320px width token, 16px padding, 16px radius and 8px anchor spacing. Native CSS anchor positioning chooses the side with more room; viewport constraints and overflow scrolling keep long content reachable.
+- Dialog uses a 480px maximum-width sizing token, 20px surface padding, 16px radius, a 32px close button, and a dedicated 50% backdrop-opacity token. Viewport margins and scrolling keep content reachable on narrow screens.
+- RadioGroup uses 16px styled native radio inputs within 28px rows, with caption-sized option descriptions. Its outline applies on focus, including pointer focus, to retain a visible indicator during WebKit native arrow navigation. Switch uses a 40px by 24px track and a 16px thumb, with the existing focus and disabled tokens.
+- Progress retains the native browser bar at an 8px height with a deep accent and a 4px label gap. LoadingIndicator uses static 4px decorative dots, body typography and an 8px text gap; status feedback does not depend on animation.
+- Tabs use 36px minimum button heights with an 8px radius and the shared focus/selection tokens. Disclosure uses a native summary marker, 8px by 12px summary padding and a 12px radius.
+- Choose a typography role instead of assigning separate font metrics. Line heights sit on a four-point grid: 12px text on 16px lines, 14px on 20px, 18px on 24px, 20px on 28px, 24px on 32px, and 28px on 36px.
+- Use existing radius roles: pill shapes for buttons and chips, 4px for checkboxes, 8px for fields, tabs, and menu items, 12px for menus, banners, and disclosures, and 16px for surfaces. Other established components can use their existing radius tokens.
 - Form controls and Disclosure use the olive `controlFocus` outline; other focus outlines use `deep`. Both use 2px width. Buttons and checkboxes use a 4px offset; other existing interactive controls use 2px. The lime `focusRing` token currently accents the focused input border, not its outline.
 - Disabled controls use the shared disabled opacity. Preserve native disabled behaviour and visible keyboard focus.
 
-These defaults preserve the current appearance. Changing them is a design change and should include before/after visual review.
+These are the current defaults. Changing them is a design change and should include before/after visual review.
 
 ## Automated checks
 
@@ -87,6 +87,6 @@ The workspace registers `@apply` and `@theme` through `.vscode/tailwind.css-data
 
 Use soft fills for button hover and the border token for decorative panel edges and table dividers. Selected tabs and segments use a label underline as well as a fill, keeping selection distinct from keyboard focus even in forced colours. Preserve focus outlines and form-control boundaries.
 
-Bottom navigation sizes to its contents: 8px list padding surrounds links with a minimum 48px target height. Links fill their row when icons or wrapping labels make neighbouring items taller; do not add a fixed list minimum height.
+Bottom navigation sizes to its contents: 4px list padding surrounds links with a minimum 40px target height. Links fill their row when icons or wrapping labels make neighbouring items taller; do not add a fixed list minimum height.
 
 Form controls share the olive `controlBorder` token for their default boundaries. Keep it distinct from the faint decorative `border` token. Invalid fields use `errorStrong` with the existing thicker border and error message. Checkbox, radio and switch selection retains a checkmark, dot or thumb position as well as the lime fill; forced-colour mode restores native rendering.

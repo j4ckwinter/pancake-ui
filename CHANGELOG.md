@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0
+
+- Make the defaults compact. Text sits on a four-point line grid: body 14px on 20px lines, `bodyStrong` 14px (was 15px), `caption` 12px on 16px (was 11px), `title` 24px on 32px (was 25px), and every other role's line height moves to the grid. Button text uses `bodyStrong` instead of `label`, and buttons lose their 112px minimum width. Buttons default to 36px, size to their content, and take `size` 32, 36 or 40; the 48px size is removed. Fields are 40px with an 8px radius, checkboxes 20px, radios 16px, switches 40px by 24px, and tabs and menu items 36px.
+- Tighten surfaces and overlays: 16px surface and popover padding, a 480px dialog with 20px padding and a 32px close button, smaller banners, chips, table cells, pagination and bottom navigation.
+- Breaking: `size={48}` on `Button`, `ButtonLink` and `IconButton` no longer type-checks. Use 40 for the largest size.
+
 ## 0.1.2
 
 - No component API or behaviour changes. Remove a Pagination hover rule that had nothing left to cancel, and drop the `Progress` and `sizing` doc comments from the type declarations; the guides carry those notes.

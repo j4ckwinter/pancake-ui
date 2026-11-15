@@ -1,14 +1,15 @@
 @layer components {
   .pancake-dropdown-menu {
-    padding: var(--spacing-pancake-8);
+    @apply rounded-pancake-12;
+    padding: var(--spacing-pancake-4);
   }
   .pancake-dropdown-menu-item {
     @apply font-pancake text-pancake-body text-pancake-ink bg-pancake-transparent rounded-pancake-8;
     display: block;
     box-sizing: border-box;
     width: 100%;
-    min-height: var(--spacing-pancake-40);
-    padding: var(--spacing-pancake-12) var(--spacing-pancake-8);
+    min-height: var(--spacing-pancake-36);
+    padding: var(--spacing-pancake-8);
     border: var(--spacing-pancake-0);
     text-align: start;
     text-decoration: none;

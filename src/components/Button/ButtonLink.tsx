@@ -9,7 +9,7 @@ export type ButtonLinkProps = Omit<ComponentPropsWithRef<"a">, "href"> & {
 
 export function ButtonLink({
   variant = "primary",
-  size = 48,
+  size = 36,
   className = "",
   ...props
 }: ButtonLinkProps) {
