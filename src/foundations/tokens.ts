@@ -94,8 +94,10 @@ export const opacity = Object.freeze({
 
 export type OpacityToken = keyof typeof opacity;
 
+export const fontFamily = "Inter, sans-serif";
+
 export type FoundationTextStyle = Readonly<{
-  fontFamily: "Inter, sans-serif";
+  fontFamily: typeof fontFamily;
   fontSize: number;
   fontWeight: "400" | "600" | "700";
   fontStyle: "normal";
@@ -107,7 +109,7 @@ const style = <T extends FoundationTextStyle>(value: T) => Object.freeze(value);
 
 export const typography = Object.freeze({
   body: style({
-    fontFamily: "Inter, sans-serif",
+    fontFamily,
     fontSize: 14,
     fontWeight: "400",
     fontStyle: "normal",
@@ -115,7 +117,7 @@ export const typography = Object.freeze({
     letterSpacing: 0,
   }),
   bodyStrong: style({
-    fontFamily: "Inter, sans-serif",
+    fontFamily,
     fontSize: 15,
     fontWeight: "600",
     fontStyle: "normal",
@@ -123,7 +125,7 @@ export const typography = Object.freeze({
     letterSpacing: 0,
   }),
   caption: style({
-    fontFamily: "Inter, sans-serif",
+    fontFamily,
     fontSize: 11,
     fontWeight: "400",
     fontStyle: "normal",
@@ -131,7 +133,7 @@ export const typography = Object.freeze({
     letterSpacing: 0,
   }),
   display: style({
-    fontFamily: "Inter, sans-serif",
+    fontFamily,
     fontSize: 28,
     fontWeight: "700",
     fontStyle: "normal",
@@ -139,7 +141,7 @@ export const typography = Object.freeze({
     letterSpacing: 0,
   }),
   heading: style({
-    fontFamily: "Inter, sans-serif",
+    fontFamily,
     fontSize: 18,
     fontWeight: "700",
     fontStyle: "normal",
@@ -147,7 +149,7 @@ export const typography = Object.freeze({
     letterSpacing: 0,
   }),
   label: style({
-    fontFamily: "Inter, sans-serif",
+    fontFamily,
     fontSize: 12,
     fontWeight: "600",
     fontStyle: "normal",
@@ -155,7 +157,7 @@ export const typography = Object.freeze({
     letterSpacing: 0,
   }),
   micro: style({
-    fontFamily: "Inter, sans-serif",
+    fontFamily,
     fontSize: 10,
     fontWeight: "600",
     fontStyle: "normal",
@@ -163,7 +165,7 @@ export const typography = Object.freeze({
     letterSpacing: 0,
   }),
   section: style({
-    fontFamily: "Inter, sans-serif",
+    fontFamily,
     fontSize: 20,
     fontWeight: "700",
     fontStyle: "normal",
@@ -171,7 +173,7 @@ export const typography = Object.freeze({
     letterSpacing: 0,
   }),
   title: style({
-    fontFamily: "Inter, sans-serif",
+    fontFamily,
     fontSize: 25,
     fontWeight: "700",
     fontStyle: "normal",

@@ -3,6 +3,7 @@ import { kebab } from "../src/foundations/kebab.ts";
 import {
   borders,
   colors,
+  fontFamily,
   opacity,
   radii,
   sizing,
@@ -27,7 +28,7 @@ for (const [name, value] of Object.entries(radii)) {
     `${value}px`,
   );
 }
-add("font-pancake", "Inter, sans-serif");
+add("font-pancake", fontFamily);
 for (const [name, value] of Object.entries(typography)) {
   const token = `text-pancake-${kebab(name)}`;
   add(token, `${value.fontSize}px`);
