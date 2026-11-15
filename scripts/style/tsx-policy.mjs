@@ -66,8 +66,7 @@ const avatarStyles = [
   "width:`var(--spacing-pancake-${size})`",
   "height:`var(--spacing-pancake-${size})`",
 ];
-// Exact owners and expressions: moving or introducing dynamic styles requires review.
-const dynamicStyles = {
+const reviewedDynamicStyles = {
   "src/components/layout/Stack.tsx": new Set(layoutStyles),
   "src/components/layout/Inline.tsx": new Set([
     ...layoutStyles,
@@ -87,7 +86,9 @@ const dynamicStyles = {
 export function isDynamicStyle(file, filename, key, expression, importedFrom) {
   const path = normalized(filename);
   if (
-    !dynamicStyles[path]?.has(`${key}:${canonical(expression.getText(file))}`)
+    !reviewedDynamicStyles[path]?.has(
+      `${key}:${canonical(expression.getText(file))}`,
+    )
   )
     return false;
   if (/\/layout\/(Stack|Inline)\.tsx$/.test(path)) {

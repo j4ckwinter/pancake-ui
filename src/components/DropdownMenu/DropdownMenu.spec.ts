@@ -99,15 +99,15 @@ test("DropdownMenu: actions fire once, restore focus and never submit forms", as
 
 test("DropdownMenu: Tab exits the composite in both directions", async ({
   page,
-  browserName,
+  tabKey,
+  shiftTabKey,
 }) => {
   const trigger = page.getByRole("button", {
     name: "Contract menu",
     exact: true,
   });
-  const tab = browserName === "webkit" ? "Alt+Tab" : "Tab";
   await trigger.click();
-  await page.keyboard.press(tab);
+  await page.keyboard.press(tabKey);
   await expect(
     page.getByRole("button", { name: "After menu", exact: true }),
   ).toBeFocused();
@@ -115,7 +115,7 @@ test("DropdownMenu: Tab exits the composite in both directions", async ({
     page.getByRole("menu", { name: "Contract menu", exact: true }),
   ).toBeHidden();
   await trigger.click();
-  await page.keyboard.press(`Shift+${tab}`);
+  await page.keyboard.press(shiftTabKey);
   await expect(
     page.getByRole("button", { name: "Before menu", exact: true }),
   ).toBeFocused();

@@ -1,14 +1,12 @@
 import ts from "typescript";
+import { unalias } from "./check-comparison.mjs";
 
 export function rendersComponent(render, target, checker, file) {
   const seen = new Set();
   let rendered = false;
-  const unalias = (symbol) =>
-    symbol?.flags & ts.SymbolFlags.Alias
-      ? checker.getAliasedSymbol(symbol)
-      : symbol;
   function follow(expression) {
     const declaration = unalias(
+      checker,
       ts.isShorthandPropertyAssignment(expression.parent)
         ? checker.getShorthandAssignmentValueSymbol(expression.parent)
         : checker.getSymbolAtLocation(expression),
@@ -30,7 +28,9 @@ export function rendersComponent(render, target, checker, file) {
     if (!node || seen.has(node) || rendered) return;
     seen.add(node);
     if (ts.isJsxOpeningElement(node) || ts.isJsxSelfClosingElement(node)) {
-      if (unalias(checker.getSymbolAtLocation(node.tagName)) === target) {
+      if (
+        unalias(checker, checker.getSymbolAtLocation(node.tagName)) === target
+      ) {
         rendered = true;
         return;
       }

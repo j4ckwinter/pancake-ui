@@ -1,5 +1,8 @@
-import { test, expect } from "../../../tests/contracts-fixture";
-import { assertFieldName } from "../../../tests/contracts-fixture";
+import {
+  test,
+  expect,
+  assertFieldName,
+} from "../../../tests/contracts-fixture";
 
 test("TextField: state, descriptions, disabled, form reset and ref", async ({
   page,
@@ -32,7 +35,8 @@ test("TextField: state, descriptions, disabled, form reset and ref", async ({
     name: "Uncontrolled title",
     exact: true,
   });
-  await uncontrolled.fill("Changed");
+  await uncontrolled.fill("");
+  await uncontrolled.pressSequentially("Changed");
   await page.getByRole("button", { name: "Submit contracts" }).click();
   await expect(page.getByLabel("Submitted values")).toContainText(
     '"title":"Updated"',

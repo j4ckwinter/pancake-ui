@@ -2,7 +2,8 @@ import { test, expect } from "../../../tests/contracts-fixture";
 
 test("ButtonLink: native link semantics, keyboard navigation and ref", async ({
   page,
-  browserName,
+  tabKey,
+  shiftTabKey,
 }) => {
   const link = page.getByRole("link", { name: "Open action details" });
   await expect(link).toHaveAttribute("href", "#action-details");
@@ -11,10 +12,8 @@ test("ButtonLink: native link semantics, keyboard navigation and ref", async ({
   await expect(link).toHaveCSS("text-decoration-line", "none");
   await page.getByRole("button", { name: "Focus link ref" }).click();
   await expect(link).toBeFocused();
-  await page.keyboard.press(browserName === "webkit" ? "Alt+Tab" : "Tab");
-  await page.keyboard.press(
-    browserName === "webkit" ? "Alt+Shift+Tab" : "Shift+Tab",
-  );
+  await page.keyboard.press(tabKey);
+  await page.keyboard.press(shiftTabKey);
   await expect(link).toBeFocused();
   await expect(link).toHaveCSS("outline-style", "solid");
   await page.keyboard.press("Enter");

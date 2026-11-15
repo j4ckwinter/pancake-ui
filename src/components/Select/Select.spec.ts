@@ -2,7 +2,7 @@ import { test, expect } from "../../../tests/contracts-fixture";
 
 test("Select: native semantics, keyboard selection, descriptions and ref", async ({
   page,
-  browserName,
+  tabKey,
 }) => {
   const colour = page.getByRole("combobox", {
     name: "Controlled colour",
@@ -20,7 +20,7 @@ test("Select: native semantics, keyboard selection, descriptions and ref", async
   await page.getByRole("button", { name: "Focus colour ref" }).click();
   await expect(colour).toBeFocused();
   await page.getByRole("button", { name: "Focus notes ref" }).focus();
-  await page.keyboard.press(browserName === "webkit" ? "Alt+Tab" : "Tab");
+  await page.keyboard.press(tabKey);
   await expect(colour).toBeFocused();
   await page.keyboard.press("b");
   await expect(colour).toHaveValue("blue");

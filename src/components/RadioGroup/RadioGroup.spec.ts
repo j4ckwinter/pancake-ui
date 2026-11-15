@@ -26,7 +26,8 @@ test("RadioGroup: semantics, descriptions, native props and ref", async ({
 
 test("RadioGroup: keyboard, controlled state and disabled options", async ({
   page,
-  browserName,
+  tabKey,
+  shiftTabKey,
 }) => {
   const group = page.getByRole("group", {
     name: "Controlled contact",
@@ -35,10 +36,8 @@ test("RadioGroup: keyboard, controlled state and disabled options", async ({
   const email = group.getByRole("radio", { name: "Email", exact: true });
   const post = group.getByRole("radio", { name: "Post", exact: true });
   await email.focus();
-  await page.keyboard.press(
-    browserName === "webkit" ? "Alt+Shift+Tab" : "Shift+Tab",
-  );
-  await page.keyboard.press(browserName === "webkit" ? "Alt+Tab" : "Tab");
+  await page.keyboard.press(shiftTabKey);
+  await page.keyboard.press(tabKey);
   await expect(email).toBeFocused();
   await page.keyboard.press("ArrowDown");
   await expect(post).toBeChecked();

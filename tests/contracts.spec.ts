@@ -6,6 +6,7 @@ import {
   assertFieldName,
   assertDisabled,
 } from "./contracts-fixture";
+import { storyUrl } from "./servers";
 
 test("Accessibility: default, error and selected states", async ({ page }) => {
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
@@ -19,7 +20,7 @@ test("Accessibility: default, error and selected states", async ({ page }) => {
     .check();
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   await page.goto(
-    "http://127.0.0.1:6007/iframe.html?id=foundations-comparison--catalogue&viewMode=story&globals=a11y.manual:!true",
+    storyUrl("foundations-comparison--catalogue", { storybookAxe: "manual" }),
   );
   await expect(page.getByTestId("comparison")).toBeVisible();
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);

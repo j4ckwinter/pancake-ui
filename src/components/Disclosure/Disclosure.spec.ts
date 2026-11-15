@@ -32,7 +32,8 @@ test("Disclosure: native semantics, independent state and preserved children", a
 
 test("Disclosure: keyboard activation, native toggles, refs and form isolation", async ({
   page,
-  browserName,
+  tabKey,
+  shiftTabKey,
 }) => {
   const summary = page.locator("summary", { hasText: "Saved preferences" });
   const details = summary.locator("..");
@@ -40,10 +41,8 @@ test("Disclosure: keyboard activation, native toggles, refs and form isolation",
   await expect(details).toHaveCSS("border-radius", "0px");
   await page.getByRole("button", { name: "Focus disclosure ref" }).click();
   await expect(summary).toBeFocused();
-  await page.keyboard.press(
-    browserName === "webkit" ? "Alt+Shift+Tab" : "Shift+Tab",
-  );
-  await page.keyboard.press(browserName === "webkit" ? "Alt+Tab" : "Tab");
+  await page.keyboard.press(shiftTabKey);
+  await page.keyboard.press(tabKey);
   await expect(summary).toBeFocused();
   await expect(summary).toHaveCSS("outline-style", "solid");
   await page.keyboard.press("Enter");

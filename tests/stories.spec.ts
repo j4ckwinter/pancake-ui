@@ -1,5 +1,6 @@
 import { execFileSync } from "node:child_process";
 import { test, expect } from "./fixtures";
+import { storyUrl } from "./servers";
 
 type ComponentStories = {
   component: string;
@@ -50,9 +51,7 @@ for (const { component, examples, docsId } of components) {
   }) => {
     for (const { exportName, id } of examples) {
       await test.step(exportName, async () => {
-        await page.goto(
-          `http://127.0.0.1:6007/iframe.html?id=${id}&viewMode=story&globals=a11y.manual:!true`,
-        );
+        await page.goto(storyUrl(id, { storybookAxe: "manual" }));
         await expect(page.locator("#storybook-root")).toBeVisible();
         await expect(
           page.locator("#storybook-root > :visible").first(),
@@ -64,7 +63,7 @@ for (const { component, examples, docsId } of components) {
     }
     await test.step("Autodocs", async () => {
       await page.goto(
-        `http://127.0.0.1:6007/iframe.html?id=${docsId}&viewMode=docs&globals=a11y.manual:!true`,
+        storyUrl(docsId, { viewMode: "docs", storybookAxe: "manual" }),
       );
       await expect(page.locator("#storybook-docs")).toBeVisible();
       await expect(

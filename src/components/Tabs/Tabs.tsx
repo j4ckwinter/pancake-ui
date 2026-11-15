@@ -37,6 +37,8 @@ export function Tabs({
   ...props
 }: TabsProps) {
   const id = useId();
+  const tabId = (index: number) => `${id}-tab-${index}`;
+  const panelId = (index: number) => `${id}-panel-${index}`;
   const [internalValue, setInternalValue] = useState(defaultValue);
   const [focusedValue, setFocusedValue] = useState<string>();
   const enabled = items.filter((item) => !item.disabled);
@@ -66,12 +68,12 @@ export function Tabs({
         {items.map((item, index) => (
           <button
             key={item.value}
-            id={`${id}-tab-${index}`}
+            id={tabId(index)}
             className="pancake-tabs-tab"
             type="button"
             role="tab"
             aria-selected={item.value === selected}
-            aria-controls={`${id}-panel-${index}`}
+            aria-controls={panelId(index)}
             tabIndex={!item.disabled && item.value === tabStop ? 0 : -1}
             disabled={item.disabled}
             onFocus={() => setFocusedValue(item.value)}
@@ -105,7 +107,7 @@ export function Tabs({
               event.preventDefault();
               const targetIndex = items.indexOf(target);
               event.currentTarget.ownerDocument
-                .getElementById(`${id}-tab-${targetIndex}`)
+                .getElementById(tabId(targetIndex))
                 ?.focus();
               if (activation === "automatic") select(target.value);
             }}
@@ -117,10 +119,10 @@ export function Tabs({
       {items.map((item, index) => (
         <div
           key={item.value}
-          id={`${id}-panel-${index}`}
+          id={panelId(index)}
           className="pancake-tabs-panel"
           role="tabpanel"
-          aria-labelledby={`${id}-tab-${index}`}
+          aria-labelledby={tabId(index)}
           hidden={item.value !== selected}
           tabIndex={0}
         >

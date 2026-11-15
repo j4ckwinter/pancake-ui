@@ -3,21 +3,32 @@ import { resolve, relative, basename } from "node:path";
 import { pathToFileURL } from "node:url";
 import ts from "typescript";
 import { rendersComponent } from "./story-render.mjs";
-import { publicComponents } from "./check-comparison.mjs";
+import {
+  createCoverageProgram,
+  publicComponents,
+  unalias,
+} from "./check-comparison.mjs";
+
+function whenPresent(read) {
+  try {
+    return read();
+  } catch (error) {
+    if (error.code === "ENOENT") return undefined;
+    throw error;
+  }
+}
 
 function storyFiles(directory) {
-  try {
-    return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
-      const path = resolve(directory, entry.name);
-      return entry.isDirectory()
-        ? storyFiles(path)
-        : entry.name.endsWith(".stories.tsx")
-          ? [path]
-          : [];
-    });
-  } catch {
-    return [];
-  }
+  const entries =
+    whenPresent(() => readdirSync(directory, { withFileTypes: true })) ?? [];
+  return entries.flatMap((entry) => {
+    const path = resolve(directory, entry.name);
+    return entry.isDirectory()
+      ? storyFiles(path)
+      : entry.name.endsWith(".stories.tsx")
+        ? [path]
+        : [];
+  });
 }
 
 export function checkStories({
@@ -26,15 +37,7 @@ export function checkStories({
 } = {}) {
   const indexFile = resolve(indexPath);
   const files = storyFiles(directory);
-  const program = ts.createProgram([indexFile, ...files], {
-    target: ts.ScriptTarget.ESNext,
-    module: ts.ModuleKind.ESNext,
-    moduleResolution: ts.ModuleResolutionKind.Bundler,
-    jsx: ts.JsxEmit.Preserve,
-    skipLibCheck: true,
-    noEmit: true,
-    types: [],
-  });
+  const program = createCoverageProgram([indexFile, ...files]);
   const checker = program.getTypeChecker();
   const entry = program.getSourceFile(indexFile);
   const module = entry && checker.getSymbolAtLocation(entry);
@@ -48,10 +51,6 @@ export function checkStories({
   const stories = [];
   if (!components.length)
     errors.push("No public component exports were found.");
-  const unalias = (symbol) =>
-    symbol?.flags & ts.SymbolFlags.Alias
-      ? checker.getAliasedSymbol(symbol)
-      : symbol;
   const unwrap = (node) => {
     while (
       node &&
@@ -147,7 +146,7 @@ export function checkStories({
           module
       );
     });
-    if (!directImport || unalias(imported) !== symbol)
+    if (!directImport || unalias(checker, imported) !== symbol)
       fail(
         "metadata component must be the matching named import from the public entry point.",
       );
@@ -250,16 +249,14 @@ if (
 ) {
   let result = checkStories();
   if (!result.errors.length && process.argv.includes("--built")) {
-    try {
-      result = checkBuiltStories(
-        result.stories,
-        JSON.parse(readFileSync("storybook-static/index.json", "utf8")),
-      );
-    } catch {
+    const builtIndex = whenPresent(() =>
+      readFileSync("storybook-static/index.json", "utf8"),
+    );
+    if (builtIndex === undefined)
       result.errors.push(
         "Build Storybook before checking its component entries.",
       );
-    }
+    else result = checkBuiltStories(result.stories, JSON.parse(builtIndex));
   }
   if (result.errors.length) {
     console.error(result.errors.join("\n"));

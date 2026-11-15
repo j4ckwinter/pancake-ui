@@ -28,7 +28,7 @@ test("rejects missing, focused, nested and assertion-free test references", () =
     "",
     source.replace('test("', 'test.only("'),
     source.replace("expect(true).toBe(true);", ""),
-    `function unregistered(){${source.replace('import {test, expect} from "./fixtures";', "")}}`,
+    `${source.replace('test("', 'function unregistered(){test("')}}`,
   ]) {
     assert.ok(
       checkContracts(["Button"], { Button: contract }, candidate).length,
@@ -55,27 +55,23 @@ test("requires semantics tests and specific non-applicability explanations", () 
     ),
     [],
   );
-  assert.ok(
-    checkContracts(
-      ["Text"],
-      {
-        Text: {
-          ...passive,
-          semantics: {
-            notApplicable:
-              "Presentation component has no keyboard interaction.",
-          },
-        },
+  const textSource = source.replaceAll("Button:", "Text:");
+  const rejectedCategories = (contract) =>
+    checkContracts(["Text"], { Text: contract }, textSource).map(
+      (error) => error.split(":")[0],
+    );
+  assert.deepEqual(
+    rejectedCategories({
+      ...passive,
+      semantics: {
+        notApplicable: "Presentation component has no keyboard interaction.",
       },
-      source,
-    ).length,
+    }),
+    ["Text.semantics"],
   );
-  assert.ok(
-    checkContracts(
-      ["Text"],
-      { Text: { ...passive, keyboard: { notApplicable: "none" } } },
-      source,
-    ).length,
+  assert.deepEqual(
+    rejectedCategories({ ...passive, keyboard: { notApplicable: "none" } }),
+    ["Text.keyboard"],
   );
 });
 test("rejects stale component contracts", () => {

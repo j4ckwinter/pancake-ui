@@ -161,6 +161,13 @@ test("missing or empty entry points fail closed", async () => {
     );
   });
 });
+test("an unreadable story directory surfaces instead of reporting no stories", async () => {
+  await fixture(async ({ indexPath }) => {
+    assert.throws(() => checkStories({ indexPath, directory: indexPath }), {
+      code: "ENOTDIR",
+    });
+  });
+});
 const manifest = [
   {
     component: "Button",

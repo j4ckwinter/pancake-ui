@@ -27,9 +27,6 @@
     opacity: var(--pancake-opacity-disabled);
     cursor: default;
   }
-  .pancake-pagination .pancake-pagination-unavailable.pancake-button:hover {
-    box-shadow: none;
-  }
   .pancake-pagination-gap {
     padding-inline: var(--spacing-pancake-4);
   }

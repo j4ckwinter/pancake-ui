@@ -1,5 +1,7 @@
 import { useEffect, useRef, type FocusEvent, type PointerEvent } from "react";
 
+const hideDelayMs = 150;
+
 export function useTooltip() {
   const anchor = useRef<HTMLSpanElement>(null);
   const panel = useRef<HTMLSpanElement>(null);
@@ -22,7 +24,7 @@ export function useTooltip() {
     clear();
     if (!focused.current && !hovered.current) {
       dismissed.current = false;
-      timer.current = setTimeout(hide, 150);
+      timer.current = setTimeout(hide, hideDelayMs);
     }
   };
   useEffect(() => {

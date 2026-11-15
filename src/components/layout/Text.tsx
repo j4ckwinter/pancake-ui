@@ -4,6 +4,7 @@ import {
   type CSSProperties,
   type ReactElement,
 } from "react";
+import { kebab } from "../../foundations/kebab";
 import type { TypographyToken, ColorToken } from "../../foundations/tokens";
 
 export type TextProps = ComponentPropsWithRef<"span"> & {
@@ -11,8 +12,6 @@ export type TextProps = ComponentPropsWithRef<"span"> & {
   variant?: TypographyToken;
   color?: ColorToken;
 };
-const kebab = (value: string) =>
-  value.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
 export function Text({
   as = "span",
   variant = "body",

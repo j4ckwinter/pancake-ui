@@ -2,6 +2,7 @@ import AxeBuilder from "@axe-core/playwright";
 import { test, expect } from "../../../tests/contracts-fixture";
 
 const description = "Supplementary contract description";
+const pastHideDelayMs = 500;
 
 test("Tooltip: descriptions, native props, refs and consumer styling", async ({
   page,
@@ -30,16 +31,15 @@ test("Tooltip: descriptions, native props, refs and consumer styling", async ({
 
 test("Tooltip: keyboard focus, Escape suppression and ordinary Tab order", async ({
   page,
-  browserName,
+  tabKey,
 }) => {
   const trigger = page.getByRole("button", {
     name: "Contract tooltip",
     exact: true,
   });
   const panel = page.getByRole("tooltip").filter({ hasText: description });
-  const tab = browserName === "webkit" ? "Alt+Tab" : "Tab";
   await page.getByRole("button", { name: "Before tooltip" }).focus();
-  await page.keyboard.press(tab);
+  await page.keyboard.press(tabKey);
   await expect(trigger).toBeFocused();
   await expect(panel).toBeVisible();
   await expect(page.getByLabel("Tooltip changes")).toHaveText("true,");
@@ -49,7 +49,7 @@ test("Tooltip: keyboard focus, Escape suppression and ordinary Tab order", async
   await expect(trigger).toBeFocused();
   await page.keyboard.press("ArrowRight");
   await expect(panel).toBeHidden();
-  await page.keyboard.press(tab);
+  await page.keyboard.press(tabKey);
   await expect(
     page.getByRole("button", { name: "After tooltip" }),
   ).toBeFocused();
@@ -58,7 +58,7 @@ test("Tooltip: keyboard focus, Escape suppression and ordinary Tab order", async
   await expect(page.getByLabel("Tooltip changes")).toHaveText(
     "true,false,true,",
   );
-  await page.keyboard.press(tab);
+  await page.keyboard.press(tabKey);
   await expect(panel).toBeHidden();
   await expect(page.getByLabel("Tooltip changes")).toHaveText(
     "true,false,true,false,",
@@ -88,24 +88,23 @@ test("Tooltip: hover remains readable across the trigger boundary and dismisses 
   const gap = below ? target!.y - edge : edge - target!.y - target!.height;
   expect(Math.abs(gap)).toBeLessThanOrEqual(1);
   await page.mouse.move(x, edge - direction);
-  await page.clock.runFor(500);
+  await page.clock.runFor(pastHideDelayMs);
   await expect(panel).toBeVisible();
   await page.mouse.move(x, edge + direction);
-  await page.clock.runFor(500);
+  await page.clock.runFor(pastHideDelayMs);
   await expect(panel).toBeVisible();
   await trigger.hover();
   await page.keyboard.press("Escape");
   await expect(panel).toBeHidden();
   await trigger.hover();
-  await page.clock.runFor(500);
+  await page.clock.runFor(pastHideDelayMs);
   await expect(panel).toBeHidden();
-  // A genuine pointer exit and re-entry starts a fresh tooltip interaction.
   await page.mouse.move(0, 0);
-  await page.clock.runFor(500);
+  await page.clock.runFor(pastHideDelayMs);
   await trigger.hover();
   await expect(panel).toBeVisible();
   await page.mouse.move(0, 0);
-  await page.clock.runFor(500);
+  await page.clock.runFor(pastHideDelayMs);
   await expect(panel).toBeHidden();
 });
 
@@ -164,7 +163,7 @@ test("Tooltip: canceled opening and unmount clean up pending dismissal", async (
   await page
     .getByRole("button", { name: "Toggle tooltip mount" })
     .evaluate((node: HTMLButtonElement) => node.click());
-  await page.clock.runFor(500);
+  await page.clock.runFor(pastHideDelayMs);
   await page.keyboard.press("Escape");
   await expect(trigger).toHaveCount(0);
   await page.getByRole("button", { name: "Toggle tooltip mount" }).click();
@@ -176,7 +175,7 @@ test.describe("Touch input", () => {
   test.use({ hasTouch: true });
   test("Tooltip: touch activation does not create sticky hover content", async ({
     page,
-    browserName,
+    tabKey,
   }) => {
     const trigger = page.getByRole("button", {
       name: "Contract tooltip",
@@ -187,7 +186,7 @@ test.describe("Touch input", () => {
     await expect(panel).toBeHidden();
     await expect(page.getByLabel("Tooltip actions")).toHaveText("1");
     await page.getByRole("button", { name: "Before tooltip" }).focus();
-    await page.keyboard.press(browserName === "webkit" ? "Alt+Tab" : "Tab");
+    await page.keyboard.press(tabKey);
     await expect(trigger).toBeFocused();
     await expect(panel).toBeVisible();
   });

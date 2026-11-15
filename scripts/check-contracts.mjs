@@ -4,6 +4,8 @@ import { pathToFileURL } from "node:url";
 import ts from "typescript";
 import { checkComparison } from "./check-comparison.mjs";
 
+const minimumExplanationLength = 20;
+
 export function checkContracts(
   components,
   contracts,
@@ -110,7 +112,7 @@ export function checkContracts(
         continue;
       if (
         category !== "semantics" &&
-        requirement?.notApplicable?.trim().length >= 20 &&
+        requirement?.notApplicable?.trim().length >= minimumExplanationLength &&
         !requirement.test
       )
         continue;

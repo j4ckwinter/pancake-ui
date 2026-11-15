@@ -1,4 +1,5 @@
 import { test, expect } from "../../../tests/contracts-fixture";
+import { storyUrl } from "../../../tests/servers";
 
 test("BottomNavigation: native keyboard navigation and active semantics", async ({
   page,
@@ -25,7 +26,9 @@ for (const width of [1100, 375]) {
     }) => {
       await page.setViewportSize({ width, height: 800 });
       await page.goto(
-        `http://127.0.0.1:6007/iframe.html?id=navigation-bottomnavigation--${story}&viewMode=story&globals=a11y.manual:!true`,
+        storyUrl(`navigation-bottomnavigation--${story}`, {
+          storybookAxe: "manual",
+        }),
       );
       const navigation = page.getByRole("navigation", {
         name: "Workspace navigation",

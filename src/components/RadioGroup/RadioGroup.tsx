@@ -55,6 +55,7 @@ export function RadioGroup({
       <legend className="pancake-radio-legend">{label}</legend>
       <div className="pancake-radio-options">
         {options.map((option, index) => {
+          const optionLabelId = `${generatedId}-label-${index}`;
           const optionDescriptionId = `${generatedId}-option-${index}`;
           return (
             <label key={option.value} className="pancake-radio-option">
@@ -66,7 +67,7 @@ export function RadioGroup({
                 value={option.value}
                 disabled={option.disabled}
                 required={required}
-                aria-labelledby={`${generatedId}-label-${index}`}
+                aria-labelledby={optionLabelId}
                 aria-describedby={
                   option.description ? optionDescriptionId : undefined
                 }
@@ -84,7 +85,7 @@ export function RadioGroup({
                 }}
               />
               <span className="pancake-radio-copy">
-                <span id={`${generatedId}-label-${index}`}>{option.label}</span>
+                <span id={optionLabelId}>{option.label}</span>
                 {option.description && (
                   <span
                     id={optionDescriptionId}

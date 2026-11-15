@@ -1,4 +1,5 @@
 import { StrictMode, useRef, useState } from "react";
+import { markRef } from "./markRef";
 import {
   Button,
   Checkbox,
@@ -63,7 +64,7 @@ export function DialogContracts() {
               style={{ borderRadius: 0 }}
               ref={(node) => {
                 dialogRef.current = node;
-                if (node) node.dataset.refReady = "true";
+                markRef(node);
               }}
               onCancel={(event) => {
                 if (preventEscape) event.preventDefault();

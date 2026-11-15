@@ -30,23 +30,26 @@ export function StepProgress({
       aria-label={label}
       className={`pancake-step-progress ${className}`}
     >
-      {steps.map((step, index) => (
-        <li
-          key={`${index}-${step}`}
-          aria-current={currentStep === index ? "step" : undefined}
-          data-complete={index < currentStep || undefined}
-        >
-          <span className="pancake-step-number" aria-hidden="true">
-            {index < currentStep ? "✓" : index + 1}
-          </span>
-          <span>
-            {step}
-            {index < currentStep && (
-              <span className="pancake-navigation-sr-only"> (complete)</span>
-            )}
-          </span>
-        </li>
-      ))}
+      {steps.map((step, index) => {
+        const complete = index < currentStep;
+        return (
+          <li
+            key={`${index}-${step}`}
+            aria-current={currentStep === index ? "step" : undefined}
+            data-complete={complete || undefined}
+          >
+            <span className="pancake-step-number" aria-hidden="true">
+              {complete ? "✓" : index + 1}
+            </span>
+            <span>
+              {step}
+              {complete && (
+                <span className="pancake-navigation-sr-only"> (complete)</span>
+              )}
+            </span>
+          </li>
+        );
+      })}
     </ol>
   );
 }

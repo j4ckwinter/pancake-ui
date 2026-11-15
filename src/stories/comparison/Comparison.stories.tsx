@@ -178,7 +178,7 @@ export const Catalogue: Story = {
           </Stack>
         </Surface>
         <Surface>
-          <Stack data-testid="comparison-fields">
+          <Stack>
             <SectionHeader title="Fields and selections" />
             <TextField
               data-component="TextField"

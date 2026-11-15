@@ -50,9 +50,8 @@ export function Pagination({
     text: ReactNode,
     name: string,
     disabled = false,
-    numbered = false,
   ) => {
-    const active = numbered && value === current;
+    const active = value === current;
     if (getPageHref) {
       return disabled ? (
         <span
@@ -113,9 +112,7 @@ export function Pagination({
                 </li>,
               ]
             : []),
-          <li key={value}>
-            {control(value, value, pageLabel(value), false, true)}
-          </li>,
+          <li key={value}>{control(value, value, pageLabel(value))}</li>,
         ])}
         <li>{control(current + 1, next, next, current >= count)}</li>
       </ul>

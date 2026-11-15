@@ -5,6 +5,9 @@ import { readFile, readdir, appendFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
+const archiveRoot = "package/";
+const tarOutputLimitBytes = 10 * 1024 * 1024;
+
 export async function validatePublishArtifact(directory, manifest, license) {
   const packed = JSON.parse(
     await readFile(resolve(directory, "packed.json"), "utf8"),
@@ -33,13 +36,13 @@ export async function validatePublishArtifact(directory, manifest, license) {
   const tar = (...args) =>
     execFileSync("tar", args, {
       encoding: "utf8",
-      maxBuffer: 10 * 1024 * 1024,
+      maxBuffer: tarOutputLimitBytes,
     });
   const entries = tar("-tzf", archive).trim().split("\n");
   assert(
     entries.every(
       (entry) =>
-        entry.startsWith("package/") && !entry.split("/").includes(".."),
+        entry.startsWith(archiveRoot) && !entry.split("/").includes(".."),
     ),
     "Unsafe archive paths",
   );
@@ -49,10 +52,12 @@ export async function validatePublishArtifact(directory, manifest, license) {
     "Duplicate archive entries",
   );
   assert.deepEqual(
-    entries.map((entry) => entry.slice(8)).sort(),
+    entries.map((entry) => entry.slice(archiveRoot.length)).sort(),
     [...packed.files].sort(),
   );
-  const metadata = JSON.parse(tar("-xOzf", archive, "package/package.json"));
+  const metadata = JSON.parse(
+    tar("-xOzf", archive, `${archiveRoot}package.json`),
+  );
   for (const key of [
     "name",
     "version",
@@ -73,9 +78,9 @@ export async function validatePublishArtifact(directory, manifest, license) {
   );
   assert.equal(metadata.publishConfig.access, "public");
   assert.equal(metadata.publishConfig.registry, "https://registry.npmjs.org/");
-  assert.equal(tar("-xOzf", archive, "package/LICENSE"), license);
+  assert.equal(tar("-xOzf", archive, `${archiveRoot}LICENSE`), license);
   assert.match(license, /MIT License/);
-  assert(entries.includes("package/dist/fonts/OFL.txt"));
+  assert(entries.includes(`${archiveRoot}dist/fonts/OFL.txt`));
   return { archive, sha256, name: packed.name, version: packed.version };
 }
 

@@ -3,7 +3,8 @@ import { test, expect } from "../../../tests/contracts-fixture";
 
 test("Dialog: modal semantics, descriptions, focus containment and ref", async ({
   page,
-  browserName,
+  tabKey,
+  shiftTabKey,
 }) => {
   const trigger = page.getByRole("button", { name: "Open contract dialog" });
   const modal = page.getByRole("dialog", { name: "Edit contract project" });
@@ -20,23 +21,19 @@ test("Dialog: modal semantics, descriptions, focus containment and ref", async (
   expect(await modal.evaluate((node) => node.matches(":modal"))).toBe(true);
   const close = modal.getByRole("button", { name: "Close contract dialog" });
   await expect(close).toBeFocused();
-  const tab = browserName === "webkit" ? "Alt+Tab" : "Tab";
-  const reverseTab = browserName === "webkit" ? "Alt+Shift+Tab" : "Shift+Tab";
-  await page.keyboard.press(tab);
+  await page.keyboard.press(tabKey);
   await expect(
     modal.getByRole("textbox", { name: "Dialog project title" }),
   ).toBeFocused();
-  await page.keyboard.press(reverseTab);
+  await page.keyboard.press(shiftTabKey);
   await expect(close).toBeFocused();
   await expect(close).toHaveCSS("outline-style", "solid");
-  await page.keyboard.press(reverseTab);
-  // Native modal navigation may visit browser chrome, but never background controls.
-  expect(
-    await modal.evaluate(
-      (node) => node.contains(document.activeElement) || !document.hasFocus(),
-    ),
-  ).toBe(true);
-  await page.keyboard.press(tab);
+  await page.keyboard.press(shiftTabKey);
+  const focusIsInModalOrBrowserChrome = await modal.evaluate(
+    (node) => node.contains(document.activeElement) || !document.hasFocus(),
+  );
+  expect(focusIsInModalOrBrowserChrome).toBe(true);
+  await page.keyboard.press(tabKey);
   await expect(close).toBeFocused();
   const order = [
     close,
@@ -48,17 +45,17 @@ test("Dialog: modal semantics, descriptions, focus containment and ref", async (
     modal.getByRole("button", { name: "Confirm native dialog form" }),
   ];
   for (const control of order.slice(1)) {
-    await page.keyboard.press(tab);
+    await page.keyboard.press(tabKey);
     await expect(control).toBeFocused();
   }
   for (const control of order.slice(0, -1).reverse()) {
-    await page.keyboard.press(reverseTab);
+    await page.keyboard.press(shiftTabKey);
     await expect(control).toBeFocused();
   }
   await modal
     .getByRole("button", { name: "Confirm native dialog form" })
     .focus();
-  await page.keyboard.press(tab);
+  await page.keyboard.press(tabKey);
   expect(
     await modal.evaluate(
       (node) => node.contains(document.activeElement) || !document.hasFocus(),

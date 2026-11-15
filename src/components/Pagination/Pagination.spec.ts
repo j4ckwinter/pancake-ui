@@ -22,15 +22,14 @@ test("Pagination: navigation semantics, current page, native props and ref", asy
 
 test("Pagination: keyboard activation updates once, preserves focus and never submits", async ({
   page,
-  browserName,
+  tabKey,
 }) => {
   const nav = page.getByRole("navigation", {
     name: "Contract pagination",
     exact: true,
   });
-  const tab = browserName === "webkit" ? "Alt+Tab" : "Tab";
   await page.getByRole("button", { name: "Before pagination" }).focus();
-  await page.keyboard.press(tab);
+  await page.keyboard.press(tabKey);
   await expect(
     nav.getByRole("button", { name: "Previous", exact: true }),
   ).toBeFocused();
@@ -42,7 +41,7 @@ test("Pagination: keyboard activation updates once, preserves focus and never su
   await expect(fourth).toBeFocused();
   await page.keyboard.press("Space");
   await expect(page.getByLabel("Pagination changes")).toHaveText("4,");
-  await page.keyboard.press(tab);
+  await page.keyboard.press(tabKey);
   const fifth = nav.getByRole("button", { name: "Page 5", exact: true });
   await expect(fifth).toBeFocused();
   await expect(fifth).toHaveCSS("outline-style", "solid");

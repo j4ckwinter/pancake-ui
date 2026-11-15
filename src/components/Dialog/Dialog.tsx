@@ -38,6 +38,8 @@ export function Dialog({
 }: DialogProps) {
   const dialog = useRef<HTMLDialogElement>(null);
   const id = useId();
+  const titleId = `${id}-title`;
+  const descriptionId = `${id}-description`;
   useImperativeHandle(ref, () => dialog.current as HTMLDialogElement, []);
   useLayoutEffect(() => {
     const node = dialog.current;
@@ -53,9 +55,9 @@ export function Dialog({
       {...props}
       ref={dialog}
       className={`pancake-dialog ${className}`}
-      aria-labelledby={`${id}-title`}
+      aria-labelledby={titleId}
       aria-describedby={
-        [describedBy, description ? `${id}-description` : undefined]
+        [describedBy, description ? descriptionId : undefined]
           .filter(Boolean)
           .join(" ") || undefined
       }
@@ -67,13 +69,13 @@ export function Dialog({
       }}
       onClose={(event) => {
         onClose?.(event);
-        // Native close events are queued; a reopened dialog must stay open.
-        if (open && !event.currentTarget.open) onOpenChange(false);
+        const reopenedBeforeQueuedClose = event.currentTarget.open;
+        if (open && !reopenedBeforeQueuedClose) onOpenChange(false);
       }}
     >
       <Stack>
         <Inline justify="space-between" align="start" wrap={false}>
-          <Text id={`${id}-title`} as="h2" variant="heading">
+          <Text id={titleId} as="h2" variant="heading">
             {title}
           </Text>
           <IconButton
@@ -86,7 +88,7 @@ export function Dialog({
           </IconButton>
         </Inline>
         {description && (
-          <Text id={`${id}-description`} as="p" color="muted">
+          <Text id={descriptionId} as="p" color="muted">
             {description}
           </Text>
         )}
