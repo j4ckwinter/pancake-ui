@@ -6,7 +6,6 @@ import {
   scopedSelector,
   colorKeywords,
 } from "./style/css-policy.mjs";
-export { themeVariables, themeUtilities } from "./style/theme.mjs";
 
 export function checkCss(source, filename = "component.css") {
   const errors = [];
