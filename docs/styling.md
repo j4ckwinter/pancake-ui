@@ -5,7 +5,7 @@ Pancake UI uses shared tokens and namespaced component styles. New components sh
 ## Source organisation
 
 - `src/components/<component-or-family>/`: one public component per matching TSX file, with adjacent props, private helpers and component/family CSS. Small shared implementation modules use explicit filenames such as `layout.shared.ts`.
-- `src/foundations/`: tokens, generated theme CSS and font declarations.
+- `src/foundations/`: tokens, the token-name rule shared with the theme generator, generated theme CSS and font declarations.
 - `src/stories/`: catalogue/foundation stories, the comparison page, and contract fixtures. Form fixtures own shared submission/reset state; feedback and presentation fixtures own their separate responsibilities.
 - `src/index.ts`: the only public barrel. `src/styles.css`: the compiled stylesheet entry. Public package imports stay unchanged.
 - `scripts/style/`: styling policy, exact exceptions, theme data, and AST resolution helpers. `scripts/style-css.mjs` and `scripts/style-tsx.mjs` remain the checker entry points.
