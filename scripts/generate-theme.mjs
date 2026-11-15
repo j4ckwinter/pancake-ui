@@ -1,4 +1,5 @@
 import { readFile, writeFile } from "node:fs/promises";
+import { kebab } from "../src/foundations/kebab.ts";
 import {
   borders,
   colors,
@@ -9,8 +10,6 @@ import {
   typography,
 } from "../src/foundations/tokens.ts";
 
-const kebab = (value) =>
-  value.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
 const declarations = [];
 const add = (name, value) => declarations.push(`  --${name}: ${value};`);
 
