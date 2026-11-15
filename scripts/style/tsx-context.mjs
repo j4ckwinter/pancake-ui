@@ -1,6 +1,5 @@
 import ts from "typescript";
 
-// Resolve local syntax against its lexical scope; no cross-module evaluation.
 export function createTsxContext(file) {
   const unwrap = (node) => {
     while (
