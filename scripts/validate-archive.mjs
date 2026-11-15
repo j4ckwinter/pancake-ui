@@ -2,6 +2,17 @@ import assert from "node:assert/strict";
 import { readFile, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 
+const rootFiles = [
+  "LICENSE",
+  "README.md",
+  "CHANGELOG.md",
+  "docs/styling.md",
+  "docs/verification.md",
+  "docs/installation.md",
+  "docs/components.md",
+  "package.json",
+];
+
 export async function validateArchive(packed) {
   const manifest = JSON.parse(await readFile("package.json", "utf8"));
   assert.equal(packed.name, manifest.name);
@@ -16,14 +27,7 @@ export async function validateArchive(packed) {
       `Missing package export: ${target}`,
     );
   for (const file of [
-    "LICENSE",
-    "README.md",
-    "CHANGELOG.md",
-    "docs/styling.md",
-    "docs/verification.md",
-    "docs/installation.md",
-    "docs/components.md",
-    "package.json",
+    ...rootFiles,
     "dist/fonts/OFL.txt",
     "dist/fonts/Inter-Regular.ttf",
     "dist/fonts/Inter-SemiBold.ttf",
@@ -32,17 +36,7 @@ export async function validateArchive(packed) {
     assert(files.has(file), `Missing archive file: ${file}`);
   for (const file of files)
     assert(
-      file.startsWith("dist/") ||
-        [
-          "LICENSE",
-          "README.md",
-          "CHANGELOG.md",
-          "package.json",
-          "docs/styling.md",
-          "docs/verification.md",
-          "docs/installation.md",
-          "docs/components.md",
-        ].includes(file),
+      file.startsWith("dist/") || rootFiles.includes(file),
       `Unexpected archive file: ${file}`,
     );
   const archive = await readFile(`.tmp/package/${packed.filename}`);
