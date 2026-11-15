@@ -1,5 +1,6 @@
 import { StrictMode, useRef, useState } from "react";
 import { Button, Checkbox, Popover, Stack, Text, TextField } from "../../index";
+import { markRef } from "./markRef";
 
 export function PopoverContracts() {
   const panelRef = useRef<HTMLDivElement>(null);
@@ -32,7 +33,7 @@ export function PopoverContracts() {
             style={{ borderRadius: 0 }}
             ref={(node) => {
               panelRef.current = node;
-              if (node) node.dataset.refReady = "true";
+              markRef(node);
             }}
             onBeforeToggle={(event) => {
               setBefore((count) => count + 1);
