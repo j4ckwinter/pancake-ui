@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0
+
+- Add `List` and `ListItem` for settings, people and status rows. A row takes a `title`, an optional `description`, `leading` content such as an avatar, and `trailing` content such as a value or a button.
+- Add `DialogActions` for the buttons at the end of a dialog. Buttons line up at the end in source order and wrap on narrow screens.
+- `DropdownMenu` takes an `icon` to show on its trigger instead of the label, which becomes the trigger's accessible name. Items can be `{ type: "text" }` lines, such as the signed-in account, which keyboard navigation and typeahead skip. A menu with only text lines has a disabled trigger.
+
 ## 0.2.1
 
 - Quieter tabs. Unselected tabs have no fill and secondary text; the selected tab takes the muted fill and full-strength text instead of the accent fill and underline. Hovering an unselected tab gives it the lighter canvas fill and full-strength text, so it never looks selected. The underline remains in forced colours, where fills are dropped. Vertical tabs align their labels to the start. No API changes.
