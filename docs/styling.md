@@ -85,7 +85,7 @@ The workspace registers `@apply` and `@theme` through `.vscode/tailwind.css-data
 
 ### Borders and navigation spacing
 
-Use soft fills for button hover and the border token for decorative panel edges and table dividers. Selected tabs and segments use a label underline as well as a fill, keeping selection distinct from keyboard focus even in forced colours. Preserve focus outlines and form-control boundaries.
+Use soft fills for button hover and the border token for decorative panel edges and table dividers. Selected segments use a label underline as well as a fill. Tabs sit on the surface without a fill; the selected tab takes the muted fill and full-strength text, a hovered unselected tab the lighter canvas fill, and gains a label underline in forced colours, where fills are dropped, so selection stays distinct from keyboard focus. Vertical tabs align their labels to the start. Preserve focus outlines and form-control boundaries.
 
 Bottom navigation sizes to its contents: 4px list padding surrounds links with a minimum 40px target height. Links fill their row when icons or wrapping labels make neighbouring items taller; do not add a fixed list minimum height.
 
