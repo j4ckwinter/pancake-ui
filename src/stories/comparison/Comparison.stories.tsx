@@ -71,6 +71,7 @@ function ComparisonMenu() {
             id: "duplicate",
             type: "action",
             label: "Duplicate project",
+            description: "Copies settings, not members",
             onSelect: () => setResult("Project duplicated."),
           },
           {

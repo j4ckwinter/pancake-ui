@@ -438,6 +438,37 @@ const progressRef = createRef<HTMLProgressElement>();
     { id: "sign-out", type: "action", label: "Sign out", onSelect: () => {} },
   ]}
 />;
+<DropdownMenu
+  label="Answer model"
+  icon={<span>✦</span>}
+  items={[
+    {
+      id: "local",
+      type: "radio",
+      label: "Local model",
+      description: "Runs on your PC",
+      checked: true,
+      onSelect: () => {},
+    },
+  ]}
+/>;
+// @ts-expect-error Radio items state whether they are chosen.
+const invalidMenuRadio: DropdownMenuItem = {
+  id: "local",
+  type: "radio",
+  label: "Local model",
+  onSelect: () => {},
+};
+void invalidMenuRadio;
+// @ts-expect-error Only radio items can be checked.
+const invalidMenuCheck: DropdownMenuItem = {
+  id: "save",
+  type: "action",
+  label: "Save",
+  checked: true,
+  onSelect: () => {},
+};
+void invalidMenuCheck;
 // @ts-expect-error Text lines cannot be selected.
 const invalidMenuText: DropdownMenuItem = {
   id: "email",
