@@ -1,0 +1,38 @@
+@layer components {
+  .pancake-list {
+    margin: var(--spacing-pancake-0);
+    padding: var(--spacing-pancake-0);
+    list-style: none;
+  }
+  .pancake-list-item {
+    @apply font-pancake text-pancake-body text-pancake-ink;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-pancake-12);
+    min-height: var(--spacing-pancake-48);
+    padding: var(--spacing-pancake-4) var(--spacing-pancake-0);
+  }
+  .pancake-list-item-leading,
+  .pancake-list-item-trailing {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: var(--spacing-pancake-8);
+  }
+  .pancake-list-item-text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: var(--spacing-pancake-0);
+    overflow-wrap: anywhere;
+  }
+  .pancake-list-item-description {
+    @apply text-pancake-caption text-pancake-text-secondary;
+  }
+  .pancake-list-item-trailing {
+    @apply text-pancake-text-secondary;
+    max-width: 50%;
+    text-align: end;
+    overflow-wrap: anywhere;
+  }
+}

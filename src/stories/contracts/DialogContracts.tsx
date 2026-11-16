@@ -4,6 +4,7 @@ import {
   Button,
   Checkbox,
   Dialog,
+  DialogActions,
   Stack,
   Surface,
   Text,
@@ -108,9 +109,11 @@ export function DialogContracts() {
                 </Stack>
               )}
               <form method="dialog">
-                <Button type="submit" value="confirmed">
-                  Confirm native dialog form
-                </Button>
+                <DialogActions>
+                  <Button type="submit" value="confirmed">
+                    Confirm native dialog form
+                  </Button>
+                </DialogActions>
               </form>
             </Dialog>
           )}

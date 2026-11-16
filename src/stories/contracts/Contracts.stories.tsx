@@ -15,6 +15,7 @@ import { FileFieldContracts } from "./FileFieldContracts";
 import { PopoverContracts } from "./PopoverContracts";
 import { TooltipContracts } from "./TooltipContracts";
 import { MenuContracts } from "./MenuContracts";
+import { ListContracts } from "./ListContracts";
 import { TableContracts } from "./TableContracts";
 import { PaginationContracts } from "./PaginationContracts";
 import { markRef } from "./markRef";
@@ -50,6 +51,7 @@ function ContractHarness() {
         <FileFieldContracts />
         <PopoverContracts />
         <MenuContracts />
+        <ListContracts />
         <TooltipContracts />
         <TableContracts />
         <PaginationContracts />

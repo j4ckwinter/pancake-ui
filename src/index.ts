@@ -83,6 +83,12 @@ export {
 } from "./components/Button/ButtonLink";
 export { Dialog, type DialogProps } from "./components/Dialog/Dialog";
 export {
+  DialogActions,
+  type DialogActionsProps,
+} from "./components/Dialog/DialogActions";
+export { List, type ListProps } from "./components/List/List";
+export { ListItem, type ListItemProps } from "./components/List/ListItem";
+export {
   RadioGroup,
   type RadioGroupProps,
   type RadioOption,
