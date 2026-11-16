@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.0
+
+- `DropdownMenu` items can be `{ type: "radio", checked }` for picking one option, such as a model. They use the menu radio role and show a check mark beside the chosen item rather than a form radio button. Action, link and radio items take an optional `description` shown as a second line.
+- Menu items lay out their label and description in a row, so long labels still wrap. `DropdownMenuItem` is now exported from its own module; the import from the package is unchanged. Code that switches exhaustively over `item.type` needs a `"radio"` case.
+
 ## 0.3.0
 
 - Add `List` and `ListItem` for settings, people and status rows. `List` sets an explicit list role so Safari keeps announcing it without bullets. A row takes a `title`, an optional `description`, `leading` content such as an avatar, and `trailing` content such as a value or a button.
