@@ -11,4 +11,5 @@ test("List: names the list, keeps native props, refs and consumer styling", asyn
   await expect(list).toHaveClass(/consumer-list/);
   await expect(list).toHaveCSS("border-radius", "0px");
   await expect(list).toHaveCSS("list-style-type", "none");
+  await expect(list).toHaveAttribute("role", "list");
 });

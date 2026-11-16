@@ -5,17 +5,25 @@ import {
   useRef,
   useState,
   type ComponentPropsWithRef,
-  type MouseEvent,
   type ReactNode,
 } from "react";
 import { Button, type ButtonProps } from "../Button/Button";
 import { IconButton } from "../Button/IconButton";
+import { MenuChoice } from "./MenuChoice";
+import { menuDescription, menuTextId } from "./menuText";
 import { menuItems, menuKeyboard } from "./menuKeyboard";
 import { useMenuTrigger } from "./useMenuTrigger";
 
 type MenuItemBase = Readonly<{ id: string; label: string; disabled?: boolean }>;
 export type DropdownMenuItem =
-  | Readonly<{ type: "text"; id: string; label: string }>
+  | Readonly<{
+      type: "text";
+      id: string;
+      label: string;
+      disabled?: never;
+      onSelect?: never;
+      href?: never;
+    }>
   | (MenuItemBase &
       (
         | { type: "action"; onSelect: () => void; href?: never }
@@ -59,6 +67,7 @@ export function DropdownMenu({
   onKeyDown,
   ref,
   className = "",
+  "aria-describedby": consumerDescribedBy,
   ...props
 }: DropdownMenuProps) {
   const id = useId();
@@ -70,14 +79,14 @@ export function DropdownMenu({
   const focusedId = useRef<string | undefined>(undefined);
   const hasChoices = items.some(isChoice);
   useLayoutEffect(() => {
-    if (
-      panel.current?.matches(":popover-open") &&
+    const node = panel.current;
+    if (!node?.matches(":popover-open")) return;
+    if (!hasChoices) node.hidePopover();
+    else if (
       focusedId.current !== undefined &&
-      !items.some((item) => item.id === focusedId.current)
-    ) {
-      menuItems(panel.current)[0]?.focus();
-      if (!hasChoices) panel.current.hidePopover();
-    }
+      !items.some((item) => item.id === focusedId.current && isChoice(item))
+    )
+      menuItems(node)[0]?.focus();
   }, [items, hasChoices]);
   useImperativeHandle(ref, () => panel.current!, []);
   useImperativeHandle(triggerProps.ref, () => trigger.current!, []);
@@ -99,7 +108,7 @@ export function DropdownMenu({
   };
   return (
     <>
-      {icon ? (
+      {icon !== undefined ? (
         <IconButton {...triggerAttributes} label={label}>
           {icon}
         </IconButton>
@@ -113,6 +122,7 @@ export function DropdownMenu({
         popover="auto"
         role="menu"
         aria-label={label}
+        aria-describedby={menuDescription(id, items, consumerDescribedBy)}
         className={`pancake-popover pancake-dropdown-menu ${className}`}
         onToggle={(event) => {
           const visible = event.currentTarget.matches(":popover-open");
@@ -134,46 +144,29 @@ export function DropdownMenu({
           keyboard.current(event, trigger.current);
         }}
       >
-        {items.map((item) => {
+        {items.map((item, index) => {
           if (item.type === "text")
             return (
-              <div key={item.id} className="pancake-dropdown-menu-text">
+              <div
+                key={item.id}
+                id={menuTextId(id, index)}
+                className="pancake-dropdown-menu-text"
+              >
                 {item.label}
               </div>
             );
-          const shared = {
-            role: "menuitem",
-            tabIndex: -1,
-            "aria-disabled": item.disabled || undefined,
-            className: "pancake-dropdown-menu-item",
-            onFocus: () => {
-              focusedId.current = item.id;
-            },
-            onClick: (event: MouseEvent<HTMLElement>) => {
-              if (item.disabled) {
-                event.preventDefault();
-                return;
-              }
-              panel.current?.hidePopover();
-              trigger.current?.focus();
-              if (item.type === "action") item.onSelect();
-            },
-          };
-          return item.type === "link" ? (
-            <a
-              {...shared}
+          return (
+            <MenuChoice
               key={item.id}
-              href={item.disabled ? undefined : item.href}
-              target={item.target}
-              rel={item.rel}
-              download={item.download}
-            >
-              {item.label}
-            </a>
-          ) : (
-            <button {...shared} key={item.id} type="button">
-              {item.label}
-            </button>
+              item={item}
+              onFocus={() => {
+                focusedId.current = item.id;
+              }}
+              onChosen={() => {
+                panel.current?.hidePopover();
+                trigger.current?.focus();
+              }}
+            />
           );
         })}
       </div>

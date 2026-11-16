@@ -1,6 +1,6 @@
 import { test, expect } from "../../../tests/contracts-fixture";
 
-test("ListItem: shows title, description, decorative leading and a keyboard-operable trailing action", async ({
+test("ListItem: shows title, description, leading content and a keyboard-operable trailing action", async ({
   page,
 }) => {
   const row = page

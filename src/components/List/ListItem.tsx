@@ -1,5 +1,8 @@
 import type { ComponentPropsWithRef, ReactNode } from "react";
 
+const isShown = (node: ReactNode) =>
+  node !== undefined && node !== null && node !== false && node !== "";
+
 export type ListItemProps = Omit<
   ComponentPropsWithRef<"li">,
   "title" | "children"
@@ -20,14 +23,16 @@ export function ListItem({
 }: ListItemProps) {
   return (
     <li {...props} className={`pancake-list-item ${className}`}>
-      {leading && <span className="pancake-list-item-leading">{leading}</span>}
+      {isShown(leading) && (
+        <span className="pancake-list-item-leading">{leading}</span>
+      )}
       <span className="pancake-list-item-text">
         <span className="pancake-list-item-title">{title}</span>
-        {description && (
+        {isShown(description) && (
           <span className="pancake-list-item-description">{description}</span>
         )}
       </span>
-      {trailing && (
+      {isShown(trailing) && (
         <span className="pancake-list-item-trailing">{trailing}</span>
       )}
     </li>

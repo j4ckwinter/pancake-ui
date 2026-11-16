@@ -2,9 +2,9 @@
 
 ## 0.3.0
 
-- Add `List` and `ListItem` for settings, people and status rows. A row takes a `title`, an optional `description`, `leading` content such as an avatar, and `trailing` content such as a value or a button.
+- Add `List` and `ListItem` for settings, people and status rows. `List` sets an explicit list role so Safari keeps announcing it without bullets. A row takes a `title`, an optional `description`, `leading` content such as an avatar, and `trailing` content such as a value or a button.
 - Add `DialogActions` for the buttons at the end of a dialog. Buttons line up at the end in source order and wrap on narrow screens.
-- `DropdownMenu` takes an `icon` to show on its trigger instead of the label, which becomes the trigger's accessible name. Items can be `{ type: "text" }` lines, such as the signed-in account, which keyboard navigation and typeahead skip. A menu with only text lines has a disabled trigger.
+- `DropdownMenu` takes an `icon` to show on its trigger instead of the label, which becomes the trigger's accessible name. Items can be `{ type: "text" }` lines, such as the signed-in account. They describe the menu to assistive technology, and keyboard navigation and typeahead skip them. A menu with only text lines has a disabled trigger.
 
 ## 0.2.1
 

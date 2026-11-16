@@ -613,10 +613,10 @@
   },
   "ListItem": {
     "semantics": {
-      "test": "ListItem: shows title, description, decorative leading and a keyboard-operable trailing action"
+      "test": "ListItem: shows title, description, leading content and a keyboard-operable trailing action"
     },
     "keyboard": {
-      "test": "ListItem: shows title, description, decorative leading and a keyboard-operable trailing action"
+      "test": "ListItem: shows title, description, leading content and a keyboard-operable trailing action"
     },
     "state": {
       "notApplicable": "Application supplies the content and owns any action state."
@@ -625,7 +625,7 @@
       "notApplicable": "Does not own form data; trailing controls keep their native form behaviour."
     },
     "ref": {
-      "test": "ListItem: shows title, description, decorative leading and a keyboard-operable trailing action"
+      "test": "ListItem: shows title, description, leading content and a keyboard-operable trailing action"
     }
   }
 }
