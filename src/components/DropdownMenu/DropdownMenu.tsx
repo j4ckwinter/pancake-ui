@@ -8,6 +8,7 @@ import {
 } from "react";
 import { Button, type ButtonProps } from "../Button/Button";
 import { menuItems, menuKeyboard } from "./menuKeyboard";
+import { useMenuTrigger } from "./useMenuTrigger";
 
 type MenuItemBase = Readonly<{ id: string; label: string; disabled?: boolean }>;
 export type DropdownMenuItem = MenuItemBase &
@@ -71,6 +72,10 @@ export function DropdownMenu({
   }, [items]);
   useImperativeHandle(ref, () => panel.current!, []);
   useImperativeHandle(triggerProps.ref, () => trigger.current!, []);
+  const { onClick, onKeyDown: onTriggerKeyDown } = useMenuTrigger(
+    panel,
+    triggerProps,
+  );
   return (
     <>
       <Button
@@ -82,33 +87,8 @@ export function DropdownMenu({
         aria-haspopup="menu"
         aria-expanded={open}
         aria-controls={id}
-        onClick={(event) => {
-          triggerProps.onClick?.(event);
-          if (event.defaultPrevented || !panel.current) return;
-          event.preventDefault();
-          if (panel.current.matches(":popover-open"))
-            panel.current.hidePopover();
-          else {
-            event.currentTarget.focus();
-            panel.current.showPopover({ source: event.currentTarget });
-            if (panel.current.matches(":popover-open"))
-              menuItems(panel.current)[0]?.focus();
-          }
-        }}
-        onKeyDown={(event) => {
-          triggerProps.onKeyDown?.(event);
-          if (
-            event.defaultPrevented ||
-            !["ArrowDown", "ArrowUp"].includes(event.key)
-          )
-            return;
-          event.preventDefault();
-          panel.current?.showPopover({ source: event.currentTarget });
-          if (panel.current?.matches(":popover-open")) {
-            const targets = menuItems(panel.current);
-            (event.key === "ArrowUp" ? targets.at(-1) : targets[0])?.focus();
-          }
-        }}
+        onClick={onClick}
+        onKeyDown={onTriggerKeyDown}
       >
         {label}
       </Button>
