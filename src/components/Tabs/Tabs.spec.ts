@@ -158,12 +158,27 @@ for (const forcedColors of ["none", "active"] as const) {
     });
     const first = list.getByRole("tab", { name: "First" });
     const last = list.getByRole("tab", { name: "Last" });
+    const [property, selected, unselected] =
+      forcedColors === "active"
+        ? ["text-decoration-line", "underline", "none"]
+        : ["background-color", "rgb(240, 240, 235)", "rgba(0, 0, 0, 0)"];
     await first.focus();
     await expect(first).toHaveCSS("outline-style", "solid");
-    await expect(first).toHaveCSS("text-decoration-line", "none");
-    await expect(last).toHaveCSS("text-decoration-line", "underline");
+    await expect(first).toHaveCSS(property, unselected);
+    await expect(last).toHaveCSS(property, selected);
     await first.press("Space");
-    await expect(first).toHaveCSS("text-decoration-line", "underline");
-    await expect(last).toHaveCSS("text-decoration-line", "none");
+    await expect(first).toHaveCSS(property, selected);
+    await expect(last).toHaveCSS(property, unselected);
   });
 }
+
+test("Tabs: hover stays lighter than the selected tab", async ({ page }) => {
+  const list = page.getByRole("tablist", { name: "Manual tabs", exact: true });
+  const first = list.getByRole("tab", { name: "First" });
+  const last = list.getByRole("tab", { name: "Last" });
+  await first.hover();
+  await expect(first).toHaveCSS("background-color", "rgb(251, 248, 240)");
+  await expect(last).toHaveCSS("background-color", "rgb(240, 240, 235)");
+  await last.hover();
+  await expect(last).toHaveCSS("background-color", "rgb(240, 240, 235)");
+});
