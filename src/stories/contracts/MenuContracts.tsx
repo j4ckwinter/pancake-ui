@@ -117,6 +117,30 @@ export function MenuContracts() {
           onSelect: () => setActions((count) => count + 1),
         }))}
       />
+      <DropdownMenu
+        label="Account contract menu"
+        icon={<span>☺</span>}
+        items={[
+          { id: "email", type: "text", label: "person@example.com" },
+          {
+            id: "settings",
+            type: "action",
+            label: "Open settings",
+            onSelect: () => setActions((count) => count + 1),
+          },
+          {
+            id: "sign-out",
+            type: "action",
+            label: "Sign out",
+            onSelect: () => setActions((count) => count + 1),
+          },
+        ]}
+      />
+      <DropdownMenu
+        label="Text-only menu"
+        icon={<span>☺</span>}
+        items={[{ id: "note", type: "text", label: "Nothing to choose" }]}
+      />
       <span id="menu-guide">Menu guidance</span>
       <output aria-label="Menu keys">{keys}</output>
       <output aria-label="Menu actions">{actions}</output>

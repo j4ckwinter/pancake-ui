@@ -400,8 +400,24 @@ const progressRef = createRef<HTMLProgressElement>();
     },
   ]}
 />;
-// @ts-expect-error Menu triggers require a visible label.
+// @ts-expect-error Menu triggers require a label.
 <DropdownMenu items={[]} />;
+<DropdownMenu
+  label="Account"
+  icon={<span>☺</span>}
+  items={[
+    { id: "email", type: "text", label: "person@example.com" },
+    { id: "sign-out", type: "action", label: "Sign out", onSelect: () => {} },
+  ]}
+/>;
+const invalidMenuText: DropdownMenuItem = {
+  id: "email",
+  type: "text",
+  label: "person@example.com",
+  // @ts-expect-error Text lines cannot be selected.
+  onSelect: () => {},
+};
+void invalidMenuText;
 // @ts-expect-error Action items require a callback.
 const invalidMenuAction: DropdownMenuItem = {
   id: "save",

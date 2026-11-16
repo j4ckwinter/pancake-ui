@@ -63,6 +63,7 @@ function ComparisonMenu() {
       <DropdownMenu
         label="Project actions"
         items={[
+          { id: "owner", type: "text", label: "Owned by the design team" },
           {
             id: "duplicate",
             type: "action",
