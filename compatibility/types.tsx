@@ -17,6 +17,9 @@ import {
   RadioGroup,
   Switch,
   Dialog,
+  DialogActions,
+  List,
+  ListItem,
   ButtonLink,
   IconButton,
   Checkbox,
@@ -227,6 +230,31 @@ const dialogRef = createRef<HTMLDialogElement>();
 <Dialog title="Review" open={false} />;
 // @ts-expect-error Dialog refs target dialog elements.
 <Dialog title="Review" open={false} onOpenChange={() => {}} ref={buttonRef} />;
+const actionsRef = createRef<HTMLDivElement>();
+<DialogActions ref={actionsRef} className="actions">
+  <Button>Save</Button>
+</DialogActions>;
+// @ts-expect-error Dialog action refs target div elements.
+<DialogActions ref={buttonRef} />;
+
+const listRef = createRef<HTMLUListElement>();
+const listItemRef = createRef<HTMLLIElement>();
+<List ref={listRef} aria-label="People">
+  <ListItem
+    ref={listItemRef}
+    title="ada@example.com"
+    description="Owner"
+    leading={<Avatar name="Ada" decorative />}
+    trailing={<Button>Remove</Button>}
+  />
+  <ListItem title="Reply in progress" trailing="No" />
+</List>;
+// @ts-expect-error List items require a title.
+<ListItem description="Owner" />;
+// @ts-expect-error List items take their content through slots, not children.
+<ListItem title="Ada">Owner</ListItem>;
+// @ts-expect-error List refs target ul elements.
+<List ref={listItemRef} />;
 
 const fieldsetRef = createRef<HTMLFieldSetElement>();
 <RadioGroup
@@ -400,8 +428,26 @@ const progressRef = createRef<HTMLProgressElement>();
     },
   ]}
 />;
-// @ts-expect-error Menu triggers require a visible label.
+// @ts-expect-error Menu triggers require a label.
 <DropdownMenu items={[]} />;
+<DropdownMenu
+  label="Account"
+  icon={<span>☺</span>}
+  items={[
+    { id: "email", type: "text", label: "person@example.com" },
+    { id: "sign-out", type: "action", label: "Sign out", onSelect: () => {} },
+  ]}
+/>;
+// @ts-expect-error Text lines cannot be selected.
+const invalidMenuText: DropdownMenuItem = {
+  id: "email",
+  type: "text",
+  label: "person@example.com",
+  onSelect: () => {},
+};
+const legacyItemCheck = (item: DropdownMenuItem) => item.disabled ?? item.href;
+void legacyItemCheck;
+void invalidMenuText;
 // @ts-expect-error Action items require a callback.
 const invalidMenuAction: DropdownMenuItem = {
   id: "save",

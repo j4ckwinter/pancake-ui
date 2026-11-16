@@ -16,6 +16,7 @@ export function MenuContracts() {
   const [reversed, setReversed] = useState(false);
   const [removed, setRemoved] = useState(false);
   const [empty, setEmpty] = useState(false);
+  const [textOnly, setTextOnly] = useState(false);
   const items: DropdownMenuItem[] = [
     {
       id: "",
@@ -52,9 +53,12 @@ export function MenuContracts() {
       disabled: true,
     },
   ];
-  const currentItems = empty
+  const remainingItems = empty
     ? []
     : items.filter((item) => !removed || item.id !== "");
+  const currentItems: DropdownMenuItem[] = textOnly
+    ? remainingItems.map(({ id, label }) => ({ id, type: "text", label }))
+    : remainingItems;
   return (
     <Stack>
       <Checkbox
@@ -102,6 +106,9 @@ export function MenuContracts() {
       </Button>
       <Button onClick={() => setRemoved(true)}>Remove first menu item</Button>
       <Button onClick={() => setEmpty(true)}>Remove all menu items</Button>
+      <Button onClick={() => setTextOnly(true)}>
+        Turn menu items into text
+      </Button>
       <DropdownMenu
         label="Disabled menu"
         items={items}
@@ -116,6 +123,30 @@ export function MenuContracts() {
           label: `Long action ${index} ${"unbrokencontent".repeat(12)}`,
           onSelect: () => setActions((count) => count + 1),
         }))}
+      />
+      <DropdownMenu
+        label="Account contract menu"
+        icon={<span>☺</span>}
+        items={[
+          { id: "email", type: "text", label: "person@example.com" },
+          {
+            id: "settings",
+            type: "action",
+            label: "Open settings",
+            onSelect: () => setActions((count) => count + 1),
+          },
+          {
+            id: "sign-out",
+            type: "action",
+            label: "Sign out",
+            onSelect: () => setActions((count) => count + 1),
+          },
+        ]}
+      />
+      <DropdownMenu
+        label="Text-only menu"
+        icon={<span>☺</span>}
+        items={[{ id: "note", type: "text", label: "Nothing to choose" }]}
       />
       <span id="menu-guide">Menu guidance</span>
       <output aria-label="Menu keys">{keys}</output>

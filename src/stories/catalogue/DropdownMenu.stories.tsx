@@ -68,6 +68,17 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
+export const IconTrigger: Story = {
+  args: {
+    label: "Account",
+    icon: "☺",
+    items: [
+      { id: "email", type: "text", label: "person@example.com" },
+      { id: "settings", type: "action", label: "Settings", onSelect: () => {} },
+      { id: "sign-out", type: "action", label: "Sign out", onSelect: () => {} },
+    ],
+  },
+};
 export const Disabled: Story = { args: { triggerProps: { disabled: true } } };
 export const Empty: Story = { args: { items: [] } };
 export const LongLabels: Story = {

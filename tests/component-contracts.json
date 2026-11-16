@@ -576,5 +576,56 @@
     "ref": {
       "test": "Pagination: navigation semantics, current page, native props and ref"
     }
+  },
+  "DialogActions": {
+    "semantics": {
+      "test": "DialogActions: buttons sit at the end in source order and keep native props and ref"
+    },
+    "keyboard": {
+      "test": "DialogActions: buttons sit at the end in source order and keep native props and ref"
+    },
+    "state": {
+      "notApplicable": "Application supplies the buttons and owns their state."
+    },
+    "form": {
+      "test": "DialogActions: a submit button inside a dialog form closes the dialog with its value"
+    },
+    "ref": {
+      "test": "DialogActions: buttons sit at the end in source order and keep native props and ref"
+    }
+  },
+  "List": {
+    "semantics": {
+      "test": "List: names the list, keeps native props, refs and consumer styling"
+    },
+    "keyboard": {
+      "notApplicable": "Not interactive; rows supply their own controls."
+    },
+    "state": {
+      "notApplicable": "Application supplies the rows and owns their state."
+    },
+    "form": {
+      "notApplicable": "Does not own form data."
+    },
+    "ref": {
+      "test": "List: names the list, keeps native props, refs and consumer styling"
+    }
+  },
+  "ListItem": {
+    "semantics": {
+      "test": "ListItem: shows title, description, leading content and a keyboard-operable trailing action"
+    },
+    "keyboard": {
+      "test": "ListItem: shows title, description, leading content and a keyboard-operable trailing action"
+    },
+    "state": {
+      "notApplicable": "Application supplies the content and owns any action state."
+    },
+    "form": {
+      "notApplicable": "Does not own form data; trailing controls keep their native form behaviour."
+    },
+    "ref": {
+      "test": "ListItem: shows title, description, leading content and a keyboard-operable trailing action"
+    }
   }
 }

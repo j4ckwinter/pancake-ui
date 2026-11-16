@@ -18,6 +18,9 @@ import {
   RadioGroup,
   Switch,
   Dialog,
+  DialogActions,
+  List,
+  ListItem,
   ButtonLink,
   IconButton,
   Checkbox,
@@ -63,6 +66,7 @@ function ComparisonMenu() {
       <DropdownMenu
         label="Project actions"
         items={[
+          { id: "owner", type: "text", label: "Owned by the design team" },
           {
             id: "duplicate",
             type: "action",
@@ -105,6 +109,10 @@ function ComparisonDialog() {
           description="A focused task with native modal behaviour."
         />
         <Button onClick={() => setOpen(true)}>Open comparison dialog</Button>
+        <DialogActions data-component="DialogActions">
+          <Button variant="ghost">Keep chat</Button>
+          <Button variant="destructive">Delete chat</Button>
+        </DialogActions>
         <Dialog
           open={open}
           onOpenChange={setOpen}
@@ -120,12 +128,12 @@ function ComparisonDialog() {
               Longer supporting content wraps within the dialog and remains
               readable on a narrow screen.
             </Text>
-            <Inline>
-              <Button onClick={() => setOpen(false)}>Save changes</Button>
+            <DialogActions>
               <Button variant="ghost" onClick={() => setOpen(false)}>
                 Cancel changes
               </Button>
-            </Inline>
+              <Button onClick={() => setOpen(false)}>Save changes</Button>
+            </DialogActions>
           </Stack>
         </Dialog>
       </Stack>
@@ -599,6 +607,34 @@ export const Catalogue: Story = {
               pageCount={0}
               onPageChange={() => {}}
             />
+          </Stack>
+        </Surface>
+        <Surface>
+          <Stack>
+            <SectionHeader title="Lists" />
+            <List data-component="List" aria-label="Team members">
+              <ListItem
+                data-component="ListItem"
+                title="ada@example.com"
+                description="Owner"
+                leading={<Avatar name="Ada Lovelace" size={32} decorative />}
+              />
+              <ListItem
+                title="grace@example.com with a longer address that wraps"
+                description="Member since 16 Nov 2026"
+                leading={<Avatar name="Grace Hopper" size={32} decorative />}
+                trailing={
+                  <Button size={32} variant="ghost">
+                    Remove
+                  </Button>
+                }
+              />
+              <ListItem
+                title="Model server"
+                trailing={<StatusChip tone="success">Ready</StatusChip>}
+              />
+              <ListItem title="Reply in progress" trailing="No" />
+            </List>
           </Stack>
         </Surface>
         <Surface data-component="DropdownMenu">

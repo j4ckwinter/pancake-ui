@@ -35,13 +35,15 @@ The sample form verifies submission, required fields, custom errors, keyboard fo
 | Actions                 | `Button`, `ButtonLink`, `IconButton`                                                                   |
 | Forms                   | `TextField`, `Textarea`, `Select`, `FileField`, `Checkbox`, `RadioGroup`, `Switch`, `SegmentedControl` |
 | Navigation              | `AppHeader`, `SectionHeader`, `BottomNavigation`, `Tabs`, `Pagination`                                 |
-| Overlays and disclosure | `Dialog`, `Popover`, `DropdownMenu`, `Tooltip`, `Disclosure`                                           |
-| Data and identity       | `Table`, `Avatar`, `AvatarGroup`                                                                       |
+| Overlays and disclosure | `Dialog`, `DialogActions`, `Popover`, `DropdownMenu`, `Tooltip`, `Disclosure`                          |
+| Data and identity       | `Table`, `List`, `ListItem`, `Avatar`, `AvatarGroup`                                                   |
 | Feedback and progress   | `StatusChip`, `BannerToast`, `EmptyState`, `Progress`, `LoadingIndicator`, `StepProgress`              |
 
 `Stack` and `Inline` accept spacing token names (`gap="space24"`), alignment, padding, and native div props. Inline wraps by default. `Text` accepts a typography `variant`, colour token, and an `as` tag for semantic headings or paragraphs. Layout and text reference CSS variables so local themes apply.
 
 `Avatar` requires a name, accepts an optional image `src`, and falls back to initials after a failed image. Changing `src` retries the image. Use `decorative` when adjacent text already supplies the name. `AvatarGroup` accepts `{ id, name, src? }` items and a positive integer `max`; hidden identities are named on the overflow indicator.
+
+`List` is a `ul` without bullets, with an explicit list role so Safari keeps announcing it, for settings, people and status screens; name it with `aria-label` when no heading does. Each `ListItem` takes a `title` and optional `description`, `leading` content such as a decorative avatar, and `trailing` content such as a value or a button. Long titles wrap rather than widen the page; trailing values align to the end and take at most half the row.
 
 `StatusChip` tones are neutral, success, warning, danger, and info. `BannerToast` accepts a title, children, an optional `onDismiss`, and success/warning/error/info tones. Error notifications use an alert; other tones use a polite status. Applications own notification timing and dismissal state. `EmptyState` accepts title, description, optional decorative icon, and action content.
 
@@ -67,6 +69,8 @@ The example verifies avatar image recovery, notification dismissal, navigation l
 
 `Dialog` is a controlled native modal. Pass `open`, `onOpenChange` and a visible `title`; an optional `description` is associated with the dialog. It uses `showModal()` after mounting, so server markup is stable and the modal opens after hydration. The browser owns modal focus containment and background inertness. Escape and the built-in close button request dismissal through `onOpenChange(false)`; the app must update `open`. Backdrop clicks do not dismiss it. Set `closeLabel` to localise the close button. Native refs, classes and styles target the dialog element.
 
+Put the dialog's buttons in `DialogActions`. It lines them up at the end of the row in source order, so the main action goes last and the tab order matches what people see. It wraps on narrow screens and takes native div props and refs.
+
 ```tsx
 const [open, setOpen] = useState(false);
 
@@ -74,7 +78,12 @@ const [open, setOpen] = useState(false);
   <Button onClick={() => setOpen(true)}>Review changes</Button>
   <Dialog open={open} onOpenChange={setOpen} title="Review changes">
     <Text as="p">Check your changes before saving.</Text>
-    <Button onClick={() => setOpen(false)}>Done</Button>
+    <DialogActions>
+      <Button variant="ghost" onClick={() => setOpen(false)}>
+        Cancel
+      </Button>
+      <Button onClick={() => setOpen(false)}>Save</Button>
+    </DialogActions>
   </Dialog>
 </>;
 ```
@@ -127,7 +136,7 @@ The browser owns visibility, outside-click dismissal, Escape, sibling/nested pop
 
 ## DropdownMenu
 
-`DropdownMenu` combines a labelled button with a native anchored action menu. Provide a visible `label` and `items` with unique `id` values. Action items use `{ type: "action", id, label, onSelect }`; link items use `{ type: "link", id, label, href }` and support native `target`, `rel` and `download`. Item labels are strings for keyboard typeahead. Disabled items remain keyboard-focusable for discovery but cannot activate; disabled links have no destination.
+`DropdownMenu` combines a labelled button with a native anchored action menu. Provide a `label` and `items` with unique `id` values. The label is the trigger's visible text, or its accessible name when you pass an `icon` to show instead. Action items use `{ type: "action", id, label, onSelect }`; link items use `{ type: "link", id, label, href }` and support native `target`, `rel` and `download`. Text items, `{ type: "text", id, label }`, show a line such as the signed-in account. They describe the menu to assistive technology and are skipped by keyboard navigation and typeahead; a menu with only text items has a disabled trigger. Item labels are strings for keyboard typeahead. Disabled items remain keyboard-focusable for discovery but cannot activate; disabled links have no destination.
 
 Enter, Space or ArrowDown opens at the first item; ArrowUp opens at the last. Arrow keys wrap, Home/End reach the edges, and typing searches labels. Escape returns focus to the trigger; Tab/Shift+Tab closes and leaves the composite. Action selection closes the menu and restores trigger focus before calling `onSelect`, so the action can move focus into a new dialog. Browser-owned visibility follows the same native dismissal model as Popover; `onOpenChange` observes settled changes.
 

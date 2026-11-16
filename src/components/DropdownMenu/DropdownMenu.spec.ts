@@ -268,3 +268,55 @@ test("DropdownMenu: pointer opening restores its trigger on Escape", async ({
   ).toBeHidden();
   await expect(trigger).toBeFocused();
 });
+
+test("DropdownMenu: icon trigger is named by its label and text lines describe the menu without being choices", async ({
+  page,
+}) => {
+  const trigger = page.getByRole("button", {
+    name: "Account contract menu",
+    exact: true,
+  });
+  await expect(trigger).not.toContainText("Account contract menu");
+  await expect(trigger.getByText("☺").locator("..")).toHaveAttribute(
+    "aria-hidden",
+    "true",
+  );
+  await trigger.focus();
+  await page.keyboard.press("ArrowDown");
+  const menu = page.getByRole("menu", { name: "Account contract menu" });
+  await expect(menu.getByText("person@example.com")).toBeVisible();
+  await expect(menu).toHaveAccessibleDescription("person@example.com");
+  await expect(menu.getByRole("menuitem")).toHaveCount(2);
+  await expect(
+    menu.getByRole("menuitem", { name: "Open settings" }),
+  ).toBeFocused();
+  await page.keyboard.press("ArrowUp");
+  await expect(menu.getByRole("menuitem", { name: "Sign out" })).toBeFocused();
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  await page.keyboard.press("Enter");
+  await expect(page.getByLabel("Menu actions")).toHaveText("1");
+  await expect(trigger).toBeFocused();
+  await expect(
+    page.getByRole("button", { name: "Text-only menu", exact: true }),
+  ).toBeDisabled();
+});
+
+test("DropdownMenu: an open menu closes when its items all become text", async ({
+  page,
+}) => {
+  const trigger = page.getByRole("button", {
+    name: "Contract menu",
+    exact: true,
+  });
+  const menu = page.getByRole("menu", { name: "Contract menu", exact: true });
+  await trigger.click();
+  await expect(
+    page.getByRole("menuitem", { name: "Alpha action" }),
+  ).toBeFocused();
+  await page
+    .getByRole("button", { name: "Turn menu items into text" })
+    .evaluate((node: HTMLButtonElement) => node.click());
+  await expect(menu).toBeHidden();
+  await expect(trigger).toHaveAttribute("aria-expanded", "false");
+  await expect(trigger).toBeDisabled();
+});

@@ -5,26 +5,41 @@ import {
   useRef,
   useState,
   type ComponentPropsWithRef,
+  type ReactNode,
 } from "react";
 import { Button, type ButtonProps } from "../Button/Button";
+import { IconButton } from "../Button/IconButton";
+import { MenuChoice } from "./MenuChoice";
+import { menuDescription, menuTextId } from "./menuText";
 import { menuItems, menuKeyboard } from "./menuKeyboard";
+import { useMenuTrigger } from "./useMenuTrigger";
 
 type MenuItemBase = Readonly<{ id: string; label: string; disabled?: boolean }>;
-export type DropdownMenuItem = MenuItemBase &
-  (
-    | { type: "action"; onSelect: () => void; href?: never }
-    | ({
-        type: "link";
-        href: string;
-        onSelect?: never;
-        download?: string | boolean;
-      } & Pick<ComponentPropsWithRef<"a">, "target" | "rel">)
-  );
+export type DropdownMenuItem =
+  | Readonly<{
+      type: "text";
+      id: string;
+      label: string;
+      disabled?: never;
+      onSelect?: never;
+      href?: never;
+    }>
+  | (MenuItemBase &
+      (
+        | { type: "action"; onSelect: () => void; href?: never }
+        | ({
+            type: "link";
+            href: string;
+            onSelect?: never;
+            download?: string | boolean;
+          } & Pick<ComponentPropsWithRef<"a">, "target" | "rel">)
+      ));
 export type DropdownMenuProps = Omit<
   ComponentPropsWithRef<"div">,
   "children" | "id" | "popover" | "role" | "aria-label"
 > & {
   label: string;
+  icon?: ReactNode;
   items: readonly DropdownMenuItem[];
   onOpenChange?: (open: boolean) => void;
   triggerProps?: Omit<
@@ -40,9 +55,11 @@ export type DropdownMenuProps = Omit<
 };
 
 const currentTime = () => Date.now();
+const isChoice = (item: DropdownMenuItem) => item.type !== "text";
 
 export function DropdownMenu({
   label,
+  icon,
   items,
   triggerProps = {},
   onOpenChange,
@@ -50,6 +67,7 @@ export function DropdownMenu({
   onKeyDown,
   ref,
   className = "",
+  "aria-describedby": consumerDescribedBy,
   ...props
 }: DropdownMenuProps) {
   const id = useId();
@@ -59,59 +77,44 @@ export function DropdownMenu({
   const reportedOpen = useRef(false);
   const keyboard = useRef(menuKeyboard(currentTime));
   const focusedId = useRef<string | undefined>(undefined);
+  const hasChoices = items.some(isChoice);
   useLayoutEffect(() => {
-    if (
-      panel.current?.matches(":popover-open") &&
+    const node = panel.current;
+    if (!node?.matches(":popover-open")) return;
+    if (!hasChoices) node.hidePopover();
+    else if (
       focusedId.current !== undefined &&
-      !items.some((item) => item.id === focusedId.current)
-    ) {
-      menuItems(panel.current)[0]?.focus();
-      if (!items.length) panel.current.hidePopover();
-    }
-  }, [items]);
+      !items.some((item) => item.id === focusedId.current && isChoice(item))
+    )
+      menuItems(node)[0]?.focus();
+  }, [items, hasChoices]);
   useImperativeHandle(ref, () => panel.current!, []);
   useImperativeHandle(triggerProps.ref, () => trigger.current!, []);
+  const { onClick, onKeyDown: onTriggerKeyDown } = useMenuTrigger(
+    panel,
+    triggerProps,
+  );
+  const triggerAttributes = {
+    ...triggerProps,
+    ref: trigger,
+    type: "button" as const,
+    disabled: triggerProps.disabled || !hasChoices,
+    popoverTarget: id,
+    "aria-haspopup": "menu" as const,
+    "aria-expanded": open,
+    "aria-controls": id,
+    onClick,
+    onKeyDown: onTriggerKeyDown,
+  };
   return (
     <>
-      <Button
-        {...triggerProps}
-        ref={trigger}
-        type="button"
-        disabled={triggerProps.disabled || items.length === 0}
-        popoverTarget={id}
-        aria-haspopup="menu"
-        aria-expanded={open}
-        aria-controls={id}
-        onClick={(event) => {
-          triggerProps.onClick?.(event);
-          if (event.defaultPrevented || !panel.current) return;
-          event.preventDefault();
-          if (panel.current.matches(":popover-open"))
-            panel.current.hidePopover();
-          else {
-            event.currentTarget.focus();
-            panel.current.showPopover({ source: event.currentTarget });
-            if (panel.current.matches(":popover-open"))
-              menuItems(panel.current)[0]?.focus();
-          }
-        }}
-        onKeyDown={(event) => {
-          triggerProps.onKeyDown?.(event);
-          if (
-            event.defaultPrevented ||
-            !["ArrowDown", "ArrowUp"].includes(event.key)
-          )
-            return;
-          event.preventDefault();
-          panel.current?.showPopover({ source: event.currentTarget });
-          if (panel.current?.matches(":popover-open")) {
-            const targets = menuItems(panel.current);
-            (event.key === "ArrowUp" ? targets.at(-1) : targets[0])?.focus();
-          }
-        }}
-      >
-        {label}
-      </Button>
+      {icon !== undefined ? (
+        <IconButton {...triggerAttributes} label={label}>
+          {icon}
+        </IconButton>
+      ) : (
+        <Button {...triggerAttributes}>{label}</Button>
+      )}
       <div
         {...props}
         ref={panel}
@@ -119,6 +122,7 @@ export function DropdownMenu({
         popover="auto"
         role="menu"
         aria-label={label}
+        aria-describedby={menuDescription(id, items, consumerDescribedBy)}
         className={`pancake-popover pancake-dropdown-menu ${className}`}
         onToggle={(event) => {
           const visible = event.currentTarget.matches(":popover-open");
@@ -140,40 +144,29 @@ export function DropdownMenu({
           keyboard.current(event, trigger.current);
         }}
       >
-        {items.map((item) => {
-          const shared = {
-            role: "menuitem",
-            tabIndex: -1,
-            "aria-disabled": item.disabled || undefined,
-            className: "pancake-dropdown-menu-item",
-            onFocus: () => {
-              focusedId.current = item.id;
-            },
-            onClick: (event: React.MouseEvent<HTMLElement>) => {
-              if (item.disabled) {
-                event.preventDefault();
-                return;
-              }
-              panel.current?.hidePopover();
-              trigger.current?.focus();
-              if (item.type === "action") item.onSelect();
-            },
-          };
-          return item.type === "link" ? (
-            <a
-              {...shared}
+        {items.map((item, index) => {
+          if (item.type === "text")
+            return (
+              <div
+                key={item.id}
+                id={menuTextId(id, index)}
+                className="pancake-dropdown-menu-text"
+              >
+                {item.label}
+              </div>
+            );
+          return (
+            <MenuChoice
               key={item.id}
-              href={item.disabled ? undefined : item.href}
-              target={item.target}
-              rel={item.rel}
-              download={item.download}
-            >
-              {item.label}
-            </a>
-          ) : (
-            <button {...shared} key={item.id} type="button">
-              {item.label}
-            </button>
+              item={item}
+              onFocus={() => {
+                focusedId.current = item.id;
+              }}
+              onChosen={() => {
+                panel.current?.hidePopover();
+                trigger.current?.focus();
+              }}
+            />
           );
         })}
       </div>

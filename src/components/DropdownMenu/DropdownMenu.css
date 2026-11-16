@@ -16,6 +16,11 @@
     overflow-wrap: anywhere;
     cursor: pointer;
   }
+  .pancake-dropdown-menu-text {
+    @apply font-pancake text-pancake-caption text-pancake-text-secondary;
+    padding: var(--spacing-pancake-4) var(--spacing-pancake-8);
+    overflow-wrap: anywhere;
+  }
   .pancake-dropdown-menu-item:focus-visible {
     outline: var(--pancake-focus-ring-width) solid var(--color-pancake-deep);
     outline-offset: var(--pancake-focus-ring-width);
