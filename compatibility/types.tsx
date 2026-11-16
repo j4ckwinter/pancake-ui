@@ -438,13 +438,15 @@ const progressRef = createRef<HTMLProgressElement>();
     { id: "sign-out", type: "action", label: "Sign out", onSelect: () => {} },
   ]}
 />;
+// @ts-expect-error Text lines cannot be selected.
 const invalidMenuText: DropdownMenuItem = {
   id: "email",
   type: "text",
   label: "person@example.com",
-  // @ts-expect-error Text lines cannot be selected.
   onSelect: () => {},
 };
+const legacyItemCheck = (item: DropdownMenuItem) => item.disabled ?? item.href;
+void legacyItemCheck;
 void invalidMenuText;
 // @ts-expect-error Action items require a callback.
 const invalidMenuAction: DropdownMenuItem = {
