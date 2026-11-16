@@ -36,6 +36,7 @@ Each decision has one owner. Put new code with the owner of the decision it make
 | Layout alignment and spacing values                        | `src/components/layout/layout.shared.ts`                                    |
 | Menu keyboard navigation and typeahead                     | `src/components/DropdownMenu/menuKeyboard.ts`                               |
 | How the menu trigger opens the menu                        | `src/components/DropdownMenu/useMenuTrigger.ts`                             |
+| The kinds of menu item and their fields                    | `src/components/DropdownMenu/menuItem.ts`                                   |
 | How menu text lines describe the menu                      | `src/components/DropdownMenu/menuText.ts`                                   |
 | Tooltip show and hide timing                               | `src/components/Tooltip/useTooltip.ts`                                      |
 | Which page numbers pagination lists                        | `src/components/Pagination/paginationPages.ts`                              |

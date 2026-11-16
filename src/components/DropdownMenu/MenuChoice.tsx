@@ -1,5 +1,5 @@
 import type { MouseEvent } from "react";
-import type { DropdownMenuItem } from "./DropdownMenu";
+import type { DropdownMenuItem } from "./menuItem";
 
 export type MenuChoiceItem = Exclude<DropdownMenuItem, { type: "text" }>;
 

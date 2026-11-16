@@ -112,8 +112,8 @@ export { Popover, type PopoverProps } from "./components/Popover/Popover";
 export {
   DropdownMenu,
   type DropdownMenuProps,
-  type DropdownMenuItem,
 } from "./components/DropdownMenu/DropdownMenu";
+export type { DropdownMenuItem } from "./components/DropdownMenu/menuItem";
 
 export { Tooltip, type TooltipProps } from "./components/Tooltip/Tooltip";
 
