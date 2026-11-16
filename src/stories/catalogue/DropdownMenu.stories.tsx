@@ -79,6 +79,38 @@ export const IconTrigger: Story = {
     ],
   },
 };
+export const Choices: Story = {
+  args: {
+    label: "Answer model",
+    icon: "✦",
+    items: [
+      {
+        id: "local",
+        type: "radio",
+        label: "Local model",
+        description: "Runs on your PC",
+        checked: true,
+        onSelect: () => {},
+      },
+      { id: "plan", type: "text", label: "ChatGPT plan" },
+      {
+        id: "fast",
+        type: "radio",
+        label: "Fast model",
+        checked: false,
+        onSelect: () => {},
+      },
+      {
+        id: "thinking",
+        type: "radio",
+        label: "Thinking model",
+        description: "Slower, for harder questions",
+        checked: false,
+        onSelect: () => {},
+      },
+    ],
+  },
+};
 export const Disabled: Story = { args: { triggerProps: { disabled: true } } };
 export const Empty: Story = { args: { items: [] } };
 export const LongLabels: Story = {

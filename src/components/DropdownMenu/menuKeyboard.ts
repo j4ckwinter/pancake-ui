@@ -1,7 +1,11 @@
 import type { KeyboardEvent } from "react";
 
 export function menuItems(panel: HTMLDivElement) {
-  return Array.from(panel.querySelectorAll<HTMLElement>('[role="menuitem"]'));
+  return Array.from(
+    panel.querySelectorAll<HTMLElement>(
+      '[role="menuitem"], [role="menuitemradio"]',
+    ),
+  );
 }
 
 const typeaheadResetMs = 500;

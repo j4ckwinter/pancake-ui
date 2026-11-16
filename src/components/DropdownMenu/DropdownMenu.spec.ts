@@ -320,3 +320,52 @@ test("DropdownMenu: an open menu closes when its items all become text", async (
   await expect(trigger).toHaveAttribute("aria-expanded", "false");
   await expect(trigger).toBeDisabled();
 });
+
+test("DropdownMenu: radio items show which is chosen, carry descriptions and choose once", async ({
+  page,
+}) => {
+  const trigger = page.getByRole("button", {
+    name: "Model contract menu",
+    exact: true,
+  });
+  await trigger.click();
+  const menu = page.getByRole("menu", { name: "Model contract menu" });
+  const radios = menu.getByRole("menuitemradio");
+  await expect(radios).toHaveCount(3);
+  const local = menu.getByRole("menuitemradio", {
+    name: "Local model",
+    exact: true,
+  });
+  const cloud = menu.getByRole("menuitemradio", {
+    name: "Cloud model",
+    exact: true,
+  });
+  await expect(local).toBeChecked();
+  await expect(cloud).not.toBeChecked();
+  await expect(local).toHaveAccessibleDescription("Runs on your PC");
+  await expect(local.locator(".pancake-dropdown-menu-check svg")).toHaveCount(
+    1,
+  );
+  await expect(cloud.locator(".pancake-dropdown-menu-check svg")).toHaveCount(
+    0,
+  );
+  await expect(local).toBeFocused();
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  await page.keyboard.press("r");
+  const retired = menu.getByRole("menuitemradio", { name: "Retired model" });
+  await expect(retired).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(retired).toBeFocused();
+  await expect(menu).toBeVisible();
+  await expect(page.getByLabel("Model choices")).toHaveText("0");
+  await page.keyboard.press("ArrowUp");
+  await expect(cloud).toBeFocused();
+  await page.keyboard.press(" ");
+  await expect(page.getByLabel("Chosen model")).toHaveText("cloud");
+  await expect(page.getByLabel("Model choices")).toHaveText("1");
+  await expect(menu).toBeHidden();
+  await expect(trigger).toBeFocused();
+  await trigger.click();
+  await expect(cloud).toBeChecked();
+  await expect(local).not.toBeChecked();
+});

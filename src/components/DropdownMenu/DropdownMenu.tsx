@@ -10,30 +10,11 @@ import {
 import { Button, type ButtonProps } from "../Button/Button";
 import { IconButton } from "../Button/IconButton";
 import { MenuChoice } from "./MenuChoice";
+import type { DropdownMenuItem } from "./menuItem";
 import { menuDescription, menuTextId } from "./menuText";
 import { menuItems, menuKeyboard } from "./menuKeyboard";
 import { useMenuTrigger } from "./useMenuTrigger";
 
-type MenuItemBase = Readonly<{ id: string; label: string; disabled?: boolean }>;
-export type DropdownMenuItem =
-  | Readonly<{
-      type: "text";
-      id: string;
-      label: string;
-      disabled?: never;
-      onSelect?: never;
-      href?: never;
-    }>
-  | (MenuItemBase &
-      (
-        | { type: "action"; onSelect: () => void; href?: never }
-        | ({
-            type: "link";
-            href: string;
-            onSelect?: never;
-            download?: string | boolean;
-          } & Pick<ComponentPropsWithRef<"a">, "target" | "rel">)
-      ));
 export type DropdownMenuProps = Omit<
   ComponentPropsWithRef<"div">,
   "children" | "id" | "popover" | "role" | "aria-label"

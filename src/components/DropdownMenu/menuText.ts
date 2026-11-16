@@ -1,4 +1,4 @@
-import type { DropdownMenuItem } from "./DropdownMenu";
+import type { DropdownMenuItem } from "./menuItem";
 
 export const menuTextId = (menuId: string, index: number) =>
   `${menuId}-text-${index}`;

@@ -5,7 +5,9 @@
   }
   .pancake-dropdown-menu-item {
     @apply font-pancake text-pancake-body text-pancake-ink bg-pancake-transparent rounded-pancake-8;
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-pancake-8);
     box-sizing: border-box;
     width: 100%;
     min-height: var(--spacing-pancake-36);
@@ -15,6 +17,29 @@
     text-decoration: none;
     overflow-wrap: anywhere;
     cursor: pointer;
+  }
+  .pancake-dropdown-menu-item-text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: var(--spacing-pancake-0);
+  }
+  .pancake-dropdown-menu-item-description {
+    @apply text-pancake-caption text-pancake-text-secondary;
+  }
+  .pancake-dropdown-menu-check {
+    display: flex;
+    flex-shrink: 0;
+    width: var(--spacing-pancake-16);
+    height: var(--spacing-pancake-16);
+    color: var(--color-pancake-deep);
+  }
+  .pancake-dropdown-menu-check svg {
+    width: 100%;
+    height: 100%;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
   .pancake-dropdown-menu-text {
     @apply font-pancake text-pancake-caption text-pancake-text-secondary;

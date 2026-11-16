@@ -17,6 +17,12 @@ export function MenuContracts() {
   const [removed, setRemoved] = useState(false);
   const [empty, setEmpty] = useState(false);
   const [textOnly, setTextOnly] = useState(false);
+  const [model, setModel] = useState("local");
+  const [modelChoices, setModelChoices] = useState(0);
+  const chooseModel = (next: string) => {
+    setModel(next);
+    setModelChoices((count) => count + 1);
+  };
   const items: DropdownMenuItem[] = [
     {
       id: "",
@@ -148,6 +154,37 @@ export function MenuContracts() {
         icon={<span>☺</span>}
         items={[{ id: "note", type: "text", label: "Nothing to choose" }]}
       />
+      <DropdownMenu
+        label="Model contract menu"
+        icon={<span>✦</span>}
+        items={[
+          {
+            id: "local",
+            type: "radio",
+            label: "Local model",
+            description: "Runs on your PC",
+            checked: model === "local",
+            onSelect: () => chooseModel("local"),
+          },
+          {
+            id: "cloud",
+            type: "radio",
+            label: "Cloud model",
+            checked: model === "cloud",
+            onSelect: () => chooseModel("cloud"),
+          },
+          {
+            id: "retired",
+            type: "radio",
+            label: "Retired model",
+            disabled: true,
+            checked: false,
+            onSelect: () => chooseModel("retired"),
+          },
+        ]}
+      />
+      <output aria-label="Chosen model">{model}</output>
+      <output aria-label="Model choices">{modelChoices}</output>
       <span id="menu-guide">Menu guidance</span>
       <output aria-label="Menu keys">{keys}</output>
       <output aria-label="Menu actions">{actions}</output>
