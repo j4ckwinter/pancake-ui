@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1
+
+- Quieter tabs. Unselected tabs have no fill and secondary text; the selected tab takes the muted fill and full-strength text instead of the accent fill and underline. Hovering an unselected tab gives it the lighter canvas fill and full-strength text, so it never looks selected. The underline remains in forced colours, where fills are dropped. Vertical tabs align their labels to the start. No API changes.
+
 ## 0.2.0
 
 - Make the defaults compact. Text sits on a four-point line grid: body 14px on 20px lines, `bodyStrong` 14px (was 15px), `caption` 12px on 16px (was 11px), `title` 24px on 32px (was 25px), and every other role's line height moves to the grid. Button text uses `bodyStrong` instead of `label`, and buttons lose their 112px minimum width. Buttons default to 36px, size to their content, and take `size` 32, 36 or 40; the 48px size is removed. Fields are 40px with an 8px radius, checkboxes 20px, radios 16px, switches 40px by 24px, and tabs and menu items 36px.
