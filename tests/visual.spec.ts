@@ -134,3 +134,17 @@ for (const width of [1100, 375]) {
     }
   });
 }
+
+test("component comparison in the dark theme", async ({ page }) => {
+  await page.setViewportSize({ width: 1100, height: 900 });
+  await page.goto(storyUrl("foundations-comparison--catalogue"));
+  const comparison = page.getByTestId("comparison");
+  await expect(comparison).toBeVisible();
+  await page.evaluate(() => {
+    document.documentElement.setAttribute("data-pancake-theme", "dark");
+    return document.fonts.ready;
+  });
+  await expect(comparison).toHaveScreenshot("catalogue-dark-1100.png", {
+    animations: "disabled",
+  });
+});

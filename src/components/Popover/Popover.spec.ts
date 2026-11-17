@@ -1,4 +1,4 @@
-import AxeBuilder from "@axe-core/playwright";
+import { accessibilityViolations } from "../../../tests/fixtures";
 import { test, expect } from "../../../tests/contracts-fixture";
 
 test("Popover: named region, native props, ref and consumer styling", async ({
@@ -25,7 +25,7 @@ test("Popover: named region, native props, ref and consumer styling", async ({
       (node) => node instanceof HTMLDivElement && node.matches(":popover-open"),
     ),
   ).toBe(true);
-  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  expect(await accessibilityViolations(page)).toEqual([]);
 });
 
 test("Popover: keyboard activation, nonmodal Tab and conditional focus return", async ({

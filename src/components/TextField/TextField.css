@@ -17,6 +17,9 @@
     padding: var(--spacing-pancake-8) var(--spacing-pancake-12);
     border: var(--pancake-border-default) solid
       var(--color-pancake-control-border);
+    transition:
+      border-color var(--pancake-duration-fast) var(--pancake-easing),
+      background-color var(--pancake-duration-fast) var(--pancake-easing);
   }
   .pancake-field-input::placeholder {
     color: var(--color-pancake-muted);

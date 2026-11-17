@@ -11,7 +11,7 @@
     overflow-wrap: anywhere;
   }
   .pancake-dialog::backdrop {
-    background: var(--color-pancake-deep);
+    background: var(--color-pancake-backdrop);
     opacity: var(--pancake-opacity-overlay);
   }
   .pancake-dialog-actions {
@@ -19,5 +19,29 @@
     flex-wrap: wrap;
     justify-content: flex-end;
     gap: var(--spacing-pancake-8);
+  }
+  .pancake-dialog,
+  .pancake-dialog::backdrop {
+    transition:
+      opacity var(--pancake-duration-base) var(--pancake-easing),
+      scale var(--pancake-duration-base) var(--pancake-easing),
+      overlay var(--pancake-duration-base) var(--pancake-easing) allow-discrete,
+      display var(--pancake-duration-base) var(--pancake-easing) allow-discrete;
+  }
+  .pancake-dialog:not([open]) {
+    opacity: 0;
+    scale: var(--pancake-enter-scale);
+  }
+  .pancake-dialog:not([open])::backdrop {
+    opacity: 0;
+  }
+  @starting-style {
+    .pancake-dialog[open] {
+      opacity: 0;
+      scale: var(--pancake-enter-scale);
+    }
+    .pancake-dialog[open]::backdrop {
+      opacity: 0;
+    }
   }
 }

@@ -2,6 +2,7 @@
 @import "./foundations/theme.css";
 @import "tailwindcss/utilities.css" layer(utilities) source(none);
 
+@import "./components/icons/icons.css";
 @import "./components/Button/Button.css";
 @import "./components/Checkbox/Checkbox.css";
 @import "./components/TextField/TextField.css";

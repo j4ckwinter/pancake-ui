@@ -1,4 +1,4 @@
-import AxeBuilder from "@axe-core/playwright";
+import { accessibilityViolations } from "../../../tests/fixtures";
 import { test, expect } from "../../../tests/contracts-fixture";
 
 const description = "Supplementary contract description";
@@ -26,7 +26,7 @@ test("Tooltip: descriptions, native props, refs and consumer styling", async ({
   await expect(panel).toHaveAttribute("popover", "manual");
   await expect(panel).toHaveClass(/consumer-tooltip/);
   await expect(panel).toHaveCSS("border-radius", "0px");
-  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  expect(await accessibilityViolations(page)).toEqual([]);
 });
 
 test("Tooltip: keyboard focus, Escape suppression and ordinary Tab order", async ({

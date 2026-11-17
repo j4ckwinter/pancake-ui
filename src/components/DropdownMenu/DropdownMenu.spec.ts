@@ -1,4 +1,4 @@
-import AxeBuilder from "@axe-core/playwright";
+import { accessibilityViolations } from "../../../tests/fixtures";
 import { test, expect } from "../../../tests/contracts-fixture";
 
 test("DropdownMenu: semantics, native props, refs and consumer styling", async ({
@@ -20,7 +20,7 @@ test("DropdownMenu: semantics, native props, refs and consumer styling", async (
   await expect(menu).toHaveAccessibleDescription("Menu guidance");
   await expect(trigger).toHaveAttribute("aria-expanded", "true");
   await expect(menu.getByRole("menuitem")).toHaveCount(5);
-  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  expect(await accessibilityViolations(page)).toEqual([]);
 });
 
 test("DropdownMenu: keyboard entry, wrapping, disabled focus, typeahead and Escape", async ({
@@ -292,7 +292,7 @@ test("DropdownMenu: icon trigger is named by its label and text lines describe t
   ).toBeFocused();
   await page.keyboard.press("ArrowUp");
   await expect(menu.getByRole("menuitem", { name: "Sign out" })).toBeFocused();
-  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  expect(await accessibilityViolations(page)).toEqual([]);
   await page.keyboard.press("Enter");
   await expect(page.getByLabel("Menu actions")).toHaveText("1");
   await expect(trigger).toBeFocused();
@@ -350,7 +350,7 @@ test("DropdownMenu: radio items show which is chosen, carry descriptions and cho
     0,
   );
   await expect(local).toBeFocused();
-  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  expect(await accessibilityViolations(page)).toEqual([]);
   await page.keyboard.press("r");
   const retired = menu.getByRole("menuitemradio", { name: "Retired model" });
   await expect(retired).toBeFocused();

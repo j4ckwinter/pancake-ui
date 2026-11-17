@@ -10,7 +10,7 @@ Use React and React DOM 19.2+ within React 19, Node 22.18+, and an ESM bundler s
 npm install @jack.winter/pancake-ui
 ```
 
-Commit the app’s `package.json` and lockfile. For an exact version, use `npm install --save-exact @jack.winter/pancake-ui@0.2.0`.
+Commit the app’s `package.json` and lockfile. To pin the exact version, add `--save-exact`.
 
 ### Install a verified archive
 
@@ -20,16 +20,16 @@ Successful **push runs on main** in [Verify](https://github.com/j4ckwinter/panca
 2. Install the **`.tgz` inside the ZIP**, from your app's root:
 
 ```sh
-npm install ./vendor/pancake-ui/jack.winter-pancake-ui-0.2.0.tgz
+npm install ./vendor/pancake-ui/*.tgz
 ```
 
-Use the filename from your download if its version differs. The app needs React and React DOM installed; an existing React app normally already has them. No library clone, Playwright, Tailwind or library build is needed.
+Keep one archive in that folder so the pattern matches it. The app needs React and React DOM installed; an existing React app normally already has them. No library clone, Playwright, Tailwind or library build is needed.
 
 With [GitHub CLI](https://cli.github.com/) installed and authenticated, you can download the same artifact instead of using the browser. Replace `RUN_ID` with the successful main run's numeric ID:
 
 ```sh
 gh run download RUN_ID --repo j4ckwinter/pancake-ui --name pancake-ui-package --dir vendor/pancake-ui
-npm install ./vendor/pancake-ui/jack.winter-pancake-ui-0.2.0.tgz
+npm install ./vendor/pancake-ui/*.tgz
 ```
 
 Commit the downloaded archive, `packed.json`, your app's `package.json`, and its lockfile. Fresh clones can then use `npm ci` without GitHub credentials. Record the source run URL when upgrading, use a new package version, and do not overwrite an archive already used by an app. GitHub artifacts expire after 90 days (or earlier if deleted); keeping the archive in your app makes it independent of that retention period. See [GitHub's artifact download instructions](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/download-workflow-artifacts).
@@ -73,6 +73,18 @@ For an application without Tailwind, import `@jack.winter/pancake-ui/styles.css`
 }
 ```
 
+### Dark mode
+
+Components stay light until your app opts in. Set `data-pancake-theme` on the root element:
+
+```html
+<html data-pancake-theme="system"></html>
+```
+
+`dark` always uses the dark palette, `system` follows the visitor's operating system, and `light` or no attribute keeps the light palette. The attribute also works on any element, so one panel can be dark inside a light page, or light inside a dark one. It sets `color-scheme` too, so native date pickers, file buttons and scrollbars match. Your app owns the choice: store it, offer a toggle, and set the attribute before first paint to avoid a flash.
+
+The light values live in `colors` and the dark ones in `darkColors`, both in `src/foundations/tokens.ts`. Text and marks drawn on the lime accent use `onAccent`, which stays dark in both themes.
+
 For a Tailwind 4 application, use this in the application's Tailwind stylesheet:
 
 ```css
@@ -87,7 +99,7 @@ Edit `src/foundations/tokens.ts`, then run `npm run tokens`. `src/foundations/th
 
 Components use native HTML semantics and namespaced classes authored with Tailwind. No runtime dependencies beyond React peers are needed. Import the styles once at your application entry point. Fonts are opt-in; set `--font-pancake` to use your application’s font.
 
-The exported JavaScript tokens (such as `colors` and `typography`) contain default values; CSS overrides do not change those objects. Use components such as `Text`, or CSS `var(--color-pancake-ink)`, when values should respond to a theme. Override related colours together, including `--color-pancake-accent` and `--color-pancake-surface-accent` for primary buttons and their hover state. Check contrast for each theme.
+The exported JavaScript tokens (such as `colors` and `typography`) contain default values; CSS overrides do not change those objects. Use components such as `Text`, or CSS `var(--color-pancake-ink)`, when values should respond to a theme. Override related colours together, including `--color-pancake-accent`, `--color-pancake-accent-hover` and `--color-pancake-on-accent` for primary buttons. To change a dark value, override it with the selectors the library uses, `:root[data-pancake-theme="dark"], [data-pancake-theme="dark"]`, and the same for `light`. The `system` theme uses those values under `prefers-color-scheme`. If you override a `--pancake-duration-*` motion value, repeat the override as `0ms` inside `@media (prefers-reduced-motion: reduce)` so reduced motion still turns it off. Check contrast for each theme.
 
 The library does not set body styles, page width, or a CSS reset. Set those in your app. The [example application](https://github.com/j4ckwinter/pancake-ui/blob/main/examples/web/src/main.tsx) demonstrates this separation and exercises the component catalogue.
 
@@ -111,7 +123,7 @@ npx playwright install chromium firefox webkit
 npm run release:local
 ```
 
-This runs full verification and produces `artifacts/jack.winter-pancake-ui-0.2.0.tgz`, its SHA-256 checksum and a release manifest recording the source commit and whether the working tree was dirty. Copy the archive into the consuming app's `vendor/pancake-ui/` directory and install it as above. Ordinary `npm pack` builds an archive but does not run the full verification suite.
+This runs full verification and produces `artifacts/jack.winter-pancake-ui-<version>.tgz`, its SHA-256 checksum and a release manifest recording the source commit and whether the working tree was dirty. Copy the archive into the consuming app's `vendor/pancake-ui/` directory and install it as above. Ordinary `npm pack` builds an archive but does not run the full verification suite.
 
 ## Versioning releases
 

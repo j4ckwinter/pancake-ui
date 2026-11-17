@@ -20,9 +20,39 @@ export const colors = Object.freeze({
   transparent: "transparent",
   warning: "#ffeb9e",
   focusRing: "#ADE533",
+  onAccent: "#0e1716",
+  accentHover: "#d1f28a",
+  backdrop: "#384540",
 } as const);
 
 export type ColorToken = keyof typeof colors;
+
+export const darkColors = Object.freeze({
+  accent: "#ade533",
+  accentDisabledLayer: "rgba(173, 229, 51, 0.8)",
+  border: "#2b3330",
+  canvas: "#101412",
+  controlBorder: "#76846e",
+  controlFocus: "#b5d46e",
+  errorStrong: "#ff9b8a",
+  danger: "#4d2626",
+  dangerHover: "#5e2e2e",
+  deep: "#d5e0cf",
+  info: "#1b3446",
+  ink: "#eef2ec",
+  muted: "#9ba49f",
+  olive: "#b0b39f",
+  surface: "#181d1b",
+  surfaceAccent: "#2c3b12",
+  surfaceMuted: "#242b28",
+  textSecondary: "#c4ccc5",
+  transparent: "transparent",
+  warning: "#463a12",
+  focusRing: "#ADE533",
+  onAccent: "#0e1716",
+  accentHover: "#c3f060",
+  backdrop: "#000000",
+} as const satisfies Record<ColorToken, string>);
 
 export const spacing = Object.freeze({
   space0: 0,
@@ -90,11 +120,26 @@ export const borders = Object.freeze({
 export type BorderToken = keyof typeof borders;
 
 export const opacity = Object.freeze({
-  opacityDisabled: 0.4,
+  opacityDisabled: 0.5,
   opacityOverlay: 0.5,
 } as const);
 
 export type OpacityToken = keyof typeof opacity;
+
+export const motion = Object.freeze({
+  durationFast: "120ms",
+  durationBase: "200ms",
+  easing: "cubic-bezier(0.2, 0, 0, 1)",
+  pressScale: 0.97,
+  enterScale: 0.96,
+} as const);
+
+export const reducedMotion = Object.freeze({
+  durationFast: "0ms",
+  durationBase: "0ms",
+  pressScale: 1,
+  enterScale: 1,
+} as const satisfies Partial<Record<keyof typeof motion, string | number>>);
 
 export const fontFamily = "Inter, sans-serif";
 

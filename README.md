@@ -2,7 +2,14 @@
 
 a component library i can reach for whenever i want to build something. the buttons, forms, spacing, and everyday bits are already here, so i can get on with the app.
 
-built with React, shared design tokens, and a familiar bit of lime green. bring your own ideas. pancakes optional.
+built with React, shared design tokens, and a familiar bit of lime green. light and dark, gentle motion, and it all works from the keyboard. bring your own ideas. pancakes optional.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/j4ckwinter/pancake-ui/main/docs/images/catalogue-dark.png">
+  <img alt="pancake ui buttons, text fields, checkboxes and a segmented control" src="https://raw.githubusercontent.com/j4ckwinter/pancake-ui/main/docs/images/catalogue-light.png">
+</picture>
+
+have a click around [the storybook](https://j4ckwinter.github.io/pancake-ui/). the theme button in its toolbar flips between light and dark.
 
 ## try it out
 
@@ -14,13 +21,7 @@ install the public package in your app:
 npm install @jack.winter/pancake-ui
 ```
 
-for an unpublished change, download `pancake-ui-package` from a successful main-branch [Verify run](https://github.com/j4ckwinter/pancake-ui/actions/workflows/verify.yml). extract the ZIP into your app’s `vendor/pancake-ui/` folder, then install the archive:
-
-```sh
-npm install ./vendor/pancake-ui/jack.winter-pancake-ui-0.2.0.tgz
-```
-
-use the filename you downloaded, and commit the archive, manifest, and app lockfile alongside `package.json`. see [installation and releases](docs/installation.md) for local builds, upgrades, and registry release setup.
+need a change that isn’t on npm yet? [installation and releases](docs/installation.md) covers installing a tested build straight from CI, local builds and upgrades.
 
 ## use it
 
@@ -60,21 +61,29 @@ your app owns routing, data, and validation. components take native props, refs,
 | Data and identity       | `Table`, `Avatar`, `AvatarGroup`                                                                       |
 | Feedback and progress   | `StatusChip`, `BannerToast`, `EmptyState`, `Progress`, `LoadingIndicator`, `StepProgress`              |
 
-run `npm run storybook` in this repo for examples and controls, or look up the details in the [component reference](docs/components.md).
+try them all in [the storybook](https://j4ckwinter.github.io/pancake-ui/), or look up the details in the [component reference](docs/components.md).
 
 ## make it yours
 
-override the CSS variables in your app’s stylesheet, loaded after the library styles:
+it’s light until you say otherwise. to follow the visitor’s system setting, put this on your root element:
+
+```html
+<html data-pancake-theme="system"></html>
+```
+
+use `dark` to stay dark. it works on any element too, so one panel can go dark on its own.
+
+to change the colours, override the CSS variables in your app’s stylesheet, loaded after the library styles:
 
 ```css
 :root {
   --color-pancake-accent: #b9e96f;
-  --color-pancake-surface-accent: #d1f28a;
+  --color-pancake-accent-hover: #d1f28a;
   --font-pancake: Inter, sans-serif;
 }
 ```
 
-set page layout and body styles in your app. see [theming](docs/installation.md#theming) for Tailwind integration and [styling](docs/styling.md) for the shared rules.
+set page layout and body styles in your app. see [theming](docs/installation.md#theming) for dark values, Tailwind integration and [styling](docs/styling.md) for the shared rules.
 
 ## work on it
 

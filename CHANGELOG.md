@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.5.0
+
+- Dark mode. Set `data-pancake-theme` to `dark`, `light` or `system` on the root element, or on any element to theme part of a page. Without it nothing changes. The dark values are exported as `darkColors`, and a contrast test holds both palettes to WCAG AA.
+- Motion. Controls ease between states, buttons give slightly under a press, dialogs fade and scale in, and popovers, menus and tooltips fade. Reduced motion turns all of it off.
+- The dialog and toast close buttons and the select chevron are SVG icons instead of typed characters.
+- Disabled controls use 0.5 opacity (was 0.4), so their labels stay readable.
+- The Storybook is published at https://j4ckwinter.github.io/pancake-ui/ from each verified build of `main`.
+- Breaking for apps that override colours: the primary button hover reads `--color-pancake-accent-hover` (was `--color-pancake-surface-accent`); text and marks on the lime accent read `--color-pancake-on-accent` (was `ink`, or `deep` for the radio dot and switch thumb); the dialog backdrop reads `--color-pancake-backdrop` (was `deep`). Move those overrides to the new names. The checked radio dot and switch thumb are slightly darker by default.
+- The close icons are a fixed 16px SVG, so CSS that sized the old `×` with `font-size` no longer has any effect.
+
 ## 0.4.0
 
 - `DropdownMenu` items can be `{ type: "radio", checked }` for picking one option, such as a model. They use the menu radio role and show a check mark beside the chosen item rather than a form radio button. Action, link and radio items take an optional `description` shown as a second line.

@@ -1,4 +1,4 @@
-import AxeBuilder from "@axe-core/playwright";
+import { accessibilityViolations } from "../../../tests/fixtures";
 import { test, expect } from "../../../tests/contracts-fixture";
 
 test("Dialog: modal semantics, descriptions, focus containment and ref", async ({
@@ -74,7 +74,7 @@ test("Dialog: modal semantics, descriptions, focus containment and ref", async (
   await expect(page.getByLabel("Dialog background activations")).toHaveText(
     "0",
   );
-  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  expect(await accessibilityViolations(page)).toEqual([]);
 });
 
 test("Dialog: Escape, close action and controlled state restore focus", async ({
@@ -182,4 +182,13 @@ test("Dialog: narrow viewports keep long content and final actions reachable", a
     .click();
   await expect(modal).not.toBeVisible();
   await expect(trigger).toBeFocused();
+});
+
+test("Dialog: close button draws an icon under its label", async ({ page }) => {
+  await page.getByRole("button", { name: "Open contract dialog" }).click();
+  const close = page
+    .getByRole("dialog", { name: "Edit contract project" })
+    .getByRole("button", { name: "Close contract dialog" });
+  await expect(close).toHaveText("");
+  await expect(close.locator("svg")).toBeVisible();
 });

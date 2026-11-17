@@ -17,6 +17,8 @@
     text-decoration: none;
     overflow-wrap: anywhere;
     cursor: pointer;
+    transition: background-color var(--pancake-duration-fast)
+      var(--pancake-easing);
   }
   .pancake-dropdown-menu-item-text {
     display: flex;
@@ -33,13 +35,6 @@
     width: var(--spacing-pancake-16);
     height: var(--spacing-pancake-16);
     color: var(--color-pancake-deep);
-  }
-  .pancake-dropdown-menu-check svg {
-    width: 100%;
-    height: 100%;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
   }
   .pancake-dropdown-menu-text {
     @apply font-pancake text-pancake-caption text-pancake-text-secondary;

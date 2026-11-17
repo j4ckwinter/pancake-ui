@@ -1,4 +1,4 @@
-import AxeBuilder from "@axe-core/playwright";
+import { accessibilityViolations } from "./fixtures";
 import {
   test,
   expect,
@@ -9,7 +9,7 @@ import {
 import { storyUrl } from "./servers";
 
 test("Accessibility: default, error and selected states", async ({ page }) => {
-  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  expect(await accessibilityViolations(page)).toEqual([]);
   await page.getByRole("button", { name: "Toggle validation" }).click();
   await page
     .getByRole("checkbox", { name: "Controlled agreement", exact: true })
@@ -18,12 +18,12 @@ test("Accessibility: default, error and selected states", async ({ page }) => {
     .getByRole("group", { name: "Controlled period", exact: true })
     .getByRole("radio", { name: "Two" })
     .check();
-  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  expect(await accessibilityViolations(page)).toEqual([]);
   await page.goto(
     storyUrl("foundations-comparison--catalogue", { storybookAxe: "manual" }),
   );
   await expect(page.getByTestId("comparison")).toBeVisible();
-  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  expect(await accessibilityViolations(page)).toEqual([]);
 });
 
 test("Accessibility: narrow layout, reduced motion and forced colours", async ({
@@ -91,7 +91,7 @@ test("Accessibility: explicit scans reject an unlabeled control", async ({
     button.type = "button";
     document.querySelector("main")!.append(button);
   });
-  const violations = (await new AxeBuilder({ page }).analyze()).violations;
+  const violations = await accessibilityViolations(page);
   expect(
     violations.some(
       (violation) =>

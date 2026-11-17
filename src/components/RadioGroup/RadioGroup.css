@@ -35,12 +35,15 @@
     margin: var(--spacing-pancake-4);
     flex: 0 0 auto;
     cursor: inherit;
+    transition:
+      background-color var(--pancake-duration-fast) var(--pancake-easing),
+      border-color var(--pancake-duration-fast) var(--pancake-easing);
   }
   .pancake-radio-input:checked {
     @apply bg-pancake-accent;
   }
   .pancake-radio-input:checked::before {
-    @apply bg-pancake-deep rounded-pancake-full;
+    @apply bg-pancake-on-accent rounded-pancake-full;
     content: "";
     width: var(--spacing-pancake-8);
     height: var(--spacing-pancake-8);

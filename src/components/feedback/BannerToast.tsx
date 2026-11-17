@@ -1,4 +1,5 @@
 import type { ComponentPropsWithRef, ReactNode } from "react";
+import { Icon } from "../icons/Icon";
 
 export type BannerToastProps = Omit<
   ComponentPropsWithRef<"div">,
@@ -40,7 +41,7 @@ export function BannerToast({
           aria-label={dismissLabel}
           onClick={onDismiss}
         >
-          <span aria-hidden="true">×</span>
+          <Icon name="close" />
         </button>
       )}
     </div>

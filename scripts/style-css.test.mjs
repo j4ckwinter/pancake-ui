@@ -91,18 +91,32 @@ test("does not allow arbitrary imports or global at-rules", () => {
   assert.notEqual(checkCss("@font-face { font-family: Something; }").length, 0);
 });
 
-test("exceptions are restricted to the exact declaration and file", () => {
-  const source = component("font-size: 24px;", ".pancake-banner-dismiss");
+test("accepts scoped entry styles and still checks their rules", () => {
+  const entry = (selector, declaration) =>
+    `@layer components { @starting-style { ${selector} { ${declaration} } } }`;
   assert.deepEqual(
-    checkCss(source, "src/components/feedback/feedback.css"),
+    checkCss(entry(".pancake-example[open]", "opacity: 0;")),
+    [],
+  );
+  assert.notEqual(checkCss(entry("dialog[open]", "opacity: 0;")).length, 0);
+  assert.notEqual(
+    checkCss(entry(".pancake-example[open]", "opacity: .5;")).length,
+    0,
+  );
+});
+
+test("exceptions are restricted to the exact declaration and file", () => {
+  const source = component("flex: 1 1 160px;", ".pancake-header-copy");
+  assert.deepEqual(
+    checkCss(source, "src/components/navigation/navigation.css"),
     [],
   );
   assert.notEqual(checkCss(source, "src/New.css").length, 0);
-  assert.notEqual(checkCss(source, "src/nested/feedback.css").length, 0);
+  assert.notEqual(checkCss(source, "src/nested/navigation.css").length, 0);
   assert.notEqual(
     checkCss(
-      source.replace("24px", "25px"),
-      "src/components/feedback/feedback.css",
+      source.replace("160px", "161px"),
+      "src/components/navigation/navigation.css",
     ).length,
     0,
   );

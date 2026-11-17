@@ -11,6 +11,10 @@
     cursor: pointer;
     padding-block: var(--spacing-pancake-4);
     text-align: center;
+    transition:
+      background-color var(--pancake-duration-fast) var(--pancake-easing),
+      color var(--pancake-duration-fast) var(--pancake-easing),
+      scale var(--pancake-duration-fast) var(--pancake-easing);
   }
 
   .pancake-button--32 {
@@ -24,7 +28,7 @@
     padding-inline: var(--spacing-pancake-16);
   }
   .pancake-button--primary {
-    @apply bg-pancake-accent;
+    @apply bg-pancake-accent text-pancake-on-accent;
   }
   .pancake-button--secondary {
     @apply bg-pancake-surface;
@@ -37,7 +41,7 @@
   }
   .pancake-button--primary:hover:not(:disabled):not([aria-disabled="true"]),
   .pancake-button--primary:active:not(:disabled):not([aria-disabled="true"]) {
-    @apply bg-pancake-surface-accent;
+    @apply bg-pancake-accent-hover;
   }
   .pancake-button--secondary:hover:not(:disabled):not([aria-disabled="true"]),
   .pancake-button--ghost:hover:not(:disabled):not([aria-disabled="true"]) {
@@ -47,6 +51,9 @@
       [aria-disabled="true"]
     ) {
     @apply bg-pancake-danger-hover;
+  }
+  .pancake-button:active:not(:disabled):not([aria-disabled="true"]) {
+    scale: var(--pancake-press-scale);
   }
   .pancake-button:disabled {
     opacity: var(--pancake-opacity-disabled);
