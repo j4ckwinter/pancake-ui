@@ -1,6 +1,6 @@
+import { accessibilityViolations } from "./fixtures";
 import { test, expect } from "./fixtures";
 import { consumerApp, storyUrl } from "./servers";
-import AxeBuilder from "@axe-core/playwright";
 test("packed consumer renders themed foundations and loads bundled fonts", async ({
   page,
 }) => {
@@ -25,7 +25,7 @@ test("packed consumer renders themed foundations and loads bundled fonts", async
       ),
     ),
   ).toBe(true);
-  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  expect(await accessibilityViolations(page)).toEqual([]);
   await page.setViewportSize({ width: 375, height: 812 });
   expect(
     await page.evaluate(
@@ -191,7 +191,7 @@ test("feedback actions, navigation links, progress and theme overrides work", as
     "color",
     "rgb(56, 69, 64)",
   );
-  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  expect(await accessibilityViolations(page)).toEqual([]);
 });
 
 test("segmented selections support arrow keys, native form data, disabled options and reset", async ({

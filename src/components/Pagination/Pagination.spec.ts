@@ -1,4 +1,4 @@
-import AxeBuilder from "@axe-core/playwright";
+import { accessibilityViolations } from "../../../tests/fixtures";
 import { test, expect } from "../../../tests/contracts-fixture";
 
 test("Pagination: navigation semantics, current page, native props and ref", async ({
@@ -17,7 +17,7 @@ test("Pagination: navigation semantics, current page, native props and ref", asy
   ).toHaveAttribute("aria-current", "page");
   await expect(nav.locator('[aria-current="page"]')).toHaveCount(1);
   await expect(nav.getByRole("list")).toBeVisible();
-  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  expect(await accessibilityViolations(page)).toEqual([]);
 });
 
 test("Pagination: keyboard activation updates once, preserves focus and never submits", async ({

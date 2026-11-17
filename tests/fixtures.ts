@@ -1,6 +1,7 @@
 import { mkdtemp, mkdir, rm } from "node:fs/promises";
 import { resolve, join } from "node:path";
-import { test as base, expect } from "@playwright/test";
+import AxeBuilder from "@axe-core/playwright";
+import { test as base, expect, type Page } from "@playwright/test";
 
 const reachesEveryControl = (browserName: string) =>
   browserName === "webkit" ? "Alt+" : "";
@@ -60,3 +61,12 @@ export const test = base.extend<{
   ],
 });
 export { expect };
+
+export async function accessibilityViolations(page: Page) {
+  await page.evaluate(() =>
+    Promise.allSettled(
+      document.getAnimations().map((animation) => animation.finished),
+    ),
+  );
+  return (await new AxeBuilder({ page }).analyze()).violations;
+}

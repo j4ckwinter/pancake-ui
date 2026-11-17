@@ -1,4 +1,4 @@
-import AxeBuilder from "@axe-core/playwright";
+import { accessibilityViolations } from "../../../tests/fixtures";
 import { test, expect } from "../../../tests/contracts-fixture";
 
 test("Table: native caption, headers, props, ref and consumer styling", async ({
@@ -31,7 +31,7 @@ test("Table: native caption, headers, props, ref and consumer styling", async ({
   await expect(
     grouped.getByRole("cell", { name: "12", exact: true }),
   ).toHaveAttribute("headers", "table-group table-total table-week");
-  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  expect(await accessibilityViolations(page)).toEqual([]);
 });
 
 test("Table: keyboard scrolling and nested control navigation", async ({

@@ -1,4 +1,4 @@
-import AxeBuilder from "@axe-core/playwright";
+import { accessibilityViolations } from "../../../tests/fixtures";
 import { test, expect } from "../../../tests/contracts-fixture";
 
 test("Dialog: modal semantics, descriptions, focus containment and ref", async ({
@@ -74,7 +74,7 @@ test("Dialog: modal semantics, descriptions, focus containment and ref", async (
   await expect(page.getByLabel("Dialog background activations")).toHaveText(
     "0",
   );
-  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  expect(await accessibilityViolations(page)).toEqual([]);
 });
 
 test("Dialog: Escape, close action and controlled state restore focus", async ({
