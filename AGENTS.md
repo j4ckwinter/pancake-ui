@@ -27,7 +27,7 @@ Each decision has one owner. Put new code with the owner of the decision it make
 
 | Decision                                                                           | Owner                                                                                                 |
 | ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| Design values: colour, spacing, sizing, radius, type, font, motion                 | `src/foundations/tokens.ts`                                                                           |
+| Design values: colour, spacing, sizing, radius, type, font, motion, elevation      | `src/foundations/tokens.ts`                                                                           |
 | Light and dark colour values, and switching between them with `data-pancake-theme` | `colors` and `darkColors` in `src/foundations/tokens.ts`, written out by `scripts/generate-theme.mjs` |
 | How a token name becomes a CSS variable name                                       | `src/foundations/kebab.ts`, applied by `scripts/generate-theme.mjs`                                   |
 | The public API                                                                     | `src/index.ts`                                                                                        |
@@ -52,6 +52,7 @@ Each decision has one owner. Put new code with the owner of the decision it make
 | What the published archive must contain                                            | `scripts/validate-archive.mjs`                                                                        |
 | What may be published, and from which run                                          | `scripts/publish-source.mjs`, `scripts/publish-artifact.mjs`                                          |
 | CI job wiring and the required result                                              | `.github/workflows/verify.yml`, `scripts/check-ci-results.mjs`                                        |
+| Storybook's branding, sidebar order and theme switch                               | `.storybook/manager.ts`, `.storybook/preview.ts`                                                      |
 | Publishing the verified Storybook to GitHub Pages                                  | `.github/workflows/storybook.yml`, checked by `scripts/ci.test.mjs`                                   |
 | The runtime line budget and banned test modifiers                                  | `eslint.config.js`                                                                                    |
 

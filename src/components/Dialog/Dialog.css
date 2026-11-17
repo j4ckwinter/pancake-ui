@@ -7,6 +7,7 @@
     max-height: calc(100% - var(--spacing-pancake-32));
     padding: var(--spacing-pancake-20);
     border: var(--pancake-border-default) solid var(--color-pancake-border);
+    box-shadow: var(--pancake-shadow-overlay);
     overflow: auto;
     overflow-wrap: anywhere;
   }

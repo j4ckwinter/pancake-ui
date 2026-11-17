@@ -4,6 +4,8 @@ import {
   borders,
   colors,
   darkColors,
+  darkElevation,
+  elevation,
   fontFamily,
   motion,
   opacity,
@@ -56,6 +58,7 @@ const themedColors = Object.entries(darkColors).filter(
 const palette = (scheme, indent) =>
   [
     `${indent}color-scheme: ${scheme};`,
+    custom(scheme === "dark" ? darkElevation : elevation, indent),
     ...themedColors.map(
       ([name, dark]) =>
         `${indent}--color-pancake-${kebab(name)}: ${scheme === "dark" ? dark : colors[name]};`,
@@ -71,6 +74,7 @@ ${declarations.join("\n")}
 
 :root {
 ${custom(motion, "  ")}
+${custom(elevation, "  ")}
 }
 @media (prefers-reduced-motion: reduce) {
   :root {
