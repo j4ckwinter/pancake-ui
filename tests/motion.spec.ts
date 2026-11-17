@@ -33,6 +33,12 @@ test("Motion: reduced motion turns transitions and the press off", async ({
   await expect(button).toHaveCSS("transition-duration", /^0s/);
   await button.hover();
   await page.mouse.down();
-  await expect(button).not.toHaveCSS("scale", "0.97");
+  await expect(button).toHaveCSS("scale", "1");
   await page.mouse.up();
+  await page.goto(storyUrl("overlays-dialog--default"));
+  await page.getByRole("button", { name: "Open dialog" }).click();
+  await expect(page.getByRole("dialog")).toHaveCSS(
+    "transition-duration",
+    /^0s/,
+  );
 });

@@ -65,7 +65,14 @@ export { expect };
 export async function animationsSettled(page: Page) {
   await page.evaluate(() =>
     Promise.allSettled(
-      document.getAnimations().map((animation) => animation.finished),
+      document
+        .getAnimations()
+        .filter(
+          (animation) =>
+            animation.playState === "running" &&
+            animation.effect?.getComputedTiming().iterations !== Infinity,
+        )
+        .map((animation) => animation.finished),
     ),
   );
 }

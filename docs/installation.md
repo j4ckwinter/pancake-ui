@@ -81,7 +81,7 @@ Components stay light until your app opts in. Set `data-pancake-theme` on the ro
 <html data-pancake-theme="system"></html>
 ```
 
-`dark` always uses the dark palette, `system` follows the visitor's operating system, and `light` or no attribute keeps the light palette. The attribute also works on any element, so one panel can be dark inside a light page. It sets `color-scheme` too, so native date pickers, file buttons and scrollbars match. Your app owns the choice: store it, offer a toggle, and set the attribute before first paint to avoid a flash.
+`dark` always uses the dark palette, `system` follows the visitor's operating system, and `light` or no attribute keeps the light palette. The attribute also works on any element, so one panel can be dark inside a light page, or light inside a dark one. It sets `color-scheme` too, so native date pickers, file buttons and scrollbars match. Your app owns the choice: store it, offer a toggle, and set the attribute before first paint to avoid a flash.
 
 The light values live in `colors` and the dark ones in `darkColors`, both in `src/foundations/tokens.ts`. Text and marks drawn on the lime accent use `onAccent`, which stays dark in both themes.
 
@@ -99,7 +99,7 @@ Edit `src/foundations/tokens.ts`, then run `npm run tokens`. `src/foundations/th
 
 Components use native HTML semantics and namespaced classes authored with Tailwind. No runtime dependencies beyond React peers are needed. Import the styles once at your application entry point. Fonts are opt-in; set `--font-pancake` to use your application’s font.
 
-The exported JavaScript tokens (such as `colors` and `typography`) contain default values; CSS overrides do not change those objects. Use components such as `Text`, or CSS `var(--color-pancake-ink)`, when values should respond to a theme. Override related colours together, including `--color-pancake-accent`, `--color-pancake-accent-hover` and `--color-pancake-on-accent` for primary buttons. To change a dark value, override it inside `[data-pancake-theme="dark"]` as well. Check contrast for each theme.
+The exported JavaScript tokens (such as `colors` and `typography`) contain default values; CSS overrides do not change those objects. Use components such as `Text`, or CSS `var(--color-pancake-ink)`, when values should respond to a theme. Override related colours together, including `--color-pancake-accent`, `--color-pancake-accent-hover` and `--color-pancake-on-accent` for primary buttons. To change a dark value, override it with the selectors the library uses, `:root[data-pancake-theme="dark"], [data-pancake-theme="dark"]`, and the same for `light`. The `system` theme uses those values under `prefers-color-scheme`. If you override a `--pancake-duration-*` motion value, repeat the override as `0ms` inside `@media (prefers-reduced-motion: reduce)` so reduced motion still turns it off. Check contrast for each theme.
 
 The library does not set body styles, page width, or a CSS reset. Set those in your app. The [example application](https://github.com/j4ckwinter/pancake-ui/blob/main/examples/web/src/main.tsx) demonstrates this separation and exercises the component catalogue.
 

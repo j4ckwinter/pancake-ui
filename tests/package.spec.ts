@@ -1,5 +1,4 @@
-import { accessibilityViolations } from "./fixtures";
-import { test, expect } from "./fixtures";
+import { test, expect, accessibilityViolations } from "./fixtures";
 import { consumerApp, storyUrl } from "./servers";
 test("packed consumer renders themed foundations and loads bundled fonts", async ({
   page,

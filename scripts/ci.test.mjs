@@ -127,7 +127,11 @@ function checkStorybookWorkflow(value) {
     step.uses?.startsWith("actions/upload-pages-artifact@"),
   );
   assert.equal(upload.with.path, "storybook-static");
-  assert(!deploy.steps.some((step) => /\bnpm\b/.test(step.run ?? "")));
+  assert(
+    !deploy.steps.some((step) =>
+      /\b(?:npm|npx|pnpm|yarn)\b/.test(step.run ?? ""),
+    ),
+  );
 }
 
 const storybookWorkflow = parse(

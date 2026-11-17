@@ -73,3 +73,49 @@ test("Theme: dark passes the accessibility scan", async ({ page }) => {
   );
   expect(await accessibilityViolations(page)).toEqual([]);
 });
+
+test("Theme: a light panel stays light inside a dark page, and dark inside light", async ({
+  page,
+}) => {
+  await openCatalogue(page);
+  const surfaces = page.locator(".pancake-surface");
+  await surfaces
+    .nth(1)
+    .evaluate((node) => node.setAttribute("data-pancake-theme", "light"));
+  await setTheme(page, "dark");
+  await expect(surfaces.nth(1)).toHaveCSS(
+    "background-color",
+    "rgb(255, 255, 255)",
+  );
+  await expect(surfaces.nth(0)).toHaveCSS(
+    "background-color",
+    "rgb(24, 29, 27)",
+  );
+  await surfaces
+    .nth(1)
+    .evaluate((node) => node.setAttribute("data-pancake-theme", "dark"));
+  await setTheme(page, "light");
+  await expect(surfaces.nth(1)).toHaveCSS(
+    "background-color",
+    "rgb(24, 29, 27)",
+  );
+  await expect(surfaces.nth(0)).toHaveCSS(
+    "background-color",
+    "rgb(255, 255, 255)",
+  );
+});
+
+test("Theme: an app can override a dark value with the documented selector", async ({
+  page,
+}) => {
+  await openCatalogue(page);
+  await page.addStyleTag({
+    content:
+      ':root[data-pancake-theme="dark"], [data-pancake-theme="dark"] { --color-pancake-surface: rgb(1, 2, 3); }',
+  });
+  await setTheme(page, "dark");
+  await expect(page.locator(".pancake-surface").first()).toHaveCSS(
+    "background-color",
+    "rgb(1, 2, 3)",
+  );
+});
