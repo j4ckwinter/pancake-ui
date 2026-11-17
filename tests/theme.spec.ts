@@ -120,7 +120,7 @@ test("Theme: an app can override a dark value with the documented selector", asy
   );
 });
 
-test("Theme: tooltips invert the page colours and overlays cast a shadow", async ({
+test("Theme: tooltips invert the page colours and cast a shadow", async ({
   page,
 }) => {
   await page.goto(storyUrl("overlays-tooltip--default"));
@@ -136,4 +136,56 @@ test("Theme: tooltips invert the page colours and overlays cast a shadow", async
   await expect(tooltip).toHaveCSS("background-color", "rgb(238, 242, 236)");
   await expect(tooltip).toHaveCSS("color", "rgb(24, 29, 27)");
   await expect(tooltip).toHaveCSS("box-shadow", /rgba\(0, 0, 0, 0\.5\)/);
+});
+
+for (const [story, opener, overlay] of [
+  ["overlays-dialog--default", "Open dialog", "dialog"],
+  ["overlays-popover--default", "Open details", "region"],
+  ["overlays-dropdownmenu--default", "Project actions", "menu"],
+] as const) {
+  test(`Theme: ${story} lifts off the page with the overlay shadow`, async ({
+    page,
+  }) => {
+    await page.goto(storyUrl(story));
+    await page.getByRole("button", { name: opener }).click();
+    const panel = page.getByRole(overlay);
+    await expect(panel).toBeVisible();
+    await expect(panel).toHaveCSS("box-shadow", /rgba\(14, 23, 22, 0\.12\)/);
+    await setTheme(page, "dark");
+    await expect(panel).toHaveCSS("box-shadow", /rgba\(0, 0, 0, 0\.5\)/);
+  });
+}
+
+test("Theme: a tooltip keeps a visible edge in forced colours", async ({
+  page,
+}) => {
+  await page.emulateMedia({ forcedColors: "active" });
+  await page.goto(storyUrl("overlays-tooltip--default"));
+  await page.getByRole("button").first().focus();
+  const tooltip = page.getByRole("tooltip");
+  await expect(tooltip).toBeVisible();
+  await expect(tooltip).toHaveCSS("border-top-style", "solid");
+  await expect(tooltip).toHaveCSS("border-top-width", "1px");
+  const edge = await tooltip.evaluate(
+    (node) => getComputedStyle(node).borderTopColor,
+  );
+  const fill = await tooltip.evaluate(
+    (node) => getComputedStyle(node).backgroundColor,
+  );
+  expect(edge).not.toBe(fill);
+});
+
+test("Theme: the switch themes stories on docs pages but not the docs", async ({
+  page,
+}) => {
+  await page.goto(
+    `${storyUrl("actions-button--docs", { viewMode: "docs" })}&globals=theme:dark`,
+  );
+  const wrapper = page.locator('[data-pancake-theme="dark"]').first();
+  await expect(wrapper).toBeVisible();
+  await expect(wrapper).toHaveCSS("background-color", "rgb(16, 20, 18)");
+  await expect(page.locator("html")).toHaveAttribute(
+    "data-pancake-theme",
+    "light",
+  );
 });
