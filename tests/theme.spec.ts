@@ -119,3 +119,21 @@ test("Theme: an app can override a dark value with the documented selector", asy
     "rgb(1, 2, 3)",
   );
 });
+
+test("Theme: tooltips invert the page colours and overlays cast a shadow", async ({
+  page,
+}) => {
+  await page.goto(storyUrl("overlays-tooltip--default"));
+  const trigger = page.getByRole("button").first();
+  await trigger.focus();
+  const tooltip = page.getByRole("tooltip");
+  await expect(tooltip).toBeVisible();
+  await animationsSettled(page);
+  await expect(tooltip).toHaveCSS("background-color", "rgb(14, 23, 22)");
+  await expect(tooltip).toHaveCSS("color", "rgb(255, 255, 255)");
+  await expect(tooltip).toHaveCSS("box-shadow", /rgba\(14, 23, 22, 0\.12\)/);
+  await setTheme(page, "dark");
+  await expect(tooltip).toHaveCSS("background-color", "rgb(238, 242, 236)");
+  await expect(tooltip).toHaveCSS("color", "rgb(24, 29, 27)");
+  await expect(tooltip).toHaveCSS("box-shadow", /rgba\(0, 0, 0, 0\.5\)/);
+});

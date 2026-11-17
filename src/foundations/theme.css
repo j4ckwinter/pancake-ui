@@ -107,6 +107,7 @@
   --pancake-easing: cubic-bezier(0.2, 0, 0, 1);
   --pancake-press-scale: 0.97;
   --pancake-enter-scale: 0.96;
+  --pancake-shadow-overlay: 0 8px 24px rgb(14 23 22 / 0.12), 0 1px 3px rgb(14 23 22 / 0.08);
 }
 @media (prefers-reduced-motion: reduce) {
   :root {
@@ -119,6 +120,7 @@
 :root[data-pancake-theme="light"],
 [data-pancake-theme="light"] {
   color-scheme: light;
+  --pancake-shadow-overlay: 0 8px 24px rgb(14 23 22 / 0.12), 0 1px 3px rgb(14 23 22 / 0.08);
   --color-pancake-border: #edede8;
   --color-pancake-canvas: #fbf8f0;
   --color-pancake-control-border: #7e8c70;
@@ -142,6 +144,7 @@
 :root[data-pancake-theme="dark"],
 [data-pancake-theme="dark"] {
   color-scheme: dark;
+  --pancake-shadow-overlay: 0 8px 24px rgb(0 0 0 / 0.5), 0 1px 3px rgb(0 0 0 / 0.4);
   --color-pancake-border: #2b3330;
   --color-pancake-canvas: #101412;
   --color-pancake-control-border: #76846e;
@@ -166,6 +169,7 @@
   :root[data-pancake-theme="system"],
   [data-pancake-theme="system"] {
     color-scheme: light;
+    --pancake-shadow-overlay: 0 8px 24px rgb(14 23 22 / 0.12), 0 1px 3px rgb(14 23 22 / 0.08);
     --color-pancake-border: #edede8;
     --color-pancake-canvas: #fbf8f0;
     --color-pancake-control-border: #7e8c70;
@@ -191,6 +195,7 @@
   :root[data-pancake-theme="system"],
   [data-pancake-theme="system"] {
     color-scheme: dark;
+    --pancake-shadow-overlay: 0 8px 24px rgb(0 0 0 / 0.5), 0 1px 3px rgb(0 0 0 / 0.4);
     --color-pancake-border: #2b3330;
     --color-pancake-canvas: #101412;
     --color-pancake-control-border: #76846e;

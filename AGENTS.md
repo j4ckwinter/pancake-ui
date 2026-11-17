@@ -27,7 +27,7 @@ Each decision has one owner. Put new code with the owner of the decision it make
 
 | Decision                                                                           | Owner                                                                                                 |
 | ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| Design values: colour, spacing, sizing, radius, type, font, motion                 | `src/foundations/tokens.ts`                                                                           |
+| Design values: colour, spacing, sizing, radius, type, font, motion, elevation      | `src/foundations/tokens.ts`                                                                           |
 | Light and dark colour values, and switching between them with `data-pancake-theme` | `colors` and `darkColors` in `src/foundations/tokens.ts`, written out by `scripts/generate-theme.mjs` |
 | How a token name becomes a CSS variable name                                       | `src/foundations/kebab.ts`, applied by `scripts/generate-theme.mjs`                                   |
 | The public API                                                                     | `src/index.ts`                                                                                        |

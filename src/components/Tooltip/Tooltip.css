@@ -5,7 +5,8 @@
   }
 
   .pancake-tooltip {
-    @apply text-pancake-caption rounded-pancake-8;
+    @apply text-pancake-caption rounded-pancake-8 bg-pancake-ink text-pancake-surface;
+    border: 0;
     width: max-content;
     margin: 0;
     max-width: min(

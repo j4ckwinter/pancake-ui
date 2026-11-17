@@ -20,6 +20,7 @@ const textPairs = [
     "textSecondary",
     background,
   ]),
+  ["surface", "ink"],
   ["muted", "surface"],
   ["muted", "canvas"],
   ["errorStrong", "surface"],

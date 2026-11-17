@@ -126,6 +126,15 @@ export const opacity = Object.freeze({
 
 export type OpacityToken = keyof typeof opacity;
 
+export const elevation = Object.freeze({
+  shadowOverlay:
+    "0 8px 24px rgb(14 23 22 / 0.12), 0 1px 3px rgb(14 23 22 / 0.08)",
+} as const);
+
+export const darkElevation = Object.freeze({
+  shadowOverlay: "0 8px 24px rgb(0 0 0 / 0.5), 0 1px 3px rgb(0 0 0 / 0.4)",
+} as const satisfies Record<keyof typeof elevation, string>);
+
 export const motion = Object.freeze({
   durationFast: "120ms",
   durationBase: "200ms",
