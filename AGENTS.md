@@ -52,6 +52,7 @@ Each decision has one owner. Put new code with the owner of the decision it make
 | What the published archive must contain                                            | `scripts/validate-archive.mjs`                                                                        |
 | What may be published, and from which run                                          | `scripts/publish-source.mjs`, `scripts/publish-artifact.mjs`                                          |
 | CI job wiring and the required result                                              | `.github/workflows/verify.yml`, `scripts/check-ci-results.mjs`                                        |
+| Publishing the verified Storybook to GitHub Pages                                  | `.github/workflows/storybook.yml`, checked by `scripts/ci.test.mjs`                                   |
 | The runtime line budget and banned test modifiers                                  | `eslint.config.js`                                                                                    |
 
 ## Standards

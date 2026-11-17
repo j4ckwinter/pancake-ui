@@ -107,3 +107,49 @@ for (const [name, mutate] of [
     assert.throws(() => checkWorkflow(broken));
   });
 }
+
+function checkStorybookWorkflow(value) {
+  const trigger = value.on.workflow_run;
+  assert.deepEqual(trigger.workflows, ["Verify"]);
+  assert.deepEqual(trigger.types, ["completed"]);
+  assert.deepEqual(trigger.branches, ["main"]);
+  const deploy = value.jobs.deploy;
+  assert.equal(
+    deploy.if,
+    "github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push'",
+  );
+  const download = deploy.steps.find((step) =>
+    step.uses?.startsWith("actions/download-artifact@"),
+  );
+  assert.equal(download.with.name, "verification-build");
+  assert.equal(download.with["run-id"], "${{ github.event.workflow_run.id }}");
+  const upload = deploy.steps.find((step) =>
+    step.uses?.startsWith("actions/upload-pages-artifact@"),
+  );
+  assert.equal(upload.with.path, "storybook-static");
+  assert(!deploy.steps.some((step) => /\bnpm\b/.test(step.run ?? "")));
+}
+
+const storybookWorkflow = parse(
+  readFileSync(".github/workflows/storybook.yml", "utf8"),
+);
+test("Storybook deploys only the build a successful main Verify run tested", () => {
+  checkStorybookWorkflow(storybookWorkflow);
+});
+for (const [name, mutate] of [
+  ["a failed Verify run", (value) => (value.jobs.deploy.if = "always()")],
+  ["other branches", (value) => delete value.on.workflow_run.branches],
+  [
+    "a fresh build",
+    (value) =>
+      value.jobs.deploy.steps.splice(1, 0, {
+        run: "npm ci && npm run storybook:build",
+      }),
+  ],
+]) {
+  test(`Storybook workflow check rejects ${name}`, () => {
+    const broken = structuredClone(storybookWorkflow);
+    mutate(broken);
+    assert.throws(() => checkStorybookWorkflow(broken));
+  });
+}
