@@ -24,7 +24,7 @@ test("Motion: dialogs fade in and out of view", async ({ page }) => {
   await expect(dialog).toBeHidden();
 });
 
-test("Motion: reduced motion turns transitions and the press off", async ({
+test("Motion: reduced motion turns control transitions and the press off", async ({
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
@@ -35,6 +35,12 @@ test("Motion: reduced motion turns transitions and the press off", async ({
   await page.mouse.down();
   await expect(button).toHaveCSS("scale", "1");
   await page.mouse.up();
+});
+
+test("Motion: reduced motion opens dialogs without a transition", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto(storyUrl("overlays-dialog--default"));
   await page.getByRole("button", { name: "Open dialog" }).click();
   await expect(page.getByRole("dialog")).toHaveCSS(
