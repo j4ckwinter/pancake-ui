@@ -18,6 +18,9 @@
     border: var(--pancake-border-default) solid
       var(--color-pancake-control-border);
     cursor: inherit;
+    transition:
+      background-color var(--pancake-duration-fast) var(--pancake-easing),
+      border-color var(--pancake-duration-fast) var(--pancake-easing);
   }
   .pancake-switch::before {
     @apply rounded-pancake-full bg-pancake-deep;
@@ -31,6 +34,9 @@
     inset-inline-start: calc(
       var(--spacing-pancake-4) - var(--pancake-border-default)
     );
+    transition:
+      inset-inline-start var(--pancake-duration-fast) var(--pancake-easing),
+      background-color var(--pancake-duration-fast) var(--pancake-easing);
   }
   .pancake-switch:checked {
     @apply bg-pancake-accent;

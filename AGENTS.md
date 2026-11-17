@@ -25,32 +25,32 @@ Use Node 22.18 or newer. Run these from the repository root.
 
 Each decision has one owner. Put new code with the owner of the decision it makes, and update this table in the change that adds or moves one.
 
-| Decision                                                   | Owner                                                                       |
-| ---------------------------------------------------------- | --------------------------------------------------------------------------- |
-| Design values: colour, spacing, sizing, radius, type, font | `src/foundations/tokens.ts`                                                 |
-| How a token name becomes a CSS variable name               | `src/foundations/kebab.ts`, applied by `scripts/generate-theme.mjs`         |
-| The public API                                             | `src/index.ts`                                                              |
-| The stylesheet entry and CSS order                         | `src/styles.css`                                                            |
-| A component's markup, props, and behaviour                 | `src/components/<family>/<Component>.tsx`                                   |
-| A field's description, error state, and ARIA wiring        | `src/components/TextField/field.shared.ts`                                  |
-| Layout alignment and spacing values                        | `src/components/layout/layout.shared.ts`                                    |
-| Menu keyboard navigation and typeahead                     | `src/components/DropdownMenu/menuKeyboard.ts`                               |
-| How the menu trigger opens the menu                        | `src/components/DropdownMenu/useMenuTrigger.ts`                             |
-| The kinds of menu item and their fields                    | `src/components/DropdownMenu/menuItem.ts`                                   |
-| How menu text lines describe the menu                      | `src/components/DropdownMenu/menuText.ts`                                   |
-| Tooltip show and hide timing                               | `src/components/Tooltip/useTooltip.ts`                                      |
-| Which page numbers pagination lists                        | `src/components/Pagination/paginationPages.ts`                              |
-| Styling policy and its reviewed exceptions                 | `scripts/style/`                                                            |
-| Source placement and dependency direction                  | `scripts/check-structure.mjs`                                               |
-| Which exports count as public components                   | `scripts/check-comparison.mjs`, reused by the story and contract gates      |
-| Which behaviours each component must prove                 | `tests/component-contracts.json`, enforced by `scripts/check-contracts.mjs` |
-| Test server origins, ports, and story URLs                 | `tests/servers.ts`                                                          |
-| Browser error policy and the tab keys tests press          | `tests/fixtures.ts`                                                         |
-| Contract story setup and the negative-probe helpers        | `tests/contracts-fixture.ts`                                                |
-| What the published archive must contain                    | `scripts/validate-archive.mjs`                                              |
-| What may be published, and from which run                  | `scripts/publish-source.mjs`, `scripts/publish-artifact.mjs`                |
-| CI job wiring and the required result                      | `.github/workflows/verify.yml`, `scripts/check-ci-results.mjs`              |
-| The runtime line budget and banned test modifiers          | `eslint.config.js`                                                          |
+| Decision                                                           | Owner                                                                       |
+| ------------------------------------------------------------------ | --------------------------------------------------------------------------- |
+| Design values: colour, spacing, sizing, radius, type, font, motion | `src/foundations/tokens.ts`                                                 |
+| How a token name becomes a CSS variable name                       | `src/foundations/kebab.ts`, applied by `scripts/generate-theme.mjs`         |
+| The public API                                                     | `src/index.ts`                                                              |
+| The stylesheet entry and CSS order                                 | `src/styles.css`                                                            |
+| A component's markup, props, and behaviour                         | `src/components/<family>/<Component>.tsx`                                   |
+| A field's description, error state, and ARIA wiring                | `src/components/TextField/field.shared.ts`                                  |
+| Layout alignment and spacing values                                | `src/components/layout/layout.shared.ts`                                    |
+| Menu keyboard navigation and typeahead                             | `src/components/DropdownMenu/menuKeyboard.ts`                               |
+| How the menu trigger opens the menu                                | `src/components/DropdownMenu/useMenuTrigger.ts`                             |
+| The kinds of menu item and their fields                            | `src/components/DropdownMenu/menuItem.ts`                                   |
+| How menu text lines describe the menu                              | `src/components/DropdownMenu/menuText.ts`                                   |
+| Tooltip show and hide timing                                       | `src/components/Tooltip/useTooltip.ts`                                      |
+| Which page numbers pagination lists                                | `src/components/Pagination/paginationPages.ts`                              |
+| Styling policy and its reviewed exceptions                         | `scripts/style/`                                                            |
+| Source placement and dependency direction                          | `scripts/check-structure.mjs`                                               |
+| Which exports count as public components                           | `scripts/check-comparison.mjs`, reused by the story and contract gates      |
+| Which behaviours each component must prove                         | `tests/component-contracts.json`, enforced by `scripts/check-contracts.mjs` |
+| Test server origins, ports, and story URLs                         | `tests/servers.ts`                                                          |
+| Browser error policy and the tab keys tests press                  | `tests/fixtures.ts`                                                         |
+| Contract story setup and the negative-probe helpers                | `tests/contracts-fixture.ts`                                                |
+| What the published archive must contain                            | `scripts/validate-archive.mjs`                                              |
+| What may be published, and from which run                          | `scripts/publish-source.mjs`, `scripts/publish-artifact.mjs`                |
+| CI job wiring and the required result                              | `.github/workflows/verify.yml`, `scripts/check-ci-results.mjs`              |
+| The runtime line budget and banned test modifiers                  | `eslint.config.js`                                                          |
 
 ## Standards
 

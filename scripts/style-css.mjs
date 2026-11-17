@@ -57,7 +57,14 @@ export function checkCss(source, filename = "component.css") {
           );
       }
     } else if (
-      !["layer", "media", "supports", "container", "import"].includes(rule.name)
+      ![
+        "layer",
+        "media",
+        "supports",
+        "container",
+        "import",
+        "starting-style",
+      ].includes(rule.name)
     ) {
       report(
         rule,

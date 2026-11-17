@@ -17,4 +17,18 @@
     overflow: auto;
     overflow-wrap: anywhere;
   }
+  .pancake-popover {
+    transition:
+      opacity var(--pancake-duration-base) var(--pancake-easing),
+      overlay var(--pancake-duration-base) var(--pancake-easing) allow-discrete,
+      display var(--pancake-duration-base) var(--pancake-easing) allow-discrete;
+  }
+  .pancake-popover:not(:popover-open) {
+    opacity: 0;
+  }
+  @starting-style {
+    .pancake-popover:popover-open {
+      opacity: 0;
+    }
+  }
 }

@@ -96,6 +96,21 @@ export const opacity = Object.freeze({
 
 export type OpacityToken = keyof typeof opacity;
 
+export const motion = Object.freeze({
+  durationFast: "120ms",
+  durationBase: "200ms",
+  easing: "cubic-bezier(0.2, 0, 0, 1)",
+  pressScale: 0.97,
+  enterScale: 0.96,
+} as const);
+
+export const reducedMotion = Object.freeze({
+  durationFast: "0ms",
+  durationBase: "0ms",
+  pressScale: 1,
+  enterScale: 1,
+} as const satisfies Partial<Record<keyof typeof motion, string | number>>);
+
 export const fontFamily = "Inter, sans-serif";
 
 export type FoundationTextStyle = Readonly<{

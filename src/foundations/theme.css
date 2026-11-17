@@ -97,3 +97,21 @@
   --pancake-opacity-disabled: 0.4;
   --pancake-opacity-overlay: 0.5;
 }
+
+@layer theme {
+  :root {
+    --pancake-duration-fast: 120ms;
+    --pancake-duration-base: 200ms;
+    --pancake-easing: cubic-bezier(0.2, 0, 0, 1);
+    --pancake-press-scale: 0.97;
+    --pancake-enter-scale: 0.96;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --pancake-duration-fast: 0ms;
+      --pancake-duration-base: 0ms;
+      --pancake-press-scale: 1;
+      --pancake-enter-scale: 1;
+    }
+  }
+}

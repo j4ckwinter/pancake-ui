@@ -35,6 +35,8 @@ Pancake UI uses shared tokens and namespaced component styles. New components sh
 - Form controls and Disclosure use the olive `controlFocus` outline; other focus outlines use `deep`. Both use 2px width. Buttons and checkboxes use a 4px offset; other existing interactive controls use 2px. The lime `focusRing` token currently accents the focused input border, not its outline.
 - Disabled controls use the shared disabled opacity. Preserve native disabled behaviour and visible keyboard focus.
 
+- Motion uses the `motion` tokens: `durationFast` for colour and press feedback on controls, `durationBase` for overlays entering and leaving, one shared easing, a 0.97 press scale on buttons, and a 0.96 entry scale on dialogs. Popovers, menus and tooltips only fade: scaling them would briefly pull their edge away from the trigger and break the hover path between the two. `reducedMotion` sets the durations to zero and both scales to 1 when the visitor prefers reduced motion. Animate only colour, opacity, scale and the switch thumb; nothing a component shows depends on an animation finishing.
+
 These are the current defaults. Changing them is a design change and should include before/after visual review.
 
 ## Automated checks

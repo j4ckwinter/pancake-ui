@@ -17,6 +17,8 @@
     text-decoration: none;
     overflow-wrap: anywhere;
     cursor: pointer;
+    transition: background-color var(--pancake-duration-fast)
+      var(--pancake-easing);
   }
   .pancake-dropdown-menu-item-text {
     display: flex;
