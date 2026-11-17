@@ -10,6 +10,7 @@ import { IconButton } from "../Button/IconButton";
 import { Inline } from "../layout/Inline";
 import { Stack } from "../layout/Stack";
 import { Text } from "../layout/Text";
+import { Icon } from "../icons/Icon";
 
 export type DialogProps = Omit<
   ComponentPropsWithRef<"dialog">,
@@ -84,7 +85,7 @@ export function Dialog({
             size={32}
             onClick={() => onOpenChange(false)}
           >
-            ×
+            <Icon name="close" />
           </IconButton>
         </Inline>
         {description && (

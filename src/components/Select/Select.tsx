@@ -1,5 +1,6 @@
 import { useId, type ComponentPropsWithRef, type ReactNode } from "react";
 import { fieldDescription } from "../TextField/field.shared";
+import { Icon } from "../icons/Icon";
 
 export type SelectProps = Omit<
   ComponentPropsWithRef<"select">,
@@ -48,7 +49,7 @@ export function Select({
           className={`pancake-field-input pancake-select ${className}`}
         />
         <span className="pancake-select-chevron" aria-hidden="true">
-          ⌄
+          <Icon name="chevronDown" />
         </span>
       </div>
       {description.text && (

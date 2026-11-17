@@ -70,3 +70,18 @@ test("Select: required validation, submission and controlled/uncontrolled reset"
   await expect(colour).toHaveValue("red");
   await expect(draft).toHaveValue("red");
 });
+
+test("Select: draws its chevron as a hidden icon", async ({ page }) => {
+  const chevron = page
+    .locator(".pancake-select-control")
+    .filter({
+      has: page.getByRole("combobox", {
+        name: "Controlled colour",
+        exact: true,
+      }),
+    })
+    .locator(".pancake-select-chevron");
+  await expect(chevron).toHaveText("");
+  await expect(chevron.locator("svg")).toBeVisible();
+  await expect(chevron).toHaveAttribute("aria-hidden", "true");
+});

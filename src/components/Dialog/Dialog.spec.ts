@@ -183,3 +183,12 @@ test("Dialog: narrow viewports keep long content and final actions reachable", a
   await expect(modal).not.toBeVisible();
   await expect(trigger).toBeFocused();
 });
+
+test("Dialog: close button draws an icon under its label", async ({ page }) => {
+  await page.getByRole("button", { name: "Open contract dialog" }).click();
+  const close = page
+    .getByRole("dialog", { name: "Edit contract project" })
+    .getByRole("button", { name: "Close contract dialog" });
+  await expect(close).toHaveText("");
+  await expect(close.locator("svg")).toBeVisible();
+});

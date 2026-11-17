@@ -1,0 +1,12 @@
+@layer components {
+  .pancake-icon {
+    flex-shrink: 0;
+    width: var(--spacing-pancake-16);
+    height: var(--spacing-pancake-16);
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}

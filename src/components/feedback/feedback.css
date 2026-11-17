@@ -47,6 +47,9 @@
     @apply text-pancake-caption text-pancake-text-secondary;
   }
   .pancake-banner-dismiss {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     @apply font-pancake text-pancake-ink rounded-pancake-full;
     background: transparent;
     border: none;
@@ -54,7 +57,6 @@
     flex: 0 0 auto;
     min-width: var(--spacing-pancake-32);
     min-height: var(--spacing-pancake-32);
-    font-size: 24px;
     transition: background-color var(--pancake-duration-fast)
       var(--pancake-easing);
   }

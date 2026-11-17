@@ -22,13 +22,6 @@ export const exceptions = [
     "Preserves the existing invalid-field border.",
   ],
   [
-    "components/feedback/feedback.css",
-    ".pancake-banner-dismiss",
-    "font-size",
-    "24px",
-    "The multiplication glyph is an icon rather than body typography.",
-  ],
-  [
     "components/navigation/navigation.css",
     ".pancake-header-copy",
     "flex",

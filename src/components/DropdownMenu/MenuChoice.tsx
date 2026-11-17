@@ -1,4 +1,5 @@
 import { useId, type MouseEvent } from "react";
+import { Icon } from "../icons/Icon";
 import type { DropdownMenuItem } from "./menuItem";
 
 export type MenuChoiceItem = Exclude<DropdownMenuItem, { type: "text" }>;
@@ -47,11 +48,7 @@ export function MenuChoice({
       </span>
       {radio && (
         <span className="pancake-dropdown-menu-check" aria-hidden="true">
-          {item.checked && (
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor">
-              <path d="m3.5 8.5 3 3 6-7" />
-            </svg>
-          )}
+          {item.checked && <Icon name="check" />}
         </span>
       )}
     </>

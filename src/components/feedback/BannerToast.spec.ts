@@ -14,3 +14,11 @@ test("BannerToast: live semantics and keyboard dismissal", async ({ page }) => {
   await page.keyboard.press("Enter");
   await expect(page.getByLabel("Dismiss count")).toHaveText("1");
 });
+
+test("BannerToast: dismiss button draws an icon under its label", async ({
+  page,
+}) => {
+  const dismiss = page.getByRole("button", { name: "Dismiss notification" });
+  await expect(dismiss).toHaveText("");
+  await expect(dismiss.locator("svg")).toBeVisible();
+});

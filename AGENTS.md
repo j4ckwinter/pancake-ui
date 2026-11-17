@@ -38,6 +38,7 @@ Each decision has one owner. Put new code with the owner of the decision it make
 | How the menu trigger opens the menu                                | `src/components/DropdownMenu/useMenuTrigger.ts`                             |
 | The kinds of menu item and their fields                            | `src/components/DropdownMenu/menuItem.ts`                                   |
 | How menu text lines describe the menu                              | `src/components/DropdownMenu/menuText.ts`                                   |
+| The icons components draw (close, chevron, check)                  | `src/components/icons/Icon.tsx`                                             |
 | Tooltip show and hide timing                                       | `src/components/Tooltip/useTooltip.ts`                                      |
 | Which page numbers pagination lists                                | `src/components/Pagination/paginationPages.ts`                              |
 | Styling policy and its reviewed exceptions                         | `scripts/style/`                                                            |
