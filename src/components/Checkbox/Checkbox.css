@@ -35,7 +35,7 @@
       border-color var(--pancake-duration-fast) var(--pancake-easing);
   }
   .pancake-checkbox:checked {
-    @apply bg-pancake-accent;
+    @apply bg-pancake-accent text-pancake-on-accent;
   }
   .pancake-checkbox:checked::before {
     content: "";

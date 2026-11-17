@@ -1,6 +1,7 @@
 import "./styles.css";
 export {
   colors,
+  darkColors,
   spacing,
   radii,
   sizing,

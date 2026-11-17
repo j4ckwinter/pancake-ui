@@ -75,7 +75,7 @@
       color var(--pancake-duration-fast) var(--pancake-easing);
   }
   .pancake-bottom-navigation a[aria-current="page"] {
-    @apply bg-pancake-accent text-pancake-ink;
+    @apply bg-pancake-accent text-pancake-on-accent;
   }
   .pancake-bottom-navigation a:hover {
     text-decoration: underline;
@@ -175,7 +175,7 @@
     flex: 0 0 auto;
   }
   .pancake-step-progress [data-complete] .pancake-step-number {
-    @apply bg-pancake-accent;
+    @apply bg-pancake-accent text-pancake-on-accent;
   }
   .pancake-step-progress [aria-current="step"] .pancake-step-number {
     outline: var(--pancake-focus-ring-width) solid var(--color-pancake-deep);

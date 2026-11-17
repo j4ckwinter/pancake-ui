@@ -62,11 +62,15 @@ export const test = base.extend<{
 });
 export { expect };
 
-export async function accessibilityViolations(page: Page) {
+export async function animationsSettled(page: Page) {
   await page.evaluate(() =>
     Promise.allSettled(
       document.getAnimations().map((animation) => animation.finished),
     ),
   );
+}
+
+export async function accessibilityViolations(page: Page) {
+  await animationsSettled(page);
   return (await new AxeBuilder({ page }).analyze()).violations;
 }

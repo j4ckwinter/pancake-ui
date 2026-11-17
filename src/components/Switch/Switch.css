@@ -42,6 +42,7 @@
     @apply bg-pancake-accent;
   }
   .pancake-switch:checked::before {
+    @apply bg-pancake-on-accent;
     inset-inline-start: calc(
       var(--spacing-pancake-20) - var(--pancake-border-default)
     );

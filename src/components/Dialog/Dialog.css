@@ -11,7 +11,7 @@
     overflow-wrap: anywhere;
   }
   .pancake-dialog::backdrop {
-    background: var(--color-pancake-deep);
+    background: var(--color-pancake-backdrop);
     opacity: var(--pancake-opacity-overlay);
   }
   .pancake-dialog-actions {

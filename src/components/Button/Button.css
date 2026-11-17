@@ -28,7 +28,7 @@
     padding-inline: var(--spacing-pancake-16);
   }
   .pancake-button--primary {
-    @apply bg-pancake-accent;
+    @apply bg-pancake-accent text-pancake-on-accent;
   }
   .pancake-button--secondary {
     @apply bg-pancake-surface;
@@ -41,7 +41,7 @@
   }
   .pancake-button--primary:hover:not(:disabled):not([aria-disabled="true"]),
   .pancake-button--primary:active:not(:disabled):not([aria-disabled="true"]) {
-    @apply bg-pancake-surface-accent;
+    @apply bg-pancake-accent-hover;
   }
   .pancake-button--secondary:hover:not(:disabled):not([aria-disabled="true"]),
   .pancake-button--ghost:hover:not(:disabled):not([aria-disabled="true"]) {

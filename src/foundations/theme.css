@@ -21,6 +21,9 @@
   --color-pancake-transparent: transparent;
   --color-pancake-warning: #ffeb9e;
   --color-pancake-focus-ring: #ADE533;
+  --color-pancake-on-accent: #0e1716;
+  --color-pancake-accent-hover: #d1f28a;
+  --color-pancake-backdrop: #384540;
   --spacing-pancake-0: 0px;
   --spacing-pancake-4: 4px;
   --spacing-pancake-8: 8px;
@@ -98,20 +101,66 @@
   --pancake-opacity-overlay: 0.5;
 }
 
-@layer theme {
+:root {
+  --pancake-duration-fast: 120ms;
+  --pancake-duration-base: 200ms;
+  --pancake-easing: cubic-bezier(0.2, 0, 0, 1);
+  --pancake-press-scale: 0.97;
+  --pancake-enter-scale: 0.96;
+}
+@media (prefers-reduced-motion: reduce) {
   :root {
-    --pancake-duration-fast: 120ms;
-    --pancake-duration-base: 200ms;
-    --pancake-easing: cubic-bezier(0.2, 0, 0, 1);
-    --pancake-press-scale: 0.97;
-    --pancake-enter-scale: 0.96;
+    --pancake-duration-fast: 0ms;
+    --pancake-duration-base: 0ms;
+    --pancake-press-scale: 1;
+    --pancake-enter-scale: 1;
   }
-  @media (prefers-reduced-motion: reduce) {
-    :root {
-      --pancake-duration-fast: 0ms;
-      --pancake-duration-base: 0ms;
-      --pancake-press-scale: 1;
-      --pancake-enter-scale: 1;
-    }
+}
+:root[data-pancake-theme="dark"],
+[data-pancake-theme="dark"] {
+  color-scheme: dark;
+  --color-pancake-border: #2b3330;
+  --color-pancake-canvas: #101412;
+  --color-pancake-control-border: #76846e;
+  --color-pancake-control-focus: #b5d46e;
+  --color-pancake-error-strong: #ff9b8a;
+  --color-pancake-danger: #4d2626;
+  --color-pancake-danger-hover: #5e2e2e;
+  --color-pancake-deep: #d5e0cf;
+  --color-pancake-info: #1b3446;
+  --color-pancake-ink: #eef2ec;
+  --color-pancake-muted: #9ba49f;
+  --color-pancake-olive: #b0b39f;
+  --color-pancake-surface: #181d1b;
+  --color-pancake-surface-accent: #2c3b12;
+  --color-pancake-surface-muted: #242b28;
+  --color-pancake-text-secondary: #c4ccc5;
+  --color-pancake-warning: #463a12;
+  --color-pancake-accent-hover: #c3f060;
+  --color-pancake-backdrop: #000000;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-pancake-theme="system"],
+  [data-pancake-theme="system"] {
+    color-scheme: dark;
+    --color-pancake-border: #2b3330;
+    --color-pancake-canvas: #101412;
+    --color-pancake-control-border: #76846e;
+    --color-pancake-control-focus: #b5d46e;
+    --color-pancake-error-strong: #ff9b8a;
+    --color-pancake-danger: #4d2626;
+    --color-pancake-danger-hover: #5e2e2e;
+    --color-pancake-deep: #d5e0cf;
+    --color-pancake-info: #1b3446;
+    --color-pancake-ink: #eef2ec;
+    --color-pancake-muted: #9ba49f;
+    --color-pancake-olive: #b0b39f;
+    --color-pancake-surface: #181d1b;
+    --color-pancake-surface-accent: #2c3b12;
+    --color-pancake-surface-muted: #242b28;
+    --color-pancake-text-secondary: #c4ccc5;
+    --color-pancake-warning: #463a12;
+    --color-pancake-accent-hover: #c3f060;
+    --color-pancake-backdrop: #000000;
   }
 }

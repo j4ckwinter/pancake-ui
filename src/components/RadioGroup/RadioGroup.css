@@ -43,7 +43,7 @@
     @apply bg-pancake-accent;
   }
   .pancake-radio-input:checked::before {
-    @apply bg-pancake-deep rounded-pancake-full;
+    @apply bg-pancake-on-accent rounded-pancake-full;
     content: "";
     width: var(--spacing-pancake-8);
     height: var(--spacing-pancake-8);
