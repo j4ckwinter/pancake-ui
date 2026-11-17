@@ -120,7 +120,7 @@ export const borders = Object.freeze({
 export type BorderToken = keyof typeof borders;
 
 export const opacity = Object.freeze({
-  opacityDisabled: 0.4,
+  opacityDisabled: 0.5,
   opacityOverlay: 0.5,
 } as const);
 
