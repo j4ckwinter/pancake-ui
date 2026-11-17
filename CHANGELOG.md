@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.0
+
+- Dialogs, popovers, menus and tooltips cast a soft shadow, set by the new `--pancake-shadow-overlay` variable, which is deeper in the dark theme.
+- Tooltips invert the page colours (`ink` behind `surface` text), so they stand out from what they cover in either theme. Apps that styled `.pancake-tooltip` themselves may want to check it.
+- The hosted Storybook carries the pancake ui name and colours, opens on the component catalogue, lists the foundations first, and applies the theme switch on docs pages.
+- No API changes.
+
 ## 0.5.0
 
 - Dark mode. Set `data-pancake-theme` to `dark`, `light` or `system` on the root element, or on any element to theme part of a page. Without it nothing changes. The dark values are exported as `darkColors`, and a contrast test holds both palettes to WCAG AA.
